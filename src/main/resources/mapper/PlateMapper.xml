@@ -3,44 +3,44 @@
 <mapper namespace="cn.edu.hzvtc.dao.PlateMapper">
   <resultMap id="BaseResultMap" type="cn.edu.hzvtc.pojo.Plate">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="sec_name" jdbcType="VARCHAR" property="secName" />
-    <result column="sec_url" jdbcType="VARCHAR" property="secUrl" />
-    <result column="sec_sort" jdbcType="INTEGER" property="secSort" />
-    <result column="sec_parent_id" jdbcType="INTEGER" property="secParentId" />
-    <result column="sec_pic" jdbcType="VARCHAR" property="secPic" />
-    <result column="sec_type" jdbcType="INTEGER" property="secType" />
-    <result column="sec_del_state" jdbcType="INTEGER" property="secDelState" />
+    <result column="pla_name" jdbcType="VARCHAR" property="plaName" />
+    <result column="pla_url" jdbcType="VARCHAR" property="plaUrl" />
+    <result column="pla_sort" jdbcType="INTEGER" property="plaSort" />
+    <result column="pla_parent_id" jdbcType="INTEGER" property="plaParentId" />
+    <result column="pla_pic" jdbcType="VARCHAR" property="plaPic" />
+    <result column="pla_type" jdbcType="INTEGER" property="plaType" />
+    <result column="pla_del_state" jdbcType="INTEGER" property="plaDelState" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from plate
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.edu.hzvtc.pojo.Plate">
-    insert into plate (id, sec_name, sec_url, 
-      sec_sort, sec_parent_id, sec_pic, 
-      sec_type, sec_del_state)
-    values (#{id,jdbcType=INTEGER}, #{secName,jdbcType=VARCHAR}, #{secUrl,jdbcType=VARCHAR}, 
-      #{secSort,jdbcType=INTEGER}, #{secParentId,jdbcType=INTEGER}, #{secPic,jdbcType=VARCHAR}, 
-      #{secType,jdbcType=INTEGER}, #{secDelState,jdbcType=INTEGER})
+    insert into plate (id, pla_name, pla_url, 
+      pla_sort, pla_parent_id, pla_pic, 
+      pla_type, pla_del_state)
+    values (#{id,jdbcType=INTEGER}, #{plaName,jdbcType=VARCHAR}, #{plaUrl,jdbcType=VARCHAR}, 
+      #{plaSort,jdbcType=INTEGER}, #{plaParentId,jdbcType=INTEGER}, #{plaPic,jdbcType=VARCHAR}, 
+      #{plaType,jdbcType=INTEGER}, #{plaDelState,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Plate">
     update plate
-    set sec_name = #{secName,jdbcType=VARCHAR},
-      sec_url = #{secUrl,jdbcType=VARCHAR},
-      sec_sort = #{secSort,jdbcType=INTEGER},
-      sec_parent_id = #{secParentId,jdbcType=INTEGER},
-      sec_pic = #{secPic,jdbcType=VARCHAR},
-      sec_type = #{secType,jdbcType=INTEGER},
-      sec_del_state = #{secDelState,jdbcType=INTEGER}
+    set pla_name = #{plaName,jdbcType=VARCHAR},
+      pla_url = #{plaUrl,jdbcType=VARCHAR},
+      pla_sort = #{plaSort,jdbcType=INTEGER},
+      pla_parent_id = #{plaParentId,jdbcType=INTEGER},
+      pla_pic = #{plaPic,jdbcType=VARCHAR},
+      pla_type = #{plaType,jdbcType=INTEGER},
+      pla_del_state = #{plaDelState,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, sec_name, sec_url, sec_sort, sec_parent_id, sec_pic, sec_type, sec_del_state
+    select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
     from plate
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, sec_name, sec_url, sec_sort, sec_parent_id, sec_pic, sec_type, sec_del_state
+    select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
     from plate
   </select>
 </mapper>

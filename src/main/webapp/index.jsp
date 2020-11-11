@@ -79,34 +79,34 @@
 <!-- 导航栏 -->
 <div class="navbarBoxPC">
     <ul class="nav justify-content-lg-around container navSection">
-        <li class="nav-item">
-            <a class="nav-link active" href="index">首页</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">学校链接</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">学院简介</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                教学科研
-            </a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Link 1</a>
-                <a class="dropdown-item" href="#">Link 2</a>
-                <a class="dropdown-item" href="#">Link 3</a>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">党建思政</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">文化建设</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">文件制度</a>
-        </li>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link active" href="index">首页</a>--%>
+<%--        </li>--%>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="#">学校链接</a>--%>
+<%--        </li>--%>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="#">学院简介</a>--%>
+<%--        </li>--%>
+<%--        <li class="nav-item dropdown">--%>
+<%--            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">--%>
+<%--                教学科研--%>
+<%--            </a>--%>
+<%--            <div class="dropdown-menu">--%>
+<%--                <a class="dropdown-item" href="#">Link 1</a>--%>
+<%--                <a class="dropdown-item" href="#">Link 2</a>--%>
+<%--                <a class="dropdown-item" href="#">Link 3</a>--%>
+<%--            </div>--%>
+<%--        </li>--%>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="#">党建思政</a>--%>
+<%--        </li>--%>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="#">文化建设</a>--%>
+<%--        </li>--%>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="#">文件制度</a>--%>
+<%--        </li>--%>
     </ul>
 </div>
 
@@ -166,7 +166,7 @@
         <div class="col-sm-12 col-lg-6 news-box ">
             <div class="news-title row no-gutters justify-content-between">
                 <div class="title">学院新闻</div>
-                <a class="more" href="sectionList">更多 ></a>
+                <a class="more" href="list">更多 ></a>
             </div>
             <div class="news-content">
                 <ul class="list-group list-group-flush">
@@ -397,10 +397,10 @@
         var home =$("<li></li>").addClass("nav-item").append($("<a></a>").addClass("nav-link").attr("href","index").html("首页"))
         ul.append(home)
         $.each(plates, function (index, plate) {
-            if(plate.secType == 1){
-                var item =$("<li></li>").addClass("nav-item").append($("<a></a>").addClass("nav-link").attr("href",plate.secUrl).html(plate.secName))
+            if(plate.plaType == 1){
+                var item =$("<li></li>").addClass("nav-item").append($("<a></a>").addClass("nav-link").attr("href",plate.plaUrl).html(plate.plaName))
                 ul.append(item)
-            }else if(plate.secType == 2){
+            }else if(plate.plaType == 2){
                 console.log(plate)
             }
         })
