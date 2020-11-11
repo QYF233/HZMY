@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.hzvtc.dao.FileMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.hzvtc.pojo.File">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_time" jdbcType="TIMESTAMP" property="fileTime" />
+    <result column="file_down" jdbcType="INTEGER" property="fileDown" />
+    <result column="file_type" jdbcType="INTEGER" property="fileType" />
+    <result column="file_del_state" jdbcType="INTEGER" property="fileDelState" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.hzvtc.pojo.File">
+    insert into file (id, file_name, file_time, 
+      file_down, file_type, file_del_state
+      )
+    values (#{id,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{fileTime,jdbcType=TIMESTAMP}, 
+      #{fileDown,jdbcType=INTEGER}, #{fileType,jdbcType=INTEGER}, #{fileDelState,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.File">
+    update file
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      file_time = #{fileTime,jdbcType=TIMESTAMP},
+      file_down = #{fileDown,jdbcType=INTEGER},
+      file_type = #{fileType,jdbcType=INTEGER},
+      file_del_state = #{fileDelState,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, file_name, file_time, file_down, file_type, file_del_state
+    from file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, file_name, file_time, file_down, file_type, file_del_state
+    from file
+  </select>
+</mapper>

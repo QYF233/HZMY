@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.hzvtc.dao.SwiperMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.hzvtc.pojo.Swiper">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="swi_name" jdbcType="VARCHAR" property="swiName" />
+    <result column="swi_describe" jdbcType="VARCHAR" property="swiDescribe" />
+    <result column="swi_pic" jdbcType="VARCHAR" property="swiPic" />
+    <result column="swi_art_id" jdbcType="INTEGER" property="swiArtId" />
+    <result column="swi_sort" jdbcType="INTEGER" property="swiSort" />
+    <result column="swi_del_state" jdbcType="INTEGER" property="swiDelState" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from swiper
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.hzvtc.pojo.Swiper">
+    insert into swiper (id, swi_name, swi_describe, 
+      swi_pic, swi_art_id, swi_sort, 
+      swi_del_state)
+    values (#{id,jdbcType=INTEGER}, #{swiName,jdbcType=VARCHAR}, #{swiDescribe,jdbcType=VARCHAR}, 
+      #{swiPic,jdbcType=VARCHAR}, #{swiArtId,jdbcType=INTEGER}, #{swiSort,jdbcType=INTEGER}, 
+      #{swiDelState,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Swiper">
+    update swiper
+    set swi_name = #{swiName,jdbcType=VARCHAR},
+      swi_describe = #{swiDescribe,jdbcType=VARCHAR},
+      swi_pic = #{swiPic,jdbcType=VARCHAR},
+      swi_art_id = #{swiArtId,jdbcType=INTEGER},
+      swi_sort = #{swiSort,jdbcType=INTEGER},
+      swi_del_state = #{swiDelState,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, swi_name, swi_describe, swi_pic, swi_art_id, swi_sort, swi_del_state
+    from swiper
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, swi_name, swi_describe, swi_pic, swi_art_id, swi_sort, swi_del_state
+    from swiper
+  </select>
+</mapper>

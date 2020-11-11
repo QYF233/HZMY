@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.hzvtc.dao.PlateMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.hzvtc.pojo.Plate">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="sec_name" jdbcType="VARCHAR" property="secName" />
+    <result column="sec_url" jdbcType="VARCHAR" property="secUrl" />
+    <result column="sec_sort" jdbcType="INTEGER" property="secSort" />
+    <result column="sec_parent_id" jdbcType="INTEGER" property="secParentId" />
+    <result column="sec_pic" jdbcType="VARCHAR" property="secPic" />
+    <result column="sec_type" jdbcType="INTEGER" property="secType" />
+    <result column="sec_del_state" jdbcType="INTEGER" property="secDelState" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from plate
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.hzvtc.pojo.Plate">
+    insert into plate (id, sec_name, sec_url, 
+      sec_sort, sec_parent_id, sec_pic, 
+      sec_type, sec_del_state)
+    values (#{id,jdbcType=INTEGER}, #{secName,jdbcType=VARCHAR}, #{secUrl,jdbcType=VARCHAR}, 
+      #{secSort,jdbcType=INTEGER}, #{secParentId,jdbcType=INTEGER}, #{secPic,jdbcType=VARCHAR}, 
+      #{secType,jdbcType=INTEGER}, #{secDelState,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Plate">
+    update plate
+    set sec_name = #{secName,jdbcType=VARCHAR},
+      sec_url = #{secUrl,jdbcType=VARCHAR},
+      sec_sort = #{secSort,jdbcType=INTEGER},
+      sec_parent_id = #{secParentId,jdbcType=INTEGER},
+      sec_pic = #{secPic,jdbcType=VARCHAR},
+      sec_type = #{secType,jdbcType=INTEGER},
+      sec_del_state = #{secDelState,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, sec_name, sec_url, sec_sort, sec_parent_id, sec_pic, sec_type, sec_del_state
+    from plate
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, sec_name, sec_url, sec_sort, sec_parent_id, sec_pic, sec_type, sec_del_state
+    from plate
+  </select>
+</mapper>
