@@ -11,6 +11,18 @@
     <result column="pla_type" jdbcType="INTEGER" property="plaType" />
     <result column="pla_del_state" jdbcType="INTEGER" property="plaDelState" />
   </resultMap>
+  <resultMap id="ParentResultMap" type="cn.edu.hzvtc.pojo.Plate">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pla_name" jdbcType="VARCHAR" property="plaName" />
+    <result column="pla_url" jdbcType="VARCHAR" property="plaUrl" />
+    <result column="pla_sort" jdbcType="INTEGER" property="plaSort" />
+    <result column="pla_parent_id" jdbcType="INTEGER" property="plaParentId" />
+    <result column="pla_pic" jdbcType="VARCHAR" property="plaPic" />
+    <result column="pla_type" jdbcType="INTEGER" property="plaType" />
+    <result column="pla_del_state" jdbcType="INTEGER" property="plaDelState" />
+    <collection property="childPlate" select="cn.edu.hzvtc.dao.PlateMapper.selectChildByParentId"
+                column="id"/>
+  </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from plate
     where id = #{id,jdbcType=INTEGER}
@@ -39,8 +51,20 @@
     from plate
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+  <select id="selectChildByParentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
     from plate
+    where pla_parent_id = #{id,jdbcType=INTEGER}
+  </select>
+  <!--
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
+    from plate
+  </select>
+  -->
+  <select id="selectAll" resultMap="ParentResultMap">
+    select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
+    from plate
+    where pla_del_state = 0
   </select>
 </mapper>

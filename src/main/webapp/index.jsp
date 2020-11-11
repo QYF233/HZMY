@@ -19,15 +19,15 @@
 </head>
 <body>
 <!-- 移动端导航栏 -->
+<!-- 移动端导航栏 -->
 <nav class="navbar navbar-dark navbarBoxMOB">
     <a class="navbar-brand" href="">马克思主义学院</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01"
-            aria-controls="navbarsExample01"
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01"
             aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarsExample01">
-        <ul class="navbar-nav navSection">
+        <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="#">学校链接</a>
             </li>
@@ -38,7 +38,13 @@
                 <a class="nav-link" href="#">教学科研</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">党建思政</a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown">
+                    Dropdown
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                </ul>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">文化建设</a>
@@ -77,38 +83,47 @@
     </div>
 </div>
 <!-- 导航栏 -->
-<div class="navbarBoxPC">
-    <ul class="nav justify-content-lg-around container navSection">
-<%--        <li class="nav-item">--%>
-<%--            <a class="nav-link active" href="index">首页</a>--%>
-<%--        </li>--%>
-<%--        <li class="nav-item">--%>
-<%--            <a class="nav-link" href="#">学校链接</a>--%>
-<%--        </li>--%>
-<%--        <li class="nav-item">--%>
-<%--            <a class="nav-link" href="#">学院简介</a>--%>
-<%--        </li>--%>
-<%--        <li class="nav-item dropdown">--%>
-<%--            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">--%>
-<%--                教学科研--%>
-<%--            </a>--%>
-<%--            <div class="dropdown-menu">--%>
-<%--                <a class="dropdown-item" href="#">Link 1</a>--%>
-<%--                <a class="dropdown-item" href="#">Link 2</a>--%>
-<%--                <a class="dropdown-item" href="#">Link 3</a>--%>
-<%--            </div>--%>
-<%--        </li>--%>
-<%--        <li class="nav-item">--%>
-<%--            <a class="nav-link" href="#">党建思政</a>--%>
-<%--        </li>--%>
-<%--        <li class="nav-item">--%>
-<%--            <a class="nav-link" href="#">文化建设</a>--%>
-<%--        </li>--%>
-<%--        <li class="nav-item">--%>
-<%--            <a class="nav-link" href="#">文件制度</a>--%>
-<%--        </li>--%>
+<nav class=" navbarBoxPC nav2">
+    <ul class="nav justify-content-lg-around container ">
+        <li class="nav-item animate">
+            <a class="nav-link active" href="index.html">首页</a>
+        </li>
+        <li class="nav-item animate">
+            <a class="nav-link" href="#">学校链接</a>
+        </li>
+        <li class="nav-item animate">
+            <a class="nav-link" href="#">学院简介</a>
+        </li>
+        <li class="nav-item animate">
+            <a class="nav-link dropdown-toggle" href="#">
+                教学科研
+            </a>
+            <ul class="">
+                <li><a class="dropdown-item" href="#">教学科研</a></li>
+                <li><a class="dropdown-item" href="#">教学科研</a></li>
+                <li><a class="dropdown-item" href="#">教学科研</a></li>
+            </ul>
+        </li>
+        <li class="nav-item animate">
+            <a class="nav-link dropdown-toggle" href="#">
+                教学科研
+            </a>
+            <ul class="">
+                <li><a class="dropdown-item" href="#">Link 1</a></li>
+                <li><a class="dropdown-item" href="#">Link 2</a></li>
+                <li><a class="dropdown-item" href="#">Link 3</a></li>
+                <li><a class="dropdown-item" href="#">Link 2</a></li>
+                <li><a class="dropdown-item" href="#">Link 3</a></li>
+            </ul>
+        </li>
+        <li class="nav-item animate">
+            <a class="nav-link" href="#">文化建设</a>
+        </li>
+        <li class="nav-item animate">
+            <a class="nav-link" href="#">文件制度</a>
+        </li>
     </ul>
-</div>
+</nav>
 
 <div class="main container">
     <div class="row">
@@ -394,14 +409,29 @@
         var plates = result.extend.plates;
         var ul = $(".navSection")
         ul.empty()
-        var home =$("<li></li>").addClass("nav-item").append($("<a></a>").addClass("nav-link").attr("href","index").html("首页"))
+        var home = $("<li></li>").addClass("nav-item").append($("<a></a>").addClass("nav-link").attr("href", "index").html("首页"))
         ul.append(home)
         $.each(plates, function (index, plate) {
-            if(plate.plaType == 1){
-                var item =$("<li></li>").addClass("nav-item").append($("<a></a>").addClass("nav-link").attr("href",plate.plaUrl).html(plate.plaName))
+            if (plate.plaType == 1) {
+                var item = $("<li></li>").addClass("nav-item animate").append()
+                var nav_link = $("<a></a>").addClass("nav-link").attr("href", plate.plaUrl).html(plate.plaName)
+                /*如果存在子导航*/
+                var dropdown_menu;
+                if (plate.childPlate.length > 0) {
+                    console.log("-------")
+                    console.log(plate.childPlate)
+                    item.addClass("dropdown")
+                    nav_link.addClass("dropdown-toggle").attr("data-toggle", "dropdown").attr("id", "navbardrop")
+                    dropdown_menu = $("<div></div>").addClass("dropdown-menu")
+                    $.each(plate.childPlate, function (index, child) {
+                        var child_nav = $("<a></a>").addClass("dropdown-item").attr("href", child.plaUrl).html(child.plaName)
+                        dropdown_menu.append(child_nav)
+                    })
+                }
+                item.append(nav_link).append(dropdown_menu)
                 ul.append(item)
-            }else if(plate.plaType == 2){
-                console.log(plate)
+            } else if (plate.plaType == 2) {
+                // console.log(plate)
             }
         })
     }

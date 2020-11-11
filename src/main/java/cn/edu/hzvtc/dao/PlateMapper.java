@@ -10,7 +10,11 @@ public interface PlateMapper {
 
     Plate selectByPrimaryKey(Integer id);
 
+    Plate selectChildByParentId(Integer id);
+
     List<Plate> selectAll();
 
     int updateByPrimaryKey(Plate record);
+
+
 }
