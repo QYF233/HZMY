@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.hzvtc.dao.ArticleMapper">
-  <resultMap id="BaseResultMap" type="cn.edu.hzvtc.pojo.Article">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="art_title" jdbcType="VARCHAR" property="artTitle" />
-    <result column="art_author" jdbcType="VARCHAR" property="artAuthor" />
-    <result column="art_pic" jdbcType="VARCHAR" property="artPic" />
-    <result column="art_time" jdbcType="TIMESTAMP" property="artTime" />
-    <result column="art_plate_id" jdbcType="INTEGER" property="artPlateId" />
-    <result column="art_file_id" jdbcType="INTEGER" property="artFileId" />
-    <result column="art_operator_id" jdbcType="INTEGER" property="artOperatorId" />
-    <result column="art_top" jdbcType="INTEGER" property="artTop" />
-    <result column="art_del_state" jdbcType="INTEGER" property="artDelState" />
-    <result column="art_content" jdbcType="LONGVARCHAR" property="artContent" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <resultMap id="BaseResultMap" type="cn.edu.hzvtc.pojo.Article">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="art_title" jdbcType="VARCHAR" property="artTitle"/>
+        <result column="art_author" jdbcType="VARCHAR" property="artAuthor"/>
+        <result column="art_pic" jdbcType="VARCHAR" property="artPic"/>
+        <result column="art_time" jdbcType="TIMESTAMP" property="artTime"/>
+        <result column="art_plate_id" jdbcType="INTEGER" property="artPlateId"/>
+        <result column="art_file_id" jdbcType="INTEGER" property="artFileId"/>
+        <result column="art_operator_id" jdbcType="INTEGER" property="artOperatorId"/>
+        <result column="art_top" jdbcType="INTEGER" property="artTop"/>
+        <result column="art_del_state" jdbcType="INTEGER" property="artDelState"/>
+        <result column="art_content" jdbcType="LONGVARCHAR" property="artContent"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from article
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.edu.hzvtc.pojo.Article">
+    <insert id="insert" parameterType="cn.edu.hzvtc.pojo.Article">
     insert into article (id, art_title, art_author, 
       art_pic, art_time, art_plate_id, 
       art_file_id, art_operator_id, art_top, 
@@ -28,7 +28,7 @@
       #{artFileId,jdbcType=INTEGER}, #{artOperatorId,jdbcType=INTEGER}, #{artTop,jdbcType=INTEGER}, 
       #{artDelState,jdbcType=INTEGER}, #{artContent,jdbcType=LONGVARCHAR})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Article">
+    <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Article">
     update article
     set art_title = #{artTitle,jdbcType=VARCHAR},
       art_author = #{artAuthor,jdbcType=VARCHAR},
@@ -42,15 +42,22 @@
       art_content = #{artContent,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id, 
     art_top, art_del_state, art_content
     from article
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+    <select id="selectAll" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id, 
     art_top, art_del_state, art_content
     from article
+  </select>
+    <select id="selectByPlateId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id,
+    art_top, art_del_state, art_content
+    from article
+    where art_plate_id = #{id,jdbcType=INTEGER}
+    Limit 0,6
   </select>
 </mapper>

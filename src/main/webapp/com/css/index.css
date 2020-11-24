@@ -298,10 +298,17 @@ a:hover {
     .nav-item:hover ul {
         /* border: 1px solid var(--color); */
     }
+    .dropdown-li{
+        line-height: 35px;
+        height: 100%;
+    }
 
     .dropdown-item {
         /* border: 1px solid var(--colorH); */
-        width: 180px;
+        /*width: 180px;*/
+        width: 200px;
+        /*height: 40px;*/
+        /*line-height: 40px;*/
     }
 
     .dropdown-item:hover {
@@ -321,7 +328,6 @@ a:hover {
     .nav2 li ul {
         position: absolute;
         left: 0;
-        /* top: 36px; */
         z-index: 1;
         visibility: hidden;
         opacity: 0;

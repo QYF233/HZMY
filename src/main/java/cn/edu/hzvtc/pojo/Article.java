@@ -1,5 +1,8 @@
 package cn.edu.hzvtc.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Article {
@@ -10,7 +13,8 @@ public class Article {
     private String artAuthor;
 
     private String artPic;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
     private Date artTime;
 
     private Integer artPlateId;

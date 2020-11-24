@@ -13,4 +13,6 @@ public interface ArticleMapper {
     List<Article> selectAll();
 
     int updateByPrimaryKey(Article record);
+
+    List<Article> selectByPlateId(Integer id);
 }
