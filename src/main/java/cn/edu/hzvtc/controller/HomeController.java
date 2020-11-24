@@ -25,7 +25,7 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping("/list")
+    @RequestMapping("/section")
     public String sectionList() {
         return "sectionList";
     }

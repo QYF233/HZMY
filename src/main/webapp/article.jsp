@@ -221,29 +221,12 @@
         var test = window.location.search;
         articleId = test.substr(1);
         if (/^\d+$/.test(articleId)) {
+            /*构建文章内容*/
             build(articleId);
         }
+        /*构建导航、侧边栏等*/
         getSection();
     })
-
-    /*获取页面信息*/
-    function getSection() {
-        $.ajax({
-            url: "getPlates",
-            type: "GET",
-            dataType: "json",
-            success: function (result) {
-                if (result.code == 100) {
-                    buildOther(result)
-                } else {
-                    alert("获取信息失败")
-                }
-            },
-            error: function () {
-
-            }
-        });
-    }
 
     /*构建*/
     function buildOther(result) {
@@ -256,7 +239,6 @@
             if (plate.plaType === 1) {
                 /*搭建导航栏*/
                 build_nav(plate)
-
             } else if (plate.plaType === 2) {
                 /*构建左边栏子板块*/
                 build_section(plate)
@@ -304,10 +286,11 @@
         other()
     }
 
+    /*构建侧边栏*/
     function build_section(plate) {
         var sideList = $(".sideList");
         var button = $("<button></button>").attr("type", "button").addClass("list-group-item list-group-item-action").html(plate.plaName)
-        if (plate.id === plateId) {
+        if (plate.id == plateId) {
             button.addClass("active");
             $(".sectionName").html(plate.plaName);
             var li = $("<li></li>").addClass("breadcrumb-item active").html(plate.plaName)
@@ -316,9 +299,8 @@
         sideList.append(button)
     }
 
+    /*上一页、下一页*/
     function other() {
-        console.log(plateId)
-        console.log(articleId)
         $.ajax({
             url: "article/getOtherArticle",
             type: "POST",

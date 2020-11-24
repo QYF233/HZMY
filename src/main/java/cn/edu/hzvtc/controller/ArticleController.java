@@ -22,10 +22,6 @@ public class ArticleController {
     @Autowired
     public HomeService homeService;
 
-    public String sectionList() {
-
-        return "detail";
-    }
 
     /**
      * 获取文章

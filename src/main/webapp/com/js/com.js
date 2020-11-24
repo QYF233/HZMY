@@ -1,3 +1,22 @@
+/*获取页面信息*/
+function getSection() {
+    $.ajax({
+        url: "getPlates",
+        type: "GET",
+        dataType: "json",
+        success: function (result) {
+            if (result.code == 100) {
+                buildOther(result)
+            } else {
+                alert("获取信息失败")
+            }
+        },
+        error: function () {
+
+        }
+    });
+}
+
 /*构建导航*/
 function build_nav(plate) {
     var ul = $(".navSection")

@@ -106,9 +106,9 @@
 		<div class="container">
 			<div class="section ">
 				<div class="sectionName">
-					<div class="">
+
 						学院新闻
-					</div>
+
 				</div>
 			</div>
 		</div>
@@ -116,13 +116,13 @@
 		<div class="main container">
 			<div class="row">
 				<div class="col-3">
-					<div class="list-group">
-						<button type="button" class="list-group-item list-group-item-action active">
-							学院新闻
-						</button>
-						<button type="button" class="list-group-item list-group-item-action">党建与思想政治工作</button>
-						<button type="button" class="list-group-item list-group-item-action">理论学习</button>
-						<button type="button" class="list-group-item list-group-item-action">学院公告</button>
+					<div class="list-group sideList">
+<%--						<button type="button" class="list-group-item list-group-item-action active">--%>
+<%--							学院新闻--%>
+<%--						</button>--%>
+<%--						<button type="button" class="list-group-item list-group-item-action">党建与思想政治工作</button>--%>
+<%--						<button type="button" class="list-group-item list-group-item-action">理论学习</button>--%>
+<%--						<button type="button" class="list-group-item list-group-item-action">学院公告</button>--%>
 					</div>
 				</div>
 				<div class="col-9">
@@ -130,35 +130,35 @@
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="#">首页</a></li>
 
-							<li class="breadcrumb-item active" aria-current="page">学院新闻</li>
+<%--							<li class="breadcrumb-item active" aria-current="page">学院新闻</li>--%>
 						</ol>
 					</nav>
 					<div class="list-group newsList">
-						<a href="detail" class="list-group-item list-group-item-action">我校学生陈龙获浙江省高职高专院校国家奖学金特别评审奖推荐资格<span class="">2020.10.20</span></a>
-						<a href="detail" class="list-group-item list-group-item-action">Morbi leo risus<span class="">2020.10.20</span></a>
-						<a href="detail" class="list-group-item list-group-item-action">Porta ac consectetur ac<span class="">2020.10.20</span></a>
-						<a href="detail" class="list-group-item list-group-item-action">Vestibulum at eros<span class="">2020.10.20</span></a>
-						<a href="detail" class="list-group-item list-group-item-action">Vestibulum at eros<span class="">2020.10.20</span></a>
-						<a href="detail" class="list-group-item list-group-item-action">Vestibulum at eros<span class="">2020.10.20</span></a>
+<%--						<a href="detail" class="list-group-item list-group-item-action">我校学生陈龙获浙江省高职高专院校国家奖学金特别评审奖推荐资格<span class="">2020.10.20</span></a>--%>
+<%--						<a href="detail" class="list-group-item list-group-item-action">Morbi leo risus<span class="">2020.10.20</span></a>--%>
+<%--						<a href="detail" class="list-group-item list-group-item-action">Porta ac consectetur ac<span class="">2020.10.20</span></a>--%>
+<%--						<a href="detail" class="list-group-item list-group-item-action">Vestibulum at eros<span class="">2020.10.20</span></a>--%>
+<%--						<a href="detail" class="list-group-item list-group-item-action">Vestibulum at eros<span class="">2020.10.20</span></a>--%>
+<%--						<a href="detail" class="list-group-item list-group-item-action">Vestibulum at eros<span class="">2020.10.20</span></a>--%>
 					</div>
-					<nav aria-label="Page navigation example" class="">
-						<ul class="pagination justify-content-center">
-							<li class="page-item">
-								<a class="page-link" href="#" aria-label="Previous">
-									<span aria-hidden="true">&laquo;</span>
-									<span class="sr-only">Previous</span>
-								</a>
-							</li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item">
-								<a class="page-link" href="#" aria-label="Next">
-									<span aria-hidden="true">&raquo;</span>
-									<span class="sr-only">Next</span>
-								</a>
-							</li>
-						</ul>
+					<nav aria-label="Page navigation example" class="Page">
+<%--						<ul class="pagination justify-content-center">--%>
+<%--							<li class="page-item">--%>
+<%--								<a class="page-link" href="#" aria-label="Previous">--%>
+<%--									<span aria-hidden="true">&laquo;</span>--%>
+<%--									<span class="sr-only">Previous</span>--%>
+<%--								</a>--%>
+<%--							</li>--%>
+<%--							<li class="page-item"><a class="page-link" href="#">1</a></li>--%>
+<%--							<li class="page-item"><a class="page-link" href="#">2</a></li>--%>
+<%--							<li class="page-item"><a class="page-link" href="#">3</a></li>--%>
+<%--							<li class="page-item">--%>
+<%--								<a class="page-link" href="#" aria-label="Next">--%>
+<%--									<span aria-hidden="true">&raquo;</span>--%>
+<%--									<span class="sr-only">Next</span>--%>
+<%--								</a>--%>
+<%--							</li>--%>
+<%--						</ul>--%>
 					</nav>
 				</div>
 
@@ -210,5 +210,144 @@
 		<script type="text/javascript" src="./com/bootstrap-4.5.0-dist/js/bootstrap.js"></script>
 		<script type="text/javascript" src="./com/bootstrap-4.5.0-dist/js/bootstrap.bundle.js"></script>
 		<script src="com/js/com.js"></script>
+		<script>
+			var pn;
+			var currPage = $("#pn").val();
+			var sectionId;
+			$(function () {
+				var test = window.location.search;
+				sectionId = test.substr(1);
+				if (/^\d+$/.test(sectionId)) {
+					/*构建列表*/
+					build(currPage);
+				}
+				/*构建导航、侧边栏等*/
+				getSection();
+			})
+
+			/*构建*/
+			function build(currPage) {
+				$.ajax({
+					url: "section/getSection",
+					type: "GET",
+					data: {"sectionId": sectionId,"pn":currPage},
+					dataType: "json",
+					success: function (result) {
+						if (result.code === 100) {
+							console.log(result)
+							build_list(result.extend.pageInfo.list);
+							build_page(result)
+						} else {
+							alert("获取信息失败")
+						}
+					},
+					error: function () {
+
+					}
+				});
+			}
+
+			function build_list(list) {
+				var newsList = $(".newsList")
+				newsList.empty()
+				$.each(list,function (index, l) {
+					var a = $("<a></a>").addClass("list-group-item list-group-item-action").attr("href","article?"+l.id).html(l.artTitle)
+					newsList.append(a)
+				})
+			}
+			/*构建*/
+			function buildOther(result) {
+				var plates = result.extend.plates;
+				var ul = $(".navSection")
+				ul.empty()
+				var home = $("<li></li>").addClass("nav-item animate").append($("<a></a>").addClass("nav-link").attr("href", "index").html("首页"))
+				ul.append(home)
+				$.each(plates, function (index, plate) {
+					if (plate.plaType === 1) {
+						/*搭建导航栏*/
+						build_nav(plate)
+					} else if (plate.plaType === 2) {
+						/*构建左边栏子板块*/
+						build_section(plate)
+					}
+				})
+				/*构建页底*/
+				build_footer()
+			}
+			function build_section(plate) {
+				var sideList = $(".sideList");
+				var button = $("<button></button>").attr("type", "button").addClass("list-group-item list-group-item-action").html(plate.plaName)
+				if (plate.id == sectionId) {
+					button.addClass("active");
+					$(".sectionName").html(plate.plaName);
+					var li = $("<li></li>").addClass("breadcrumb-item active").html(plate.plaName)
+					$(".breadcrumb").append(li);
+				}
+				sideList.append(button)
+			}
+
+			function build_page(result) {
+				$(".Page").empty()
+				var pageUI = $("<ul></ul>").addClass("pagination justify-content-center");
+				/*首页*/
+				var firstPageLi = $("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").append("首页"));
+				if (result.extend.pageInfo.isFirstPage) {
+					firstPageLi.addClass("disabled");
+				} else {
+					firstPageLi.click(function () {
+						build(1);
+					});
+				}
+				pageUI.append(firstPageLi);
+				/*前一页*/
+				var PreviousPageLi = $("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").append("&laquo;"));
+				if (!result.extend.pageInfo.hasPreviousPage) {
+					PreviousPageLi.addClass("disabled");
+				} else {
+					PreviousPageLi.click(function () {
+						build(result.extend.pageInfo.pageNum - 1);
+					});
+				}
+				pageUI.append(PreviousPageLi);
+
+				/*12345*/
+				$.each(result.extend.pageInfo.navigatepageNums, function (index, num) {
+					var pageLi = $("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").append(num));
+					if (result.extend.pageInfo.pageNum === num) {
+						pageLi.addClass("active");
+					} else {
+						pageLi.click(function () {
+							build(num);
+						});
+					}
+					pageUI.append(pageLi);
+				});
+
+				/*后一页*/
+				var NextPageLi = $("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").append("&raquo;"));
+				if (!result.extend.pageInfo.hasNextPage) {
+					NextPageLi.addClass("disabled");
+				} else {
+					NextPageLi.click(function () {
+						build(result.extend.pageInfo.pageNum + 1);
+					});
+				}
+				pageUI.append(NextPageLi);
+
+				/*末页*/
+				var lastPageLi = $("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").append("末页"));
+				if (result.extend.pageInfo.isLastPage) {
+					lastPageLi.addClass("disabled");
+				} else {
+					lastPageLi.click(function () {
+						build(result.extend.pageInfo.pages);
+					});
+				}
+				pageUI.append(lastPageLi);
+				$(".Page").append(pageUI);
+
+				console.log(pageUI)
+			}
+		</script>
 	</body>
 </html>

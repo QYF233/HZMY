@@ -468,7 +468,7 @@
         /*标题*/
         var newsTitle = $("<div></div>").addClass("news-title row no-gutters justify-content-between");
         var title = $("<div></div>").addClass("title").html(section.plaName);
-        var a = $("<a></a>").addClass("more").attr("href", section.plaUrl).html("更多 >");
+        var a = $("<a></a>").addClass("more").attr("href", "section?"+section.id).html("更多 >");
         newsTitle.append(title).append(a);
         /**/
         var content = $("<div></div>").addClass("news-content");
