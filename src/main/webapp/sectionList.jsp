@@ -28,8 +28,8 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarsExample01">
-				<ul class="navbar-nav">
-					<li class="nav-item">
+				<ul class="navbar-nav  nav navSection">
+<%--					<li class="nav-item">
 						<a class="nav-link" href="#">学校链接</a>
 					</li>
 					<li class="nav-item">
@@ -46,7 +46,7 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">文件制度</a>
-					</li>
+					</li>--%>
 				</ul>
 			</div>
 		</nav>
@@ -57,7 +57,7 @@
 					<img src="com/img/header/logo.png" class="img-fluid">
 				</div>
 				<div class="motto col-6 text-right">
-					<img src="com/img/header/motto2.png" class="img-fluid">
+					<img src="com/img/header/motto.png" class="img-fluid">
 				</div>
 				<div class="headline col-sm-12 text-center">
 					<img src="com/img/header/makesiTM.png" class="img-fluid">
@@ -73,14 +73,14 @@
 					<img src="com/img/header/makesiTM.png" class="img-fluid">
 				</div>
 				<div class="motto col-sm-6 col-lg-4 text-right">
-					<img src="com/img/header/motto2.png" class="img-fluid">
+					<img src="com/img/header/motto.png" class="img-fluid">
 				</div>
 			</div>
 		</div>
 		<!-- 导航栏 -->
-		<div class="navbarBoxPC">
-			<ul class="nav justify-content-lg-around container">
-				<li class="nav-item">
+		<div class="navbarBoxPC nav2">
+			<ul class="nav navSection justify-content-lg-around container">
+				<%--<li class="nav-item">
 					<a class="nav-link active" href="index.html">首页</a>
 				</li>
 				<li class="nav-item">
@@ -100,7 +100,7 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#">文件制度</a>
-				</li>
+				</li>--%>
 			</ul>
 		</div>
 		<div class="container">
@@ -209,5 +209,6 @@
 		<script type="text/javascript" src="./com/js/jquery-3.5.1.min.js"></script>
 		<script type="text/javascript" src="./com/bootstrap-4.5.0-dist/js/bootstrap.js"></script>
 		<script type="text/javascript" src="./com/bootstrap-4.5.0-dist/js/bootstrap.bundle.js"></script>
+		<script src="com/js/com.js"></script>
 	</body>
 </html>

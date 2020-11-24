@@ -47,17 +47,29 @@
     art_top, art_del_state, art_content
     from article
     where id = #{id,jdbcType=INTEGER}
+    and art_del_state = 0
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id, 
     art_top, art_del_state, art_content
     from article
+    where art_del_state = 0
   </select>
     <select id="selectByPlateId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id,
     art_top, art_del_state, art_content
     from article
     where art_plate_id = #{id,jdbcType=INTEGER}
-    Limit 0,6
+    and art_del_state = 0
+    order by art_time asc
+    Limit 0,5
+  </select>
+    <select id="selectByPlateIdAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id,
+    art_top, art_del_state, art_content
+    from article
+    where art_plate_id = #{id,jdbcType=INTEGER}
+    and art_del_state = 0
+    order by art_time asc
   </select>
 </mapper>

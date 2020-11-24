@@ -66,5 +66,6 @@
     select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
     from plate
     where pla_del_state = 0
+    order by pla_sort
   </select>
 </mapper>

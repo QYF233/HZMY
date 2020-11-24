@@ -1,0 +1,72 @@
+package cn.edu.hzvtc.controller;
+
+import cn.edu.hzvtc.dao.ArticleMapper;
+import cn.edu.hzvtc.pojo.Article;
+import cn.edu.hzvtc.pojo.ReturnMsg;
+import cn.edu.hzvtc.service.ArticleService;
+import cn.edu.hzvtc.service.HomeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * @author kiko
+ */
+@Controller
+@RequestMapping("/article")
+public class ArticleController {
+    @Autowired
+    public ArticleService articleService;
+    @Autowired
+    public HomeService homeService;
+
+    public String sectionList() {
+
+        return "detail";
+    }
+
+    /**
+     * 获取文章
+     *
+     * @param id 板块id
+     * @return ReturnMsg
+     */
+    @RequestMapping("/getArticle")
+    @ResponseBody
+    public ReturnMsg getArticle(@RequestParam("id") Integer id) {
+        Article article = articleService.getArticleById(id);
+        return ReturnMsg.success().add("article", article);
+    }
+
+    /**
+     * 获取文章
+     *
+     * @param plateId 板块id
+     * @return ReturnMsg
+     */
+    @RequestMapping(value = "/getOtherArticle", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnMsg getOtherArticle(@RequestParam("plateId") Integer plateId,
+                                     @RequestParam("articleId") Integer articleId) {
+        List<Article> articles = homeService.getArticle(plateId, "all");
+        int index = -1;
+        for (int i = 0; i < articles.size(); i++) {
+            if (articles.get(i).getId().equals(articleId)) {
+                index = i;
+            }
+        }
+        Article prev = null;
+        Article next = null;
+        if (index == 0 && index < articles.size() - 1) {
+            next = articles.get(index + 1);
+        } else if (index == articles.size() - 1) {
+            prev = articles.get(index - 1);
+        } else if (index != -1) {
+            prev = articles.get(index - 1);
+            next = articles.get(index + 1);
+        }
+        return ReturnMsg.success().add("articles", articles).add("prev", prev).add("next", next);
+    }
+}

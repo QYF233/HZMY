@@ -11,13 +11,6 @@ import java.util.List;
  * @author kiko
  */
 
-public interface HomeService {
-
-    public List<Plate> getList();
-
-    public List<Swiper> getSwiper();
-
-    public List<Article> getArticle(Integer plateId,String state);
-
-    public List<Link> getLinks();
+public interface ArticleService {
+    public Article getArticleById(Integer id);
 }

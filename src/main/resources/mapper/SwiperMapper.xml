@@ -41,5 +41,6 @@
     select id, swi_name, swi_describe, swi_pic, swi_art_id, swi_sort, swi_del_state
     from swiper
     where swi_del_state = 0
+    order by swi_sort
   </select>
 </mapper>
