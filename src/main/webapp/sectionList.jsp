@@ -171,7 +171,7 @@
 						重要链接
 					</div>
 					<div class="col-lg-11 links row justify-content-lg-around">
-						<div class="link-item">
+						<%--<div class="link-item">
 							<a href="">中华人民共和国教育部</a>
 						</div>
 						<div class="link-item">
@@ -188,7 +188,7 @@
 						</div>
 						<div class="link-item">
 							<a href="">光明网</a>
-						</div>
+						</div>--%>
 					</div>
 
 				</div>
@@ -276,7 +276,7 @@
 			}
 			function build_section(plate) {
 				var sideList = $(".sideList");
-				var button = $("<button></button>").attr("type", "button").addClass("list-group-item list-group-item-action").html(plate.plaName)
+				var button = $("<a></a>").attr("type", "button").attr("href","section?"+plate.id).addClass("list-group-item list-group-item-action").html(plate.plaName)
 				if (plate.id == sectionId) {
 					button.addClass("active");
 					$(".sectionName").html(plate.plaName);

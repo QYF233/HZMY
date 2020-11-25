@@ -61,7 +61,7 @@
     from article
     where art_plate_id = #{id,jdbcType=INTEGER}
     and art_del_state = 0
-    order by art_time asc
+    order by art_time desc
     Limit 0,5
   </select>
     <select id="selectByPlateIdAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">

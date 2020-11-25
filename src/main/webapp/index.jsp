@@ -518,7 +518,7 @@
         var main = $(".mainRow")
         var specialBox = $("<div></div>").addClass("col-sm-12 col-lg-6 cap-box text-center")
         var imgbox = $("<div></div>").addClass("img-box");
-        var img = $("<img>").attr("src", "com/img/" + special.plaPic).addClass("cap-img img-fluid")
+        var img = $("<img>").attr("src", "com/img/plate/" + special.plaPic).addClass("cap-img img-fluid")
         var cap = $("<div></div>").addClass("cap-title");
         var a = $("<a></a>").attr("href", special.plaUrl).html(special.plaName);
         cap.append(a)

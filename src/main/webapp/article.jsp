@@ -289,7 +289,7 @@
     /*构建侧边栏*/
     function build_section(plate) {
         var sideList = $(".sideList");
-        var button = $("<button></button>").attr("type", "button").addClass("list-group-item list-group-item-action").html(plate.plaName)
+        var button = $("<a></a>").attr("type", "button").attr("href","section?"+plate.id).addClass("list-group-item list-group-item-action").html(plate.plaName)
         if (plate.id == plateId) {
             button.addClass("active");
             $(".sectionName").html(plate.plaName);
