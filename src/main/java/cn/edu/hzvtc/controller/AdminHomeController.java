@@ -1,12 +1,37 @@
 package cn.edu.hzvtc.controller;
 
+import cn.edu.hzvtc.pojo.Plate;
+import cn.edu.hzvtc.service.AdminSecService;
+import cn.edu.hzvtc.service.AdminUserService;
+import cn.edu.hzvtc.service.ArticleService;
+import cn.edu.hzvtc.tools.ReturnMsg;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/home")
 public class AdminHomeController {
-    @RequestMapping("index")
-    public String adminIndex() {
-        return "admin/index";
+    @Autowired
+    public AdminUserService adminUserService;
+
+    @Autowired
+    public AdminSecService adminSecService;
+
+    @Autowired
+    public ArticleService articleService;
+
+    @RequestMapping("/getCount")
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg getCount() {
+        Long userCount = adminUserService.getUserCount();
+        Long secCount = adminSecService.getSecCount();
+        Long artCount = articleService.getArtCount();
+        return ReturnMsg.success().add("userCount", userCount).add("secCount", secCount).add("artCount", artCount);
     }
 }

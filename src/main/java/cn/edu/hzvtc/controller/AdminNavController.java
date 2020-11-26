@@ -7,8 +7,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/navigation")
 public class AdminNavController {
 
-    @RequestMapping("")
-    public String navigation() {
-        return "admin/Navigation";
-    }
 }

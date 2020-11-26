@@ -24,15 +24,16 @@
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven/>
 
-<!--    &lt;!&ndash; 配置拦截器 &ndash;&gt;-->
-<!--    <mvc:interceptors>-->
-<!--        &lt;!&ndash;登录拦截器&ndash;&gt;-->
-<!--        <mvc:interceptor>-->
-<!--            &lt;!&ndash; 拦截所有mvc控制器 &ndash;&gt;-->
-<!--            <mvc:mapping path="/**"/>-->
-<!--            <bean class="cn.edu.hzvtc.interceptor.LoginInterceptor"/>-->
-<!--        </mvc:interceptor>-->
-<!--    </mvc:interceptors>-->
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
+        <!--登录拦截器-->
+        <mvc:interceptor>
+            <!-- 拦截所有mvc控制器 -->
+            <mvc:mapping path="/admin/**"/>
+<!--            <mvc:exclude-mapping path="/admin/login"/>-->
+            <bean class="cn.edu.hzvtc.interceptor.JWTInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
 </beans>

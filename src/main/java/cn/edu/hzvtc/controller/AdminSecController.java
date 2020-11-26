@@ -7,8 +7,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/section")
 public class AdminSecController {
 
-    @RequestMapping("")
-    public String section(){
-        return "admin/Section";
-    }
 }

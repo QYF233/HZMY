@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.hzvtc.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.hzvtc.pojo.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="userPassword"/>
+        <result column="phone" jdbcType="INTEGER" property="phone"/>
+        <result column="user_del_state" jdbcType="INTEGER" property="userDelState"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_user
+    where id = #{id,jdbcType=INTEGER}
+    and user_del_state = 0
+  </delete>
+    <insert id="insert" parameterType="cn.edu.hzvtc.pojo.User">
+    insert into sys_user (id, username, password, 
+      phone, user_del_state)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=INTEGER}, #{userDelState,jdbcType=INTEGER})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.User">
+    update sys_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=INTEGER},
+      user_del_state = #{userDelState,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+    and user_del_state = 0
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, username, password, phone, user_del_state
+    from sys_user
+    where id = #{id,jdbcType=INTEGER}
+    and user_del_state = 0
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, username, password, phone, user_del_state
+    from sys_user
+    where user_del_state = 0
+  </select>
+    <select id="selectUser" resultMap="BaseResultMap">
+    select id, username, password, phone, user_del_state
+    from sys_user
+    where username = #{userName,jdbcType=VARCHAR}
+    and password = #{userPassword,jdbcType=VARCHAR}
+    and user_del_state = 0
+  </select>
+    <select id="getUserCount" resultType="java.lang.Long">
+        select count(1) from sys_user where user_del_state = 0
+    </select>
+</mapper>

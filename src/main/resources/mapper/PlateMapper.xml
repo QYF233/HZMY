@@ -68,4 +68,7 @@
     where pla_del_state = 0
     order by pla_sort
   </select>
+  <select id="getSecCount" resultType="java.lang.Long">
+        select count(1) from plate where pla_del_state = 0 and pla_type = 2
+    </select>
 </mapper>

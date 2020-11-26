@@ -72,4 +72,7 @@
     and art_del_state = 0
     order by art_time asc
   </select>
+    <select id="getArtCount" resultType="java.lang.Long">
+        select count(1) from article where art_del_state = 0
+    </select>
 </mapper>

@@ -13,4 +13,5 @@ import java.util.List;
 
 public interface ArticleService {
     public Article getArticleById(Integer id);
+    public Long getArtCount();
 }

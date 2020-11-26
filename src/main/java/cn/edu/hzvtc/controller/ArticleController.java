@@ -30,6 +30,7 @@ public class ArticleController {
      */
     @RequestMapping("/getArticle")
     @ResponseBody
+    @CrossOrigin
     public ReturnMsg getArticle(@RequestParam("id") Integer id) {
         Article article = articleService.getArticleById(id);
         return ReturnMsg.success().add("article", article);
@@ -43,6 +44,7 @@ public class ArticleController {
      */
     @RequestMapping(value = "/getOtherArticle", method = RequestMethod.POST)
     @ResponseBody
+    @CrossOrigin
     public ReturnMsg getOtherArticle(@RequestParam("plateId") Integer plateId,
                                      @RequestParam("articleId") Integer articleId) {
         List<Article> articles = homeService.getArticle(plateId, "all");

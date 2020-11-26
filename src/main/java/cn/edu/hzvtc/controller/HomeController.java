@@ -5,6 +5,7 @@ import cn.edu.hzvtc.service.HomeService;
 import cn.edu.hzvtc.tools.ReturnMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,26 +22,13 @@ public class HomeController {
     @Autowired
     public HomeService homeService;
 
-    @RequestMapping("/index")
-    public String index() {
-        return "index";
-    }
-
-    @RequestMapping("/section")
-    public String sectionList() {
-        return "sectionList";
-    }
-
-    @RequestMapping("/article")
-    public String detail() {
-        return "article";
-    }
     /**
      * 获取导航信息
      * @return ReturnMsg
      */
     @RequestMapping("/getPlates")
     @ResponseBody
+    @CrossOrigin
     public ReturnMsg getSection() {
         List<Plate> plates = homeService.getList();
         return ReturnMsg.success().add("plates", plates);
@@ -51,6 +39,7 @@ public class HomeController {
      */
     @RequestMapping("/getSwiper")
     @ResponseBody
+    @CrossOrigin
     public ReturnMsg getSwiper() {
         List<Swiper> swiper = homeService.getSwiper();
         return ReturnMsg.success().add("swiper", swiper);
@@ -63,6 +52,7 @@ public class HomeController {
      */
     @RequestMapping("/getArticle")
     @ResponseBody
+    @CrossOrigin
     public ReturnMsg getArticle(@RequestParam("plateId") Integer plateId) {
         List<Article> articles = homeService.getArticle(plateId,"limit");
         return ReturnMsg.success().add("articles", articles);
@@ -74,6 +64,7 @@ public class HomeController {
      */
     @RequestMapping("/getLink")
     @ResponseBody
+    @CrossOrigin
     public ReturnMsg getLink() {
         List<Link> links = homeService.getLinks();
         return ReturnMsg.success().add("links", links);

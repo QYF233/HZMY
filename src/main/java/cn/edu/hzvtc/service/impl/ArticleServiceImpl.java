@@ -18,4 +18,9 @@ public class ArticleServiceImpl implements ArticleService {
     public Article getArticleById(Integer id) {
         return articleMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public Long getArtCount() {
+        return articleMapper.getArtCount();
+    }
 }

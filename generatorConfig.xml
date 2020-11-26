@@ -42,12 +42,12 @@
         </javaClientGenerator>
 
         <!-- 配置表信息 -->
-        <table tableName="admin" domainObjectName="Admin"/>
-        <table tableName="article" domainObjectName="Article"/>
-        <table tableName="file" domainObjectName="File"/>
-        <table tableName="link" domainObjectName="Link"/>
-        <table tableName="plate" domainObjectName="Plate"/>
-        <table tableName="swiper" domainObjectName="Swiper"/>
+        <table tableName="sys_user" domainObjectName="User"/>
+<!--        <table tableName="article" domainObjectName="Article"/>-->
+<!--        <table tableName="file" domainObjectName="File"/>-->
+<!--        <table tableName="link" domainObjectName="Link"/>-->
+<!--        <table tableName="plate" domainObjectName="Plate"/>-->
+<!--        <table tableName="swiper" domainObjectName="Swiper"/>-->
 
     </context>
 

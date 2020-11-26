@@ -16,4 +16,5 @@ public interface ArticleMapper {
 
     List<Article> selectByPlateId(Integer id);
     List<Article> selectByPlateIdAll(Integer id);
+    Long getArtCount();
 }

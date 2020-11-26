@@ -16,5 +16,5 @@ public interface PlateMapper {
 
     int updateByPrimaryKey(Plate record);
 
-
+Long getSecCount();
 }
