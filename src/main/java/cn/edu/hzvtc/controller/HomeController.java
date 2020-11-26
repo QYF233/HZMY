@@ -2,6 +2,7 @@ package cn.edu.hzvtc.controller;
 
 import cn.edu.hzvtc.pojo.*;
 import cn.edu.hzvtc.service.HomeService;
+import cn.edu.hzvtc.tools.ReturnMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,8 +1,7 @@
 package cn.edu.hzvtc.controller;
 
-import cn.edu.hzvtc.dao.ArticleMapper;
 import cn.edu.hzvtc.pojo.Article;
-import cn.edu.hzvtc.pojo.ReturnMsg;
+import cn.edu.hzvtc.tools.ReturnMsg;
 import cn.edu.hzvtc.service.ArticleService;
 import cn.edu.hzvtc.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;

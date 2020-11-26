@@ -1,4 +1,4 @@
-package cn.edu.hzvtc.pojo;
+package cn.edu.hzvtc.tools;
 
 import java.util.HashMap;
 import java.util.Map;

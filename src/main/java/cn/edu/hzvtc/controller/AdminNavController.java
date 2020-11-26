@@ -1,0 +1,14 @@
+package cn.edu.hzvtc.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/admin/navigation")
+public class AdminNavController {
+
+    @RequestMapping("")
+    public String navigation() {
+        return "admin/Navigation";
+    }
+}

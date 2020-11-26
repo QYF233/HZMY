@@ -1,7 +1,7 @@
 package cn.edu.hzvtc.controller;
 
 import cn.edu.hzvtc.pojo.Article;
-import cn.edu.hzvtc.pojo.ReturnMsg;
+import cn.edu.hzvtc.tools.ReturnMsg;
 import cn.edu.hzvtc.service.ArticleService;
 import cn.edu.hzvtc.service.HomeService;
 import com.github.pagehelper.PageHelper;
