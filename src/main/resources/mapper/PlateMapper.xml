@@ -93,10 +93,12 @@
   <select id="getNavCount" resultType="java.lang.Integer">
         select count(1) from plate where pla_del_state = 0
         <if test="plaParentId == null">
-          and pla_parent_id
+          and pla_parent_id is NULL
+          and pla_type = 1
         </if>
         <if test="plaParentId != null">
           and pla_parent_id = #{plaParentId,jdbcType=INTEGER}
+          and pla_type = 5
         </if>
   </select>
   <select id="getPlateByType" resultMap="ArticleResultMap">

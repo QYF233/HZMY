@@ -27,6 +27,13 @@ public class PlateServiceImpl implements PlateService {
         return plateList;
     }
     @Override
+    public List<Plate> getSection() {
+        List<Plate> plateList = plateMapper.getPlateByType(2);
+        List<Plate> plateList1 = plateMapper.getPlateByType(4);
+        plateList.addAll(plateList1);
+        return plateList;
+    }
+    @Override
     public List<Plate> getNavs() {
         List<Plate> plateList = plateMapper.getPlateByType(1);
         return plateList;
@@ -60,5 +67,10 @@ public class PlateServiceImpl implements PlateService {
     @Override
     public int addNav(Plate plate) {
         return plateMapper.insert(plate);
+    }
+
+    @Override
+    public Plate getSec(Integer id) {
+        return plateMapper.selectByPrimaryKey(id);
     }
 }

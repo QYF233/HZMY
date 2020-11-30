@@ -21,4 +21,7 @@ public interface PlateService {
     public int delNav(Integer id);
 
     public int addNav(Plate plate);
+    public List<Plate> getSection();
+
+    public Plate getSec(Integer id);
 }
