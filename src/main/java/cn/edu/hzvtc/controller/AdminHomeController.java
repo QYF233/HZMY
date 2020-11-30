@@ -4,6 +4,7 @@ import cn.edu.hzvtc.pojo.Plate;
 import cn.edu.hzvtc.service.AdminSecService;
 import cn.edu.hzvtc.service.AdminUserService;
 import cn.edu.hzvtc.service.ArticleService;
+import cn.edu.hzvtc.service.PlateService;
 import cn.edu.hzvtc.tools.ReturnMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,14 @@ public class AdminHomeController {
     @Autowired
     public ArticleService articleService;
 
+    @Autowired
+    public PlateService plateService;
+
+    /**
+     * 后台首页获取统计信息
+     *
+     * @return 统计信息
+     */
     @RequestMapping("/getCount")
     @ResponseBody
     @CrossOrigin
@@ -32,6 +41,19 @@ public class AdminHomeController {
         Long userCount = adminUserService.getUserCount();
         Long secCount = adminSecService.getSecCount();
         Long artCount = articleService.getArtCount();
-        return ReturnMsg.success().add("userCount", userCount).add("secCount", secCount).add("artCount", artCount);
+        Long artSightCount = articleService.getArtSightCount();
+        return ReturnMsg.success().add("userCount", userCount).add("secCount", secCount).add("artCount", artCount).add("artSightCount", artSightCount);
+    }
+
+    /**
+     * 获取板块下的所有文章
+     * @return
+     */
+    @RequestMapping("/getSectionChart")
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg getSectionChart() {
+        List<Plate> plates = plateService.getPlates();
+        return ReturnMsg.success().add("plates", plates);
     }
 }

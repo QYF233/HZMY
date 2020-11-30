@@ -29,5 +29,13 @@ public class Plate {
 
     private Integer plaDelState;
 
-   private List<Plate> childPlate;
+    private List<Plate> childPlate;
+
+    private List<Article> articles;
+
+    private Long sightCount;
+
+    private String text;
+
+    private List<Plate> nodes;
 }

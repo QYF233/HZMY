@@ -13,6 +13,7 @@
         <result column="art_top" jdbcType="INTEGER" property="artTop"/>
         <result column="art_del_state" jdbcType="INTEGER" property="artDelState"/>
         <result column="art_content" jdbcType="LONGVARCHAR" property="artContent"/>
+        <result column="art_sight" jdbcType="INTEGER" property="artSight"/>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from article
@@ -44,20 +45,20 @@
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id, 
-    art_top, art_del_state, art_content
+    art_top, art_del_state, art_content,art_sight
     from article
     where id = #{id,jdbcType=INTEGER}
     and art_del_state = 0
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id, 
-    art_top, art_del_state, art_content
+    art_top, art_del_state, art_content,art_sight
     from article
     where art_del_state = 0
   </select>
     <select id="selectByPlateId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id,
-    art_top, art_del_state, art_content
+    art_top, art_del_state, art_content,art_sight
     from article
     where art_plate_id = #{id,jdbcType=INTEGER}
     and art_del_state = 0
@@ -66,7 +67,7 @@
   </select>
     <select id="selectByPlateIdAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id,
-    art_top, art_del_state, art_content
+    art_top, art_del_state, art_content,art_sight
     from article
     where art_plate_id = #{id,jdbcType=INTEGER}
     and art_del_state = 0
@@ -75,4 +76,19 @@
     <select id="getArtCount" resultType="java.lang.Long">
         select count(1) from article where art_del_state = 0
     </select>
+    <select id="getArtSightCount" resultType="java.lang.Long">
+        select sum(art_sight) as sightCount from article where art_del_state = 0
+    </select>
+    <select id="getArtSightCountBySec" resultType="java.lang.Long">
+        select sum(art_sight) as sightCount
+        from article
+        where art_del_state = 0
+        and art_plate_id = #{secId,jdbcType=INTEGER}
+    </select>
+    <update id="addSightByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Article">
+        update article
+        set  art_sight = art_sight + 1
+        where id = #{id,jdbcType=INTEGER}
+  </update>
+
 </mapper>

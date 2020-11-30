@@ -20,6 +20,7 @@ public class AdminLoginController {
 
     @RequestMapping(value = "SignIn", method = RequestMethod.POST)
     @ResponseBody
+    @CrossOrigin
     public ReturnMsg login(@RequestParam("loginUsername") String username,
                            @RequestParam("loginPassword") String password) {
         User user = adminUserService.getUser(username, password);
@@ -37,9 +38,10 @@ public class AdminLoginController {
 
     @RequestMapping(value = "logout")
     @ResponseBody
+    @CrossOrigin
     public ReturnMsg logout() {
         ReturnMsg returnMsg = ReturnMsg.success().add("token", "");
-        returnMsg.setTarget("../");
+        returnMsg.setTarget("login.html");
         return returnMsg;
     }
 

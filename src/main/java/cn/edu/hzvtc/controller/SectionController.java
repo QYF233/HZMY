@@ -23,6 +23,13 @@ public class SectionController {
     @Autowired
     public HomeService homeService;
 
+    /**
+     * 获取当前板块所属文章
+     *
+     * @param sectionId 板块id
+     * @param pn        页码
+     * @return 文章列表
+     */
     @RequestMapping("/getSection")
     @ResponseBody
     @CrossOrigin

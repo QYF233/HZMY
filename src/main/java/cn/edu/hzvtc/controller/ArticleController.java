@@ -33,6 +33,9 @@ public class ArticleController {
     @CrossOrigin
     public ReturnMsg getArticle(@RequestParam("id") Integer id) {
         Article article = articleService.getArticleById(id);
+        if (article != null) {
+            articleService.addSight(id);
+        }
         return ReturnMsg.success().add("article", article);
     }
 
@@ -56,7 +59,9 @@ public class ArticleController {
         }
         Article prev = null;
         Article next = null;
-        if (index == 0 && index < articles.size() - 1) {
+        if (index == 0 && articles.size() == 1) {
+            System.out.println("空");
+        } else if (index == 0 && index < articles.size() - 1) {
             next = articles.get(index + 1);
         } else if (index == articles.size() - 1) {
             prev = articles.get(index - 1);
@@ -66,4 +71,5 @@ public class ArticleController {
         }
         return ReturnMsg.success().add("articles", articles).add("prev", prev).add("next", next);
     }
+
 }

@@ -23,4 +23,14 @@ public class ArticleServiceImpl implements ArticleService {
     public Long getArtCount() {
         return articleMapper.getArtCount();
     }
+
+    @Override
+    public Long getArtSightCount() {
+        return articleMapper.getArtSightCount();
+    }
+
+    @Override
+    public int addSight(Integer id) {
+        return articleMapper.addSightByPrimaryKey(id);
+    }
 }

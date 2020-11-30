@@ -3,6 +3,9 @@ package cn.edu.hzvtc.dao;
 import cn.edu.hzvtc.pojo.File;
 import java.util.List;
 
+/**
+ * @author kiko
+ */
 public interface FileMapper {
     int deleteByPrimaryKey(Integer id);
 

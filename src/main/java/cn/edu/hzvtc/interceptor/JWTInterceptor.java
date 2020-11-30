@@ -10,9 +10,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
- * 任务31
- * 2020年11月26日【创建】
+ * @author kiko
  */
 public class JWTInterceptor implements HandlerInterceptor {
 
@@ -46,7 +46,7 @@ public class JWTInterceptor implements HandlerInterceptor {
             }
             // 判断 session 中是否有用户数据，如果有，则返回 true ，继续向下执行
             if (user != null) {
-                if (uri.indexOf("/admin") >= 0) {
+                if (uri.contains("/admin")) {
                     flg = true;
                 }
             } else {
@@ -59,9 +59,10 @@ public class JWTInterceptor implements HandlerInterceptor {
         if (!flg) {
             // 不符合条件重定向到登录页面
             response.sendRedirect(request.getContextPath()+"/login.html");
+            System.out.println("跳转*************************************************************");
             return false;
         }
-
+        System.out.println("******************************"+flg+"**********************************");
         return flg;
     }
 }
