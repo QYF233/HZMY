@@ -12,12 +12,33 @@ import java.util.List;
  */
 
 public interface HomeService {
-
+    /**
+     * 获取板块列表
+     *
+     * @return
+     */
     public List<Plate> getList();
 
+    /**
+     * 获取轮播图
+     *
+     * @return
+     */
     public List<Swiper> getSwiper();
 
-    public List<Article> getArticle(Integer plateId,String state);
+    /**
+     * 获取文章
+     *
+     * @param plateId
+     * @param state
+     * @return
+     */
+    public List<Article> getArticle(Integer plateId, String state);
 
+    /**
+     * 获取友链
+     *
+     * @return
+     */
     public List<Link> getLinks();
 }

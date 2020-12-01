@@ -57,6 +57,7 @@ public class ArticleController {
                 index = i;
             }
         }
+//        上一条，下一条
         Article prev = null;
         Article next = null;
         if (index == 0 && articles.size() == 1) {

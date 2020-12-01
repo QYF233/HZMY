@@ -1,5 +1,5 @@
 package cn.edu.hzvtc.service;
 
 public interface AdminSecService {
-    public Long getSecCount();
+    public int getSecCount();
 }

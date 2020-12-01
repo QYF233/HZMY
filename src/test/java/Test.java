@@ -1,5 +1,7 @@
 import cn.edu.hzvtc.dao.UserMapper;
+import cn.edu.hzvtc.pojo.Article;
 import cn.edu.hzvtc.pojo.Plate;
+import cn.edu.hzvtc.service.ArticleService;
 import cn.edu.hzvtc.service.PlateService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,12 @@ public class Test {
 
     @Autowired
     public PlateService plateService;
+    @Autowired
+    public ArticleService articleService;
+
     @org.junit.Test
     public void test() {
-        List<Plate> sortList = plateService.selectChildByParentId(10);
-        System.out.println(sortList);
+        List<Article> list = articleService.getArticle(1);
+        System.out.println(list);
     }
 }

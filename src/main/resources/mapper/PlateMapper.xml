@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.hzvtc.dao.PlateMapper">
-  <resultMap id="BaseResultMap" type="cn.edu.hzvtc.pojo.Plate">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="pla_name" jdbcType="VARCHAR" property="plaName" />
-    <result column="pla_url" jdbcType="VARCHAR" property="plaUrl" />
-    <result column="pla_sort" jdbcType="INTEGER" property="plaSort" />
-    <result column="pla_parent_id" jdbcType="INTEGER" property="plaParentId" />
-    <result column="pla_pic" jdbcType="VARCHAR" property="plaPic" />
-    <result column="pla_type" jdbcType="INTEGER" property="plaType" />
-    <result column="pla_del_state" jdbcType="INTEGER" property="plaDelState" />
-  </resultMap>
-  <resultMap id="ParentResultMap" type="cn.edu.hzvtc.pojo.Plate">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="pla_name" jdbcType="VARCHAR" property="plaName" />
-    <result column="pla_url" jdbcType="VARCHAR" property="plaUrl" />
-    <result column="pla_sort" jdbcType="INTEGER" property="plaSort" />
-    <result column="pla_parent_id" jdbcType="INTEGER" property="plaParentId" />
-    <result column="pla_pic" jdbcType="VARCHAR" property="plaPic" />
-    <result column="pla_type" jdbcType="INTEGER" property="plaType" />
-    <result column="pla_del_state" jdbcType="INTEGER" property="plaDelState" />
-    <collection property="childPlate" select="cn.edu.hzvtc.dao.PlateMapper.selectChildByParentId"
-                column="id"/>
-  </resultMap>
-  <resultMap id="ArticleResultMap" type="cn.edu.hzvtc.pojo.Plate">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="pla_name" jdbcType="VARCHAR" property="plaName" />
-    <result column="pla_name" jdbcType="VARCHAR" property="text" />
-    <result column="pla_url" jdbcType="VARCHAR" property="plaUrl" />
-    <result column="pla_sort" jdbcType="INTEGER" property="plaSort" />
-    <result column="pla_parent_id" jdbcType="INTEGER" property="plaParentId" />
-    <result column="pla_pic" jdbcType="VARCHAR" property="plaPic" />
-    <result column="pla_type" jdbcType="INTEGER" property="plaType" />
-    <result column="pla_del_state" jdbcType="INTEGER" property="plaDelState" />
-    <collection property="articles" select="cn.edu.hzvtc.dao.ArticleMapper.selectByPlateIdAll"
-                column="id"/>
-    <collection property="sightCount" select="cn.edu.hzvtc.dao.ArticleMapper.getArtSightCountBySec"
-                column="id"/>
-    <collection property="nodes" select="cn.edu.hzvtc.dao.PlateMapper.selectChildByParentId"
-                column="id"/>
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <resultMap id="BaseResultMap" type="cn.edu.hzvtc.pojo.Plate">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="pla_name" jdbcType="VARCHAR" property="plaName"/>
+        <result column="pla_url" jdbcType="VARCHAR" property="plaUrl"/>
+        <result column="pla_sort" jdbcType="INTEGER" property="plaSort"/>
+        <result column="pla_parent_id" jdbcType="INTEGER" property="plaParentId"/>
+        <result column="pla_pic" jdbcType="VARCHAR" property="plaPic"/>
+        <result column="pla_type" jdbcType="INTEGER" property="plaType"/>
+        <result column="pla_del_state" jdbcType="INTEGER" property="plaDelState"/>
+    </resultMap>
+    <resultMap id="ParentResultMap" type="cn.edu.hzvtc.pojo.Plate">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="pla_name" jdbcType="VARCHAR" property="plaName"/>
+        <result column="pla_url" jdbcType="VARCHAR" property="plaUrl"/>
+        <result column="pla_sort" jdbcType="INTEGER" property="plaSort"/>
+        <result column="pla_parent_id" jdbcType="INTEGER" property="plaParentId"/>
+        <result column="pla_pic" jdbcType="VARCHAR" property="plaPic"/>
+        <result column="pla_type" jdbcType="INTEGER" property="plaType"/>
+        <result column="pla_del_state" jdbcType="INTEGER" property="plaDelState"/>
+        <collection property="childPlate" select="cn.edu.hzvtc.dao.PlateMapper.selectChildByParentId"
+                    column="id"/>
+    </resultMap>
+    <resultMap id="ArticleResultMap" type="cn.edu.hzvtc.pojo.Plate">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="pla_name" jdbcType="VARCHAR" property="plaName"/>
+        <result column="pla_name" jdbcType="VARCHAR" property="text"/>
+        <result column="pla_url" jdbcType="VARCHAR" property="plaUrl"/>
+        <result column="pla_sort" jdbcType="INTEGER" property="plaSort"/>
+        <result column="pla_parent_id" jdbcType="INTEGER" property="plaParentId"/>
+        <result column="pla_pic" jdbcType="VARCHAR" property="plaPic"/>
+        <result column="pla_type" jdbcType="INTEGER" property="plaType"/>
+        <result column="pla_del_state" jdbcType="INTEGER" property="plaDelState"/>
+        <collection property="articles" select="cn.edu.hzvtc.dao.ArticleMapper.selectByPlateIdAll"
+                    column="id"/>
+        <collection property="sightCount" select="cn.edu.hzvtc.dao.ArticleMapper.getArtSightCountBySec"
+                    column="id"/>
+        <collection property="nodes" select="cn.edu.hzvtc.dao.PlateMapper.selectChildByParentId"
+                    column="id"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from plate
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.edu.hzvtc.pojo.Plate">
+    <insert id="insert" parameterType="cn.edu.hzvtc.pojo.Plate">
     insert into plate (id, pla_name, pla_url, 
       pla_sort, pla_parent_id, pla_pic, 
       pla_type)
@@ -52,7 +52,7 @@
       #{plaSort,jdbcType=INTEGER}, #{plaParentId,jdbcType=INTEGER}, #{plaPic,jdbcType=VARCHAR}, 
       #{plaType,jdbcType=INTEGER})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Plate">
+    <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Plate">
     update plate
     set pla_name = #{plaName,jdbcType=VARCHAR},
       pla_url = #{plaUrl,jdbcType=VARCHAR},
@@ -63,83 +63,126 @@
       pla_del_state = #{plaDelState,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
     from plate
     where id = #{id,jdbcType=INTEGER}
     and pla_del_state = 0
   </select>
-  <select id="selectChildByParentId" parameterType="java.lang.Integer" resultMap="ArticleResultMap">
-    select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
-    from plate
-    <if test="plaParentId == null">
-      where pla_parent_id is null
-      and pla_type = 1
-    </if>
-    <if test="plaParentId != null">
-      where pla_parent_id = #{plaParentId,jdbcType=INTEGER}
-      and pla_type = 5
-    </if>
-    and pla_del_state = 0
-    order by pla_sort
-  </select>
-  <select id="selectAll" resultMap="ParentResultMap">
+    <select id="selectChildByParentId" parameterType="java.lang.Integer" resultMap="ArticleResultMap">
+        select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
+        from plate
+        <if test="plaParentId == null">
+            where pla_parent_id is null
+            and pla_type = 1
+        </if>
+        <if test="plaParentId != null">
+            where pla_parent_id = #{plaParentId,jdbcType=INTEGER}
+            and pla_type = 5
+        </if>
+        and pla_del_state = 0
+        order by pla_sort
+    </select>
+    <select id="selectAll" resultMap="ParentResultMap">
     select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
     from plate
     where pla_del_state = 0
     order by pla_sort
   </select>
-  <select id="getSecCount" resultType="java.lang.Long">
+    <select id="getSecCount" resultType="java.lang.Integer">
         select count(1) from plate where pla_del_state = 0 and pla_type = 2
   </select>
-  <select id="getNavCount" resultType="java.lang.Integer">
+<!--获取每一级板块的数量-->
+    <select id="getNavCount" resultType="java.lang.Integer">
         select count(1) from plate where pla_del_state = 0
         <if test="plaParentId == null">
-          and pla_parent_id is NULL
-          and pla_type = 1
+            and pla_parent_id is NULL
+            and pla_type = 1
         </if>
         <if test="plaParentId != null">
-          and pla_parent_id = #{plaParentId,jdbcType=INTEGER}
-          and pla_type = 5
+            and pla_parent_id = #{plaParentId,jdbcType=INTEGER}
+            and pla_type = 5
         </if>
-  </select>
-  <select id="getPlateByType" resultMap="ArticleResultMap">
+    </select>
+    <!--按type获取信息-->
+    <select id="getPlateByType" resultMap="ArticleResultMap">
     select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
     from plate
     where pla_del_state = 0
     and pla_type = #{typeId,jdbcType=INTEGER}
     order by pla_sort
   </select>
-  <update id="updateNavById" parameterType="cn.edu.hzvtc.pojo.Plate">
+<!--按id更新导航信息-->
+    <update id="updateNavById" parameterType="cn.edu.hzvtc.pojo.Plate">
     update plate
     set pla_name = #{plaName,jdbcType=VARCHAR},
       pla_url = #{plaUrl,jdbcType=VARCHAR},
       pla_sort = #{plaSort,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSort" parameterType="cn.edu.hzvtc.pojo.Plate">
+    <!--获取所有的板块列表-->
+    <select id="getSection" resultMap="ArticleResultMap">
+    select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
+    from plate
+    where pla_del_state = 0
+    and (pla_type = 2 or pla_type = 4)
+    order by pla_sort
+  </select>
+    <!--更新单个次序-->
+    <update id="updateSort" parameterType="cn.edu.hzvtc.pojo.Plate">
     update plate
     set pla_sort = #{plaSort,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="deleteById" parameterType="java.lang.Integer">
+    <!--排序-->
+    <update id="sort" parameterType="java.lang.Integer">
+        update plate
+        <if test="oldSort > newSort">
+            set pla_sort = pla_sort + 1
+            where pla_sort >= #{newSort,jdbcType=INTEGER}
+            and #{oldSort,jdbcType=INTEGER} > pla_sort
+        </if>
+        <if test="newSort > oldSort">
+            set pla_sort = pla_sort -1
+            where #{newSort,jdbcType=INTEGER} >= pla_sort
+            and pla_sort > #{oldSort,jdbcType=INTEGER}
+        </if>
+        <if test="flag == 'sec'">
+            and pla_parent_id is null
+            and (pla_type = 2 or pla_type = 4)
+        </if>
+        <if test="flag == 'nav'">
+            <if test="plaParentId == null">
+                and pla_parent_id is NULL
+                and pla_type = 1
+            </if>
+            <if test="plaParentId != null">
+                and pla_parent_id = #{plaParentId,jdbcType=INTEGER}
+                and pla_type = 5
+            </if>
+        </if>
+        and pla_del_state = 0
+    </update>
+    <!--删除-->
+    <update id="deleteById" parameterType="java.lang.Integer">
     update plate
     set pla_del_state = 1
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSecById" parameterType="cn.edu.hzvtc.pojo.Plate">
+    <update id="deleteByIdList" parameterType="cn.edu.hzvtc.pojo.Plate">
+        update plate
+        set pla_del_state = 1
+        <foreach collection="list" item="id" separator="," open="where id in (" close=")">
+            #{id,jdbcType=INTEGER}
+        </foreach>
+    </update>
+    <!--更新-->
+    <update id="updateSecById" parameterType="cn.edu.hzvtc.pojo.Plate">
     update plate
     set pla_name = #{plaName,jdbcType=VARCHAR},
       pla_url = #{plaUrl,jdbcType=VARCHAR},
       pla_sort = #{plaSort,jdbcType=INTEGER},
       pla_type = #{plaType,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="deleteByIdList" parameterType="cn.edu.hzvtc.pojo.Plate">
-    update plate
-    set pla_del_state = 1
-    <foreach collection="list" item="id" separator="," open="where id in (" close=")">
-      #{id,jdbcType=INTEGER}
-    </foreach>
   </update>
 </mapper>

@@ -23,27 +23,45 @@ public class AdminSecController {
     @Autowired
     public AdminSecService adminSecService;
 
+    /**
+     * 获取板块列表
+     *
+     * @return List
+     */
     @RequestMapping("/getSection")
     @ResponseBody
     @CrossOrigin
     public ReturnMsg getSection() {
         List<Plate> sec = plateService.getSection();
-        System.out.println(sec.size());
-        return ReturnMsg.success().add("sec", sec).add("secCount", sec.size());
+        if (sec != null) {
+            return ReturnMsg.success().add("sec", sec).add("secCount", sec.size());
+        } else {
+            return ReturnMsg.fail();
+        }
     }
 
+    /**
+     * 获取单个数据
+     *
+     * @param id 板块id
+     * @return Plate
+     */
     @RequestMapping(value = "/getSec", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg getSec(@RequestParam("id") Integer id) {
         Plate sec = plateService.getSec(id);
-        return ReturnMsg.success().add("sec", sec);
+        if (sec != null) {
+            return ReturnMsg.success().add("sec", sec);
+        } else {
+            return ReturnMsg.fail();
+        }
     }
 
     /**
      * 删除
      *
-     * @param
+     * @param id 删除id
      * @return
      */
     @RequestMapping(value = "/delSec", method = RequestMethod.DELETE)
@@ -55,6 +73,13 @@ public class AdminSecController {
         }
         return ReturnMsg.fail();
     }
+
+    /**
+     * 批量删除
+     *
+     * @param ids 删除id列表
+     * @return
+     */
     @RequestMapping(value = "/delSec/{ids}", method = RequestMethod.DELETE)
     @ResponseBody
     public ReturnMsg delSec(@PathVariable("ids") String ids) {
@@ -74,19 +99,29 @@ public class AdminSecController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg addSec(@Valid Plate plate) {
-        Long secCount = adminSecService.getSecCount();
-        plate.setPlaSort(Math.toIntExact(secCount + 1));
+        int secCount = adminSecService.getSecCount();
+        plate.setPlaSort(secCount + 1);
         if (plateService.addNav(plate) > 0) {
             return ReturnMsg.success();
         }
         return ReturnMsg.fail();
     }
 
+    /**
+     * 更新数据
+     *
+     * @param plate
+     * @param oldSort 原先顺序
+     * @return
+     */
     @RequestMapping(value = "/updateSec", method = RequestMethod.PUT)
     @ResponseBody
     @CrossOrigin
-    public ReturnMsg updateSec(@Valid Plate plate) {
-        System.out.println(plate.toString());
+    public ReturnMsg updateSec(@Valid Plate plate, @RequestParam("oldSort") Integer oldSort) {
+        /*如果sort有变动，进行排序*/
+        if (!oldSort.equals(plate.getPlaSort())) {
+            plateService.updateSort(plate.getPlaSort(), oldSort, "sec", null);
+        }
         if (plateService.updateSec(plate) > 0) {
             return ReturnMsg.success();
         } else {

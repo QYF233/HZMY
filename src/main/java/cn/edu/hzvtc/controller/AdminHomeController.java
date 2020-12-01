@@ -39,7 +39,7 @@ public class AdminHomeController {
     @CrossOrigin
     public ReturnMsg getCount() {
         Long userCount = adminUserService.getUserCount();
-        Long secCount = adminSecService.getSecCount();
+        int secCount = adminSecService.getSecCount();
         Long artCount = articleService.getArtCount();
         Long artSightCount = articleService.getArtSightCount();
         return ReturnMsg.success().add("userCount", userCount).add("secCount", secCount).add("artCount", artCount).add("artSightCount", artSightCount);

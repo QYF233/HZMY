@@ -12,8 +12,41 @@ import java.util.List;
  */
 
 public interface ArticleService {
+    /**
+     * 按id获取文章信息
+     *
+     * @param id 文章id
+     * @return
+     */
     public Article getArticleById(Integer id);
+
+    /**
+     * 获取文章总数
+     *
+     * @return
+     */
     public Long getArtCount();
+
+    /**
+     * 获取所有浏览总数
+     *
+     * @return
+     */
     public Long getArtSightCount();
+
+    /**
+     * 增加浏览次数
+     *
+     * @param id 文章id
+     * @return
+     */
     public int addSight(Integer id);
+
+    /**
+     * 获取所有文章列表
+     *
+     * @param sectionId
+     * @return
+     */
+    public List<Article> getArticle(Integer sectionId);
 }

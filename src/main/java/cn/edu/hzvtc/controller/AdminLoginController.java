@@ -18,6 +18,13 @@ public class AdminLoginController {
     @Autowired
     private AdminUserService adminUserService;
 
+    /**
+     * 登录
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @return
+     */
     @RequestMapping(value = "SignIn", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
@@ -36,6 +43,11 @@ public class AdminLoginController {
         return returnMsg;
     }
 
+    /**
+     * 注销
+     *
+     * @return
+     */
     @RequestMapping(value = "logout")
     @ResponseBody
     @CrossOrigin

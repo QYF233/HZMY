@@ -56,6 +56,7 @@
     from article
     where art_del_state = 0
   </select>
+    <!--按板块获取文章列表-->
     <select id="selectByPlateId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id,
     art_top, art_del_state, art_content,art_sight
@@ -65,26 +66,33 @@
     order by art_time desc
     Limit 0,5
   </select>
+    <!--获取文章列表-->
     <select id="selectByPlateIdAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id,
-    art_top, art_del_state, art_content,art_sight
-    from article
-    where art_plate_id = #{id,jdbcType=INTEGER}
-    and art_del_state = 0
-    order by art_time asc
-  </select>
+        select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id,
+        art_top, art_del_state, art_content,art_sight
+        from article
+        where art_del_state = 0
+        <if test="id != 0">
+            and art_plate_id = #{id,jdbcType=INTEGER}
+        </if>
+        order by art_time asc
+    </select>
+    <!--获取所有文章数量-->
     <select id="getArtCount" resultType="java.lang.Long">
         select count(1) from article where art_del_state = 0
     </select>
+    <!--获取所有文章的浏览量-->
     <select id="getArtSightCount" resultType="java.lang.Long">
         select sum(art_sight) as sightCount from article where art_del_state = 0
     </select>
+    <!--获取板块的浏览量-->
     <select id="getArtSightCountBySec" resultType="java.lang.Long">
         select sum(art_sight) as sightCount
         from article
         where art_del_state = 0
         and art_plate_id = #{secId,jdbcType=INTEGER}
     </select>
+    <!--增加文章浏览次数-->
     <update id="addSightByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Article">
         update article
         set  art_sight = art_sight + 1

@@ -6,6 +6,8 @@ import cn.edu.hzvtc.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author kiko
  */
@@ -32,5 +34,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public int addSight(Integer id) {
         return articleMapper.addSightByPrimaryKey(id);
+    }
+
+    @Override
+    public List<Article> getArticle(Integer sectionId) {
+        return articleMapper.selectByPlateIdAll(sectionId);
     }
 }

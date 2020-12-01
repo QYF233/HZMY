@@ -12,7 +12,7 @@ public class AdminSecServiceImpl implements AdminSecService {
     public PlateMapper plateMapper;
 
     @Override
-    public Long getSecCount() {
+    public int getSecCount() {
         return plateMapper.getSecCount();
     }
 }

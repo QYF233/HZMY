@@ -20,11 +20,16 @@ public class AdminNavController {
     @Autowired
     public PlateService plateService;
 
+    /**
+     * 构建node
+     *
+     * @param nodes
+     * @return
+     */
     public List<Plate> setNodes(List<Plate> nodes) {
         for (Plate node : nodes) {
             int id = node.getId();
             String btn = "<div style='float:right'>" +
-//                            "<input plateId="+id+" type=\"submit\" value=\"修改\" class=\"updateBtn mr-2 btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\">\n" +
                     "<input plateId=" + id + " type=\"submit\" value=\"修改\" class=\"updateBtn mr-2 btn btn-primary\" onclick='beforeUpdate()'>\n" +
                     "<input plateId=" + id + " type=\"submit\" value=\"删除\" class=\"delBtn mr-2 btn btn-danger\" onclick='beforeDelete()'>" +
                     "</div>";
@@ -56,38 +61,19 @@ public class AdminNavController {
     /**
      * 修改
      *
-     * @param
+     * @param plate   修改对象
+     * @param oldSort 原先sort
      * @return
      */
     @RequestMapping(value = "/updateNav", method = RequestMethod.PUT)
     @ResponseBody
     @CrossOrigin
-    public ReturnMsg updateNav(@Valid Plate plate) {
-        System.out.println(plate.toString());
-        int oldSort = plate.getPlaSort();
-        if (oldSort == 1) {
-            plate.setPlaSort(-1);
-        }
-        if (oldSort == plateService.getNavCount(plate.getPlaParentId())) {
-            plate.setPlaSort(999);
+    public ReturnMsg updateNav(@Valid Plate plate, @RequestParam("oldSort") Integer oldSort) {
+        /*如果sort有变动，进行排序*/
+        if (!oldSort.equals(plate.getPlaSort())) {
+            plateService.updateSort(plate.getPlaSort(), oldSort, "nav", plate.getPlaParentId());
         }
         if (plateService.updateNav(plate) > 0) {
-            /* 获取所有父节点相同的元素列表，遍历，若sort相同，id不相同，*/
-            List<Plate> sortList = plateService.selectChildByParentId(plate.getPlaParentId());
-            System.out.println(sortList);
-            int index = 1;
-            for (Plate value : sortList) {
-                System.out.println(value.getPlaSort());
-                if ((value.getPlaSort() == oldSort && value.getId() > plate.getId())) {
-                    plateService.updateSort(value.getId(), index++);
-                } else if (value.getId() - plate.getId() == 0) {
-                    index++;
-                } else {
-                    plateService.updateSort(value.getId(), index++);
-                }
-            }
-
-            plateService.updateSort(plate.getId(), oldSort);
             return ReturnMsg.success();
         } else {
             return ReturnMsg.fail();
@@ -97,7 +83,7 @@ public class AdminNavController {
     /**
      * 删除
      *
-     * @param
+     * @param id 删除id
      * @return
      */
     @RequestMapping(value = "/delNav", method = RequestMethod.DELETE)
@@ -112,20 +98,24 @@ public class AdminNavController {
 
     /**
      * 添加
-     *
-     * @param
+     * @param plate
      * @return
      */
     @RequestMapping(value = "/addNav", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg addNav(@Valid Plate plate) {
+        /*判断是根导航还是子导航*/
         if (plate.getPlaParentId() != null) {
+            //子导航
             plate.setPlaType(5);
         } else {
+            //根导航
             plate.setPlaType(1);
         }
+        /*获取当前板块总数*/
         int navCount = plateService.getNavCount(plate.getPlaParentId());
+        /*sort+1*/
         plate.setPlaSort(navCount + 1);
         if (plateService.addNav(plate) > 0) {
             return ReturnMsg.success();
