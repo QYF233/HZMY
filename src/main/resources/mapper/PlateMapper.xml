@@ -73,10 +73,12 @@
     select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
     from plate
     <if test="plaParentId == null">
-      where pla_parent_id
+      where pla_parent_id is null
+      and pla_type = 1
     </if>
     <if test="plaParentId != null">
       where pla_parent_id = #{plaParentId,jdbcType=INTEGER}
+      and pla_type = 5
     </if>
     and pla_del_state = 0
     order by pla_sort
@@ -125,5 +127,19 @@
     set pla_del_state = 1
     where id = #{id,jdbcType=INTEGER}
   </update>
-
+  <update id="updateSecById" parameterType="cn.edu.hzvtc.pojo.Plate">
+    update plate
+    set pla_name = #{plaName,jdbcType=VARCHAR},
+      pla_url = #{plaUrl,jdbcType=VARCHAR},
+      pla_sort = #{plaSort,jdbcType=INTEGER},
+      pla_type = #{plaType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="deleteByIdList" parameterType="cn.edu.hzvtc.pojo.Plate">
+    update plate
+    set pla_del_state = 1
+    <foreach collection="list" item="id" separator="," open="where id in (" close=")">
+      #{id,jdbcType=INTEGER}
+    </foreach>
+  </update>
 </mapper>

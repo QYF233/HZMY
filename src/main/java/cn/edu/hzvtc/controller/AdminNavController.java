@@ -65,17 +65,26 @@ public class AdminNavController {
     public ReturnMsg updateNav(@Valid Plate plate) {
         System.out.println(plate.toString());
         int oldSort = plate.getPlaSort();
-        plate.setPlaSort(-1);
+        if (oldSort == 1) {
+            plate.setPlaSort(-1);
+        }
+        if (oldSort == plateService.getNavCount(plate.getPlaParentId())) {
+            plate.setPlaSort(999);
+        }
         if (plateService.updateNav(plate) > 0) {
             /* 获取所有父节点相同的元素列表，遍历，若sort相同，id不相同，*/
             List<Plate> sortList = plateService.selectChildByParentId(plate.getPlaParentId());
-
+            System.out.println(sortList);
             int index = 1;
-            for (int i = 1; i < sortList.size(); i++) {
-                if (sortList.get(i).getPlaSort() == oldSort) {
+            for (Plate value : sortList) {
+                System.out.println(value.getPlaSort());
+                if ((value.getPlaSort() == oldSort && value.getId() > plate.getId())) {
+                    plateService.updateSort(value.getId(), index++);
+                } else if (value.getId() - plate.getId() == 0) {
                     index++;
+                } else {
+                    plateService.updateSort(value.getId(), index++);
                 }
-                plateService.updateSort(sortList.get(i).getId(), ++index);
             }
 
             plateService.updateSort(plate.getId(), oldSort);

@@ -24,4 +24,8 @@ public interface PlateService {
     public List<Plate> getSection();
 
     public Plate getSec(Integer id);
+
+    public int updateSec(Plate plate);
+
+    Boolean delSec(String ids);
 }

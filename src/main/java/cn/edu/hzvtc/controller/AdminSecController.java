@@ -2,6 +2,7 @@ package cn.edu.hzvtc.controller;
 
 import cn.edu.hzvtc.pojo.Article;
 import cn.edu.hzvtc.pojo.Plate;
+import cn.edu.hzvtc.service.AdminSecService;
 import cn.edu.hzvtc.service.PlateService;
 import cn.edu.hzvtc.tools.ReturnMsg;
 import com.github.pagehelper.PageHelper;
@@ -18,6 +19,9 @@ import java.util.List;
 public class AdminSecController {
     @Autowired
     public PlateService plateService;
+
+    @Autowired
+    public AdminSecService adminSecService;
 
     @RequestMapping("/getSection")
     @ResponseBody
@@ -51,6 +55,14 @@ public class AdminSecController {
         }
         return ReturnMsg.fail();
     }
+    @RequestMapping(value = "/delSec/{ids}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ReturnMsg delSec(@PathVariable("ids") String ids) {
+        if (plateService.delSec(ids)) {
+            return ReturnMsg.success();
+        }
+        return ReturnMsg.fail();
+    }
 
     /**
      * 添加
@@ -62,16 +74,24 @@ public class AdminSecController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg addSec(@Valid Plate plate) {
-        if (plate.getPlaParentId() != null) {
-            plate.setPlaType(2);
-        } else {
-            plate.setPlaType(4);
-        }
-        int navCount = plateService.getNavCount(plate.getPlaParentId());
-        plate.setPlaSort(navCount + 1);
+        Long secCount = adminSecService.getSecCount();
+        plate.setPlaSort(Math.toIntExact(secCount + 1));
         if (plateService.addNav(plate) > 0) {
             return ReturnMsg.success();
         }
         return ReturnMsg.fail();
     }
+
+    @RequestMapping(value = "/updateSec", method = RequestMethod.PUT)
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg updateSec(@Valid Plate plate) {
+        System.out.println(plate.toString());
+        if (plateService.updateSec(plate) > 0) {
+            return ReturnMsg.success();
+        } else {
+            return ReturnMsg.fail();
+        }
+    }
+
 }

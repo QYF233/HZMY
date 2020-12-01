@@ -30,12 +30,14 @@ public interface PlateMapper {
 
     /**
      * 获取所有板块
+     *
      * @return
      */
     List<Plate> getPlateByType(Integer typeId);
 
     /**
      * 获取父导航的个数
+     *
      * @param plaParentId
      * @return
      */
@@ -47,4 +49,7 @@ public interface PlateMapper {
 
     int deleteById(Integer id);
 
+    int updateSecById(Plate sec);
+
+    int deleteByIdList(List<Integer> ids);
 }
