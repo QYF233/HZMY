@@ -49,4 +49,18 @@ public interface ArticleService {
      * @return
      */
     public List<Article> getArticle(Integer sectionId);
+
+    /**
+     * 添加文章
+     * @param article
+     * @return
+     */
+    public int addArticle(Article article);
+
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
+    public boolean delArt(String ids);
 }

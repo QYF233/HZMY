@@ -24,8 +24,10 @@ public class Article {
 
     private Integer artPlateId;
 
-    private Integer artFileId;
+    private String artSec;
 
+    private String artFileId;
+    private String artFileName;
     private Integer artOperatorId;
 
     private Integer artTop;

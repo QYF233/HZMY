@@ -90,4 +90,7 @@ public interface ArticleMapper {
      * @return 更新数量
      */
     int addSightByPrimaryKey(Integer id);
+
+    int deleteById(Integer id);
+    int deleteByIdList(List<Integer> ids);
 }

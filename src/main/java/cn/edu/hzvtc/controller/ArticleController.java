@@ -1,6 +1,8 @@
 package cn.edu.hzvtc.controller;
 
+import cn.edu.hzvtc.pojo.Annex;
 import cn.edu.hzvtc.pojo.Article;
+import cn.edu.hzvtc.service.AnnexService;
 import cn.edu.hzvtc.tools.ReturnMsg;
 import cn.edu.hzvtc.service.ArticleService;
 import cn.edu.hzvtc.service.HomeService;
@@ -21,6 +23,8 @@ public class ArticleController {
     @Autowired
     public HomeService homeService;
 
+    @Autowired
+    public AnnexService annexService;
 
     /**
      * 获取文章
@@ -73,4 +77,11 @@ public class ArticleController {
         return ReturnMsg.success().add("articles", articles).add("prev", prev).add("next", next);
     }
 
+    @RequestMapping("/getFile")
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg getFile(@RequestParam("id") Integer id) {
+        Annex annex = annexService.getAnnex(id);
+        return ReturnMsg.success().add("annex", annex);
+    }
 }

@@ -10,7 +10,7 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class File {
+public class Annex {
     private Integer id;
 
     private String fileName;
@@ -24,4 +24,10 @@ public class File {
 
     private Integer fileDelState;
 
+    public Annex(String fileName, Date fileTime, Integer fileDown, Integer fileType) {
+        this.fileName = fileName;
+        this.fileTime = fileTime;
+        this.fileDown = fileDown;
+        this.fileType = fileType;
+    }
 }

@@ -8,7 +8,22 @@
         <result column="art_pic" jdbcType="VARCHAR" property="artPic"/>
         <result column="art_time" jdbcType="TIMESTAMP" property="artTime"/>
         <result column="art_plate_id" jdbcType="INTEGER" property="artPlateId"/>
-        <result column="art_file_id" jdbcType="INTEGER" property="artFileId"/>
+        <result column="art_file_id" jdbcType="VARCHAR" property="artFileId"/>
+        <result column="art_operator_id" jdbcType="INTEGER" property="artOperatorId"/>
+        <result column="art_top" jdbcType="INTEGER" property="artTop"/>
+        <result column="art_del_state" jdbcType="INTEGER" property="artDelState"/>
+        <result column="art_content" jdbcType="LONGVARCHAR" property="artContent"/>
+        <result column="art_sight" jdbcType="INTEGER" property="artSight"/>
+    </resultMap>
+    <resultMap id="SecResultMap" type="cn.edu.hzvtc.pojo.Article">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="art_title" jdbcType="VARCHAR" property="artTitle"/>
+        <result column="art_author" jdbcType="VARCHAR" property="artAuthor"/>
+        <result column="art_pic" jdbcType="VARCHAR" property="artPic"/>
+        <result column="art_time" jdbcType="TIMESTAMP" property="artTime"/>
+        <result column="art_plate_id" jdbcType="INTEGER" property="artPlateId"/>
+        <result column="pla_name" jdbcType="VARCHAR" property="artSec"/>
+        <result column="art_file_id" jdbcType="VARCHAR" property="artFileId"/>
         <result column="art_operator_id" jdbcType="INTEGER" property="artOperatorId"/>
         <result column="art_top" jdbcType="INTEGER" property="artTop"/>
         <result column="art_del_state" jdbcType="INTEGER" property="artDelState"/>
@@ -20,14 +35,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="cn.edu.hzvtc.pojo.Article">
-    insert into article (id, art_title, art_author, 
+    insert into article (art_title, art_author,
       art_pic, art_time, art_plate_id, 
       art_file_id, art_operator_id, art_top, 
-      art_del_state, art_content)
-    values (#{id,jdbcType=INTEGER}, #{artTitle,jdbcType=VARCHAR}, #{artAuthor,jdbcType=VARCHAR}, 
+        art_content)
+    values (#{artTitle,jdbcType=VARCHAR}, #{artAuthor,jdbcType=VARCHAR},
       #{artPic,jdbcType=VARCHAR}, #{artTime,jdbcType=TIMESTAMP}, #{artPlateId,jdbcType=INTEGER}, 
-      #{artFileId,jdbcType=INTEGER}, #{artOperatorId,jdbcType=INTEGER}, #{artTop,jdbcType=INTEGER}, 
-      #{artDelState,jdbcType=INTEGER}, #{artContent,jdbcType=LONGVARCHAR})
+      #{artFileId,jdbcType=VARCHAR}, #{artOperatorId,jdbcType=INTEGER}, #{artTop,jdbcType=INTEGER},
+        #{artContent,jdbcType=LONGVARCHAR})
   </insert>
     <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Article">
     update article
@@ -36,7 +51,7 @@
       art_pic = #{artPic,jdbcType=VARCHAR},
       art_time = #{artTime,jdbcType=TIMESTAMP},
       art_plate_id = #{artPlateId,jdbcType=INTEGER},
-      art_file_id = #{artFileId,jdbcType=INTEGER},
+      art_file_id = #{artFileId,jdbcType=VARCHAR},
       art_operator_id = #{artOperatorId,jdbcType=INTEGER},
       art_top = #{artTop,jdbcType=INTEGER},
       art_del_state = #{artDelState,jdbcType=INTEGER},
@@ -67,15 +82,18 @@
     Limit 0,5
   </select>
     <!--获取文章列表-->
-    <select id="selectByPlateIdAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id,
+    <select id="selectByPlateIdAll" parameterType="java.lang.Integer" resultMap="SecResultMap">
+        select art.id, art_title, art_author, art_pic, art_time, art_plate_id, pla.pla_name , art_file_id,
+        art_operator_id,
         art_top, art_del_state, art_content,art_sight
-        from article
+        from article art
+        LEFT JOIN plate pla
+        on art_plate_id = pla.id
         where art_del_state = 0
         <if test="id != 0">
             and art_plate_id = #{id,jdbcType=INTEGER}
         </if>
-        order by art_time asc
+        order by art_time desc
     </select>
     <!--获取所有文章数量-->
     <select id="getArtCount" resultType="java.lang.Long">
@@ -98,5 +116,17 @@
         set  art_sight = art_sight + 1
         where id = #{id,jdbcType=INTEGER}
   </update>
-
+<!--删除-->
+    <update id="deleteById" parameterType="java.lang.Integer">
+    update article
+    set art_del_state = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="deleteByIdList" parameterType="cn.edu.hzvtc.pojo.Article">
+        update article
+        set art_del_state = 1
+        <foreach collection="list" item="id" separator="," open="where id in (" close=")">
+            #{id,jdbcType=INTEGER}
+        </foreach>
+    </update>
 </mapper>

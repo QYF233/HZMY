@@ -81,8 +81,8 @@ public interface PlateMapper {
 
 
     int deleteById(Integer id);
-
+    int deleteByIdList(List<Integer> ids);
     int updateSecById(Plate sec);
 
-    int deleteByIdList(List<Integer> ids);
+
 }
