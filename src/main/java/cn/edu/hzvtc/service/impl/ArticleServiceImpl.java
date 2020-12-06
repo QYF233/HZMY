@@ -68,11 +68,15 @@ public class ArticleServiceImpl implements ArticleService {
                 //根据文件列表进行遍历
                 for (Article article : articleList) {
                     //获取删除的文章的附件列表
-                    String[] fileList = article.getArtFileId().split("-");
-                    List<Integer> fileIds = Arrays.stream(fileList)
-                            .map(s -> Integer.parseInt(s.trim()))
-                            .collect(Collectors.toList());
-                    annexMapper.deleteAnnexByList(fileIds);
+                    String fileIdList = article.getArtFileId();
+                    //如果不为空
+                    if (fileIdList != null && !"".equals(fileIdList)) {
+                        String[] fileList = fileIdList.split("-");
+                        List<Integer> fileIds = Arrays.stream(fileList)
+                                .map(s -> Integer.parseInt(s.trim()))
+                                .collect(Collectors.toList());
+                        annexMapper.deleteAnnexByList(fileIds);
+                    }
                 }
                 result = true;
             }
@@ -81,12 +85,17 @@ public class ArticleServiceImpl implements ArticleService {
             Integer id = Integer.parseInt(ids);
             Article article = articleMapper.selectByPrimaryKey(id);
             if (article != null) {
-                String[] fileList = article.getArtFileId().split("-");
                 if (articleMapper.deleteById(id) > 0) {
-                    List<Integer> fileIds = Arrays.stream(fileList)
-                            .map(s -> Integer.parseInt(s.trim()))
-                            .collect(Collectors.toList());
-                    annexMapper.deleteAnnexByList(fileIds);
+                    //如果不为空
+                    String fileIdList = article.getArtFileId();
+                    if (fileIdList != null && !"".equals(fileIdList)) {
+                        //获取删除的文章的附件列表
+                        String[] fileList = article.getArtFileId().split("-");
+                        List<Integer> fileIds = Arrays.stream(fileList)
+                                .map(s -> Integer.parseInt(s.trim()))
+                                .collect(Collectors.toList());
+                        annexMapper.deleteAnnexByList(fileIds);
+                    }
                     result = true;
                 }
             }
