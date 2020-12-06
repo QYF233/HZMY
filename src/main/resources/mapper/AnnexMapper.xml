@@ -27,19 +27,35 @@
       file_type = #{fileType,jdbcType=INTEGER},
       file_del_state = #{fileDelState,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
+    and file_del_state = 0
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, file_name, file_time, file_down, file_type, file_del_state
     from annex
     where id = #{id,jdbcType=INTEGER}
+    and file_del_state = 0
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
     select id, file_name, file_time, file_down, file_type, file_del_state
     from annex
+    where file_del_state = 0
   </select>
     <update id="addAnnexDown" parameterType="cn.edu.hzvtc.pojo.Annex">
     update annex
     set file_down = file_down + 1
     where id = #{id,jdbcType=INTEGER}
+    and file_del_state = 0
+  </update>
+    <update id="deleteAnnexById" parameterType="cn.edu.hzvtc.pojo.Annex">
+    update annex
+    set file_del_state = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="deleteAnnexByList" parameterType="cn.edu.hzvtc.pojo.Annex">
+    update annex
+    set file_del_state = 1
+    <foreach collection="list" item="id" separator="," open="where id in (" close=")">
+        #{id,jdbcType=INTEGER}
+    </foreach>
   </update>
 </mapper>

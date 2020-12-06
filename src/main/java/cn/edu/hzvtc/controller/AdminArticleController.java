@@ -175,6 +175,7 @@ public class AdminArticleController {
     @CrossOrigin
     public ReturnMsg delArt(@RequestParam("id") String id) {
         if (articleService.delArt(id)) {
+
             return ReturnMsg.success();
         }
         return ReturnMsg.fail();

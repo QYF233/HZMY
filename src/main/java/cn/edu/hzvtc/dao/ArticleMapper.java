@@ -79,10 +79,12 @@ public interface ArticleMapper {
 
     /**
      * 获取板块浏览量
+     *
      * @param secId 板块id
      * @return 板块浏览量
      */
     Long getArtSightCountBySec(Integer secId);
+
     /**
      * 增加文章浏览数
      *
@@ -92,5 +94,20 @@ public interface ArticleMapper {
     int addSightByPrimaryKey(Integer id);
 
     int deleteById(Integer id);
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     * @return
+     */
     int deleteByIdList(List<Integer> ids);
+
+    /**
+     * 获取删除后的附件列表
+     *
+     * @param id 删除的文章id
+     * @return
+     */
+    List<Article> selectDelFileList(List<Integer> id);
 }

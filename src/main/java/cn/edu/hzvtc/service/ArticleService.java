@@ -59,7 +59,7 @@ public interface ArticleService {
 
     /**
      * 删除
-     * @param id
+     * @param ids
      * @return
      */
     public boolean delArt(String ids);

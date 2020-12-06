@@ -25,4 +25,8 @@ public class AnnexServiceImpl implements AnnexService {
     public int addAnnexDown(Integer id) {
         return annexMapper.addAnnexDown(id);
     }
+
+    public int deleteAnnex(Integer id) {
+        return annexMapper.deleteByPrimaryKey(id);
+    }
 }

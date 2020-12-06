@@ -1,6 +1,7 @@
 package cn.edu.hzvtc.dao;
 
 import cn.edu.hzvtc.pojo.Annex;
+
 import java.util.List;
 
 /**
@@ -18,4 +19,7 @@ public interface AnnexMapper {
     int updateByPrimaryKey(Annex record);
 
     int addAnnexDown(Integer id);
+
+    int deleteAnnexById(Integer id);
+    int deleteAnnexByList(List<Integer> ids);
 }

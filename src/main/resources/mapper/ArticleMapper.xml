@@ -115,13 +115,14 @@
         update article
         set  art_sight = art_sight + 1
         where id = #{id,jdbcType=INTEGER}
-  </update>
-<!--删除-->
+    </update>
+    <!--删除-->
     <update id="deleteById" parameterType="java.lang.Integer">
-    update article
-    set art_del_state = 1
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update article
+        set art_del_state = 1
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <!--批量删除-->
     <update id="deleteByIdList" parameterType="cn.edu.hzvtc.pojo.Article">
         update article
         set art_del_state = 1
@@ -129,4 +130,13 @@
             #{id,jdbcType=INTEGER}
         </foreach>
     </update>
+    <!--删除后获取文件列表-->
+    <select id="selectDelFileList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, art_file_id
+    from article
+    <foreach collection="list" item="id" separator="," open="where id in (" close=")">
+        #{id,jdbcType=INTEGER}
+    </foreach>
+    and art_del_state = 1
+  </select>
 </mapper>
