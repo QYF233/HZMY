@@ -16,4 +16,6 @@ public interface AnnexMapper {
     List<Annex> selectAll();
 
     int updateByPrimaryKey(Annex record);
+
+    int addAnnexDown(Integer id);
 }

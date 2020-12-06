@@ -20,4 +20,9 @@ public class AnnexServiceImpl implements AnnexService {
     public Annex getAnnex(Integer id) {
         return annexMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public int addAnnexDown(Integer id) {
+        return annexMapper.addAnnexDown(id);
+    }
 }

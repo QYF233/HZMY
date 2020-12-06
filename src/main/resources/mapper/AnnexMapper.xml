@@ -37,4 +37,9 @@
     select id, file_name, file_time, file_down, file_type, file_del_state
     from annex
   </select>
+    <update id="addAnnexDown" parameterType="cn.edu.hzvtc.pojo.Annex">
+    update annex
+    set file_down = file_down + 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

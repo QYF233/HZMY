@@ -77,11 +77,35 @@ public class ArticleController {
         return ReturnMsg.success().add("articles", articles).add("prev", prev).add("next", next);
     }
 
+    /**
+     * 获取附件信息
+     *
+     * @param id
+     * @return
+     */
     @RequestMapping("/getFile")
     @ResponseBody
     @CrossOrigin
     public ReturnMsg getFile(@RequestParam("id") Integer id) {
         Annex annex = annexService.getAnnex(id);
         return ReturnMsg.success().add("annex", annex);
+    }
+
+    /**
+     * 增加下载次数
+     *
+     * @param id 附件id
+     * @return
+     */
+    @RequestMapping("/addDown")
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg addDown(@RequestParam("id") Integer id) {
+        int annexDown = annexService.addAnnexDown(id);
+        if (annexDown > 0) {
+            return ReturnMsg.success();
+        } else {
+            return ReturnMsg.fail();
+        }
     }
 }
