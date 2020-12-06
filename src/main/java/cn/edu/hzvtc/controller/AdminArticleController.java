@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.*;
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,7 +68,7 @@ public class AdminArticleController {
         List<Plate> plates = plateService.getPlates();
         return ReturnMsg.success().add("plates", plates);
     }
-
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     /**
      * 添加文章
      *
@@ -77,9 +78,13 @@ public class AdminArticleController {
     @RequestMapping(value = "/addArticle", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public ReturnMsg addArticle(@Valid Article article) {
+    public ReturnMsg addArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {
         System.out.println(article.toString());
-        article.setArtTime(new Date());
+        try {
+            article.setArtTime(simpleDateFormat.parse(artTimeStr));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         if (articleService.addArticle(article) > 0) {
             return ReturnMsg.success();
         } else {
