@@ -54,7 +54,6 @@
       art_file_id = #{artFileId,jdbcType=VARCHAR},
       art_operator_id = #{artOperatorId,jdbcType=INTEGER},
       art_top = #{artTop,jdbcType=INTEGER},
-      art_del_state = #{artDelState,jdbcType=INTEGER},
       art_content = #{artContent,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

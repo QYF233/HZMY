@@ -56,6 +56,27 @@ public class AdminArticleController {
         return ReturnMsg.success().add("pageInfo", pageInfo);
     }
 
+    @RequestMapping("/getArticleById")
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg getArticleById(@RequestParam("id") Integer id) {
+        List<Annex> annexes = new ArrayList<>();
+        Article article = articleService.getArticleById(id);
+        String fileStr = article.getArtFileId();
+        if (fileStr != null && !fileStr.equals("")) {
+            String[] fileList = fileStr.substring(0, fileStr.length() - 1).split("-");
+            for (String item : fileList) {
+                if (!item.equals("")) {
+                    Annex annex = annexService.getAnnex(Integer.parseInt(item));
+                    if (annex != null) {
+                        annexes.add(annex);
+                    }
+                }
+            }
+        }
+        return ReturnMsg.success().add("article", article).add("annexes", annexes);
+    }
+
     /**
      * 获取板块列表
      *
@@ -68,7 +89,9 @@ public class AdminArticleController {
         List<Plate> plates = plateService.getPlates();
         return ReturnMsg.success().add("plates", plates);
     }
+
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     /**
      * 添加文章
      *
@@ -199,6 +222,24 @@ public class AdminArticleController {
             return ReturnMsg.success();
         }
         return ReturnMsg.fail();
+    }
+
+
+    @RequestMapping(value = "/updateArticle", method = RequestMethod.PUT)
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg updateArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {
+        System.out.println(article.toString());
+        try {
+            article.setArtTime(simpleDateFormat.parse(artTimeStr));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (articleService.updateArt(article) > 0) {
+            return ReturnMsg.success();
+        } else {
+            return ReturnMsg.fail();
+        }
     }
 
 }

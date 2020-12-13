@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     public ArticleMapper articleMapper;
+
     @Autowired
     public AnnexMapper annexMapper;
 
@@ -102,4 +103,10 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return result;
     }
+
+    @Override
+    public int updateArt(Article article) {
+        return articleMapper.updateByPrimaryKey(article);
+    }
+
 }

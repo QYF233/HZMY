@@ -52,6 +52,7 @@ public interface ArticleService {
 
     /**
      * 添加文章
+     *
      * @param article
      * @return
      */
@@ -59,8 +60,11 @@ public interface ArticleService {
 
     /**
      * 删除
+     *
      * @param ids
      * @return
      */
     public boolean delArt(String ids);
+
+    public int updateArt(Article article);
 }
