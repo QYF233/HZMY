@@ -90,7 +90,7 @@ public class AdminArticleController {
         return ReturnMsg.success().add("plates", plates);
     }
 
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     /**
      * 添加文章
@@ -232,6 +232,7 @@ public class AdminArticleController {
         System.out.println(article.toString());
         try {
             article.setArtTime(simpleDateFormat.parse(artTimeStr));
+            System.out.println(simpleDateFormat.parse(artTimeStr));
         } catch (ParseException e) {
             e.printStackTrace();
         }
