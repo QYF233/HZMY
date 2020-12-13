@@ -92,7 +92,22 @@
         <if test="id != 0">
             and art_plate_id = #{id,jdbcType=INTEGER}
         </if>
-        and art_title like #{search,jdbcType=VARCHAR}
+        <if test="search != ''">
+            and art_title like #{search,jdbcType=VARCHAR}
+        </if>
+        order by art_time desc
+    </select>
+    <select id="selectAllByPlateId" parameterType="java.lang.Integer" resultMap="SecResultMap">
+        select art.id, art_title, art_author, art_pic, art_time, art_plate_id, pla.pla_name , art_file_id,
+        art_operator_id,
+        art_top, art_del_state, art_content,art_sight
+        from article art
+        LEFT JOIN plate pla
+        on art_plate_id = pla.id
+        where art_del_state = 0
+        <if test="id != 0">
+            and art_plate_id = #{id,jdbcType=INTEGER}
+        </if>
         order by art_time desc
     </select>
     <!--获取所有文章数量-->

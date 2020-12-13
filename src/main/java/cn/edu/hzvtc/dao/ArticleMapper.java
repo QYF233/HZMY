@@ -64,6 +64,8 @@ public interface ArticleMapper {
      */
     List<Article> selectByPlateIdAll(@Param("id") Integer id,@Param("search") String search);
 
+
+    List<Article> selectAllByPlateId(Integer id);
     /**
      * 获取文章数量
      *

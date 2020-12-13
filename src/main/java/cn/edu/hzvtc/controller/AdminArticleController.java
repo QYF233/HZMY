@@ -91,7 +91,7 @@ public class AdminArticleController {
         return ReturnMsg.success().add("plates", plates);
     }
 
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
     /**
      * 添加文章
@@ -204,7 +204,6 @@ public class AdminArticleController {
     @CrossOrigin
     public ReturnMsg delArt(@RequestParam("id") String id) {
         if (articleService.delArt(id)) {
-
             return ReturnMsg.success();
         }
         return ReturnMsg.fail();

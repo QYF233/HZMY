@@ -63,4 +63,8 @@ public interface UserMapper {
      * @return 用户数
      */
     Long getUserCount();
+
+
+    int deleteById(Integer id);
+    int deleteByIdList(List<Integer> ids);
 }

@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
+
 /**
  * @author kiko
  */
@@ -57,4 +60,94 @@ public class AdminLoginController {
         return returnMsg;
     }
 
+    /**
+     * 获取user列表
+     *
+     * @return
+     */
+    @RequestMapping(value = "getUserList")
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg getUserList() {
+        List<User> users = adminUserService.getUsers();
+        return ReturnMsg.success().add("users", users);
+    }
+
+    /**
+     * 修改前获取数据
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "getUserById")
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg getUserById(@RequestParam("id") Integer id) {
+        User user = adminUserService.getUserById(id);
+        return ReturnMsg.success().add("user", user);
+    }
+
+    /**
+     * 修改用户
+     *
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "updateUser", method = RequestMethod.PUT)
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg updateUser(@Valid User user) {
+        System.out.println(user.toString());
+        if (adminUserService.updateUser(user) > 0) {
+            return ReturnMsg.success();
+        }
+        return ReturnMsg.fail();
+    }
+
+    /**
+     * 修改用户
+     *
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "addUser", method = RequestMethod.POST)
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg addUser(@Valid User user) {
+        System.out.println(user.toString());
+        if (adminUserService.addUser(user) > 0) {
+            return ReturnMsg.success();
+        }
+        return ReturnMsg.fail();
+    }
+
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "delUser", method = RequestMethod.DELETE)
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg delUser(@RequestParam("id") String id) {
+        if (adminUserService.delUser(id)) {
+            return ReturnMsg.success();
+        }
+        return ReturnMsg.fail();
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids 删除id列表
+     * @return
+     */
+    @RequestMapping(value = "/delUser/{ids}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ReturnMsg delArtAll(@PathVariable("ids") String ids) {
+        if (adminUserService.delUser(ids)) {
+            return ReturnMsg.success();
+        }
+        return ReturnMsg.fail();
+    }
 }

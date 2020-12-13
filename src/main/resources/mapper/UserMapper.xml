@@ -14,17 +14,16 @@
     and user_del_state = 0
   </delete>
     <insert id="insert" parameterType="cn.edu.hzvtc.pojo.User">
-    insert into sys_user (id, username, password, 
-      phone, user_del_state)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=INTEGER}, #{userDelState,jdbcType=INTEGER})
+    insert into sys_user (username, password,
+      phone)
+    values (#{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR},
+      #{phone,jdbcType=INTEGER})
   </insert>
     <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.User">
     update sys_user
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=INTEGER},
-      user_del_state = #{userDelState,jdbcType=INTEGER}
+    set username = #{userName,jdbcType=VARCHAR},
+      password = #{userPassword,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
     and user_del_state = 0
   </update>
@@ -49,4 +48,17 @@
     <select id="getUserCount" resultType="java.lang.Long">
         select count(1) from sys_user where user_del_state = 0
     </select>
+    <!--删除-->
+    <update id="deleteById" parameterType="java.lang.Integer">
+    update sys_user
+    set user_del_state = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="deleteByIdList" parameterType="cn.edu.hzvtc.pojo.User">
+        update sys_user
+        set user_del_state = 1
+        <foreach collection="list" item="id" separator="," open="where id in (" close=")">
+            #{id,jdbcType=INTEGER}
+        </foreach>
+    </update>
 </mapper>

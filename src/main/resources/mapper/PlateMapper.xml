@@ -33,7 +33,7 @@
         <result column="pla_pic" jdbcType="VARCHAR" property="plaPic"/>
         <result column="pla_type" jdbcType="INTEGER" property="plaType"/>
         <result column="pla_del_state" jdbcType="INTEGER" property="plaDelState"/>
-        <collection property="articles" select="cn.edu.hzvtc.dao.ArticleMapper.selectByPlateIdAll"
+        <collection property="articles" select="cn.edu.hzvtc.dao.ArticleMapper.selectAllByPlateId"
                     column="id"/>
         <collection property="sightCount" select="cn.edu.hzvtc.dao.ArticleMapper.getArtSightCountBySec"
                     column="id"/>
