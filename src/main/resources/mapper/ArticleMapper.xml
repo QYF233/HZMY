@@ -92,6 +92,7 @@
         <if test="id != 0">
             and art_plate_id = #{id,jdbcType=INTEGER}
         </if>
+        and art_title like #{search,jdbcType=VARCHAR}
         order by art_time desc
     </select>
     <!--获取所有文章数量-->
@@ -131,11 +132,11 @@
     </update>
     <!--删除后获取文件列表-->
     <select id="selectDelFileList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, art_file_id
-    from article
-    <foreach collection="list" item="id" separator="," open="where id in (" close=")">
-        #{id,jdbcType=INTEGER}
-    </foreach>
-    and art_del_state = 1
-  </select>
+        select id, art_file_id
+        from article
+        <foreach collection="list" item="id" separator="," open="where id in (" close=")">
+            #{id,jdbcType=INTEGER}
+        </foreach>
+        and art_del_state = 1
+    </select>
 </mapper>

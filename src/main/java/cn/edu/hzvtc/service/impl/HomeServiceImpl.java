@@ -46,7 +46,7 @@ public class HomeServiceImpl implements HomeService {
     @Override
     public List<Article> getArticle(Integer plateId, String state) {
         if ("all".equals(state)) {
-            return articleMapper.selectByPlateIdAll(plateId);
+            return articleMapper.selectByPlateIdAll(plateId,"");
         } else {
             return articleMapper.selectByPlateId(plateId);
         }

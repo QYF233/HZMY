@@ -49,9 +49,10 @@ public class AdminArticleController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg getArticle(@RequestParam(value = "sectionId", defaultValue = "0") Integer sectionId,
-                                @RequestParam(value = "pn", defaultValue = "1") Integer pn) {
+                                @RequestParam(value = "pn", defaultValue = "1") Integer pn,
+                                @RequestParam(value = "search", defaultValue = "") String search) {
         PageHelper.startPage(pn, 5);
-        List<Article> list = articleService.getArticle(sectionId);
+        List<Article> list = articleService.getArticle(sectionId, search);
         PageInfo pageInfo = new PageInfo(list, 10);
         return ReturnMsg.success().add("pageInfo", pageInfo);
     }
@@ -231,8 +232,9 @@ public class AdminArticleController {
     public ReturnMsg updateArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {
         System.out.println(article.toString());
         try {
+            System.out.println(artTimeStr);
             article.setArtTime(simpleDateFormat.parse(artTimeStr));
-            System.out.println(simpleDateFormat.parse(artTimeStr));
+
         } catch (ParseException e) {
             e.printStackTrace();
         }

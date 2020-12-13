@@ -44,8 +44,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> getArticle(Integer sectionId) {
-        return articleMapper.selectByPlateIdAll(sectionId);
+    public List<Article> getArticle(Integer sectionId, String search) {
+        search = "%" + search + "%";
+        return articleMapper.selectByPlateIdAll(sectionId, search);
     }
 
     @Override

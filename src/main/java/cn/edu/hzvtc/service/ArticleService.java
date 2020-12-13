@@ -48,7 +48,7 @@ public interface ArticleService {
      * @param sectionId
      * @return
      */
-    public List<Article> getArticle(Integer sectionId);
+    public List<Article> getArticle(Integer sectionId,String search);
 
     /**
      * 添加文章

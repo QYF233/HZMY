@@ -1,6 +1,7 @@
 package cn.edu.hzvtc.dao;
 
 import cn.edu.hzvtc.pojo.Article;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -61,7 +62,7 @@ public interface ArticleMapper {
      * @param id 板块id
      * @return 文章列表
      */
-    List<Article> selectByPlateIdAll(Integer id);
+    List<Article> selectByPlateIdAll(@Param("id") Integer id,@Param("search") String search);
 
     /**
      * 获取文章数量
