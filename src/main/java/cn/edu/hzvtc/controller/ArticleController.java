@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @author kiko
+ * 前台文章详情页
  */
 @Controller
 @RequestMapping("/article")
@@ -44,10 +44,10 @@ public class ArticleController {
     }
 
     /**
-     * 获取文章
-     *
+     * 获取上一页，下一页的文章
      * @param plateId 板块id
-     * @return ReturnMsg
+     * @param articleId 文章id
+     * @return
      */
     @RequestMapping(value = "/getOtherArticle", method = RequestMethod.POST)
     @ResponseBody

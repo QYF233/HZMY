@@ -66,5 +66,10 @@ public interface ArticleService {
      */
     public boolean delArt(String ids);
 
+    /**
+     * 更新文章
+     * @param article
+     * @return
+     */
     public int updateArt(Article article);
 }

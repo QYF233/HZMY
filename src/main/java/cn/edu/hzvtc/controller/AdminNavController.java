@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * @author kiko
+ * 导航管理
  */
 @Controller
 @RequestMapping("/admin/navigation")

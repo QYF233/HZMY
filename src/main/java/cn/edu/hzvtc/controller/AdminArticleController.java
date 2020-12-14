@@ -5,7 +5,6 @@ import cn.edu.hzvtc.pojo.Article;
 import cn.edu.hzvtc.pojo.Plate;
 import cn.edu.hzvtc.service.AnnexService;
 import cn.edu.hzvtc.service.ArticleService;
-import cn.edu.hzvtc.service.HomeService;
 import cn.edu.hzvtc.service.PlateService;
 import cn.edu.hzvtc.tools.ReturnMsg;
 import com.github.pagehelper.PageHelper;
@@ -18,13 +17,18 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.*;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+
+/**
+ * 后台文章管理
+ */
 @Controller
 @RequestMapping("/admin/article")
 public class AdminArticleController {
@@ -37,6 +41,8 @@ public class AdminArticleController {
 
     @Autowired
     public AnnexService annexService;
+
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
     /**
      * 获取所有文章，0不分板块，按发布时间
@@ -57,6 +63,12 @@ public class AdminArticleController {
         return ReturnMsg.success().add("pageInfo", pageInfo);
     }
 
+    /**
+     * 根据id获取文章信息
+     *
+     * @param id
+     * @return
+     */
     @RequestMapping("/getArticleById")
     @ResponseBody
     @CrossOrigin
@@ -64,9 +76,11 @@ public class AdminArticleController {
         List<Annex> annexes = new ArrayList<>();
         Article article = articleService.getArticleById(id);
         String fileStr = article.getArtFileId();
+
         if (fileStr != null && !fileStr.equals("")) {
             String[] fileList = fileStr.substring(0, fileStr.length() - 1).split("-");
             for (String item : fileList) {
+                //逐条获取附件信息
                 if (!item.equals("")) {
                     Annex annex = annexService.getAnnex(Integer.parseInt(item));
                     if (annex != null) {
@@ -91,7 +105,6 @@ public class AdminArticleController {
         return ReturnMsg.success().add("plates", plates);
     }
 
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
     /**
      * 添加文章
@@ -116,20 +129,34 @@ public class AdminArticleController {
         }
     }
 
+    /**
+     * 上传图片
+     *
+     * @param files
+     * @param session
+     * @return
+     */
     @RequestMapping("/uploadImgs")
     @ResponseBody
     public ReturnMsg uploadImgs(@RequestParam MultipartFile[] files, HttpSession session) {
         for (int i = 0; i < files.length; i++) {
             MultipartFile multipartFile = files[i];
             String originalFilename = multipartFile.getOriginalFilename();
-            String[] filename = new String[0];
+            /*String[] filename = new String[0];
             if (originalFilename != null) {
-                /*截取后缀名*/
+                *//*截取后缀名*//*
                 filename = originalFilename.split("\\.");
             }
+            String reg = ".+(.JPEG|.jpeg|.JPG|.jpg)$";
+            String imgp = "Redocn_2012100818523401.png";
+            Pattern pattern = Pattern.compile(reg);
+            Matcher matcher = pattern.matcher(imgp);
+            System.out.println(matcher.find());
+            System.out.println(filename[filename.length - 1]);
             if ("csv".equals(filename[filename.length - 1])) {
                 return ReturnMsg.fail().add("msg", "文件类型不正确");
-            }
+            }*/
+            //此处文件保存地址应该改为服务器存放数据的地址
             File file = new File("D:/DEV/nginx-1.18.0/html/com/upload/imgs/" + originalFilename);
             try {
                 multipartFile.transferTo(file);
@@ -143,6 +170,13 @@ public class AdminArticleController {
         return ReturnMsg.success();
     }
 
+    /**
+     * 上传文件
+     *
+     * @param files
+     * @param session
+     * @return
+     */
     @RequestMapping("/uploadFile")
     @ResponseBody
     public ReturnMsg uploadFile(@RequestParam MultipartFile[] files, HttpSession session) {
@@ -150,14 +184,15 @@ public class AdminArticleController {
         for (int i = 0; i < files.length; i++) {
             MultipartFile multipartFile = files[i];
             String originalFilename = multipartFile.getOriginalFilename();
-            String[] filename = new String[0];
+            /*            String[] filename = new String[0];
             if (originalFilename != null) {
-                /*截取后缀名*/
+                *//*截取后缀名*//*
                 filename = originalFilename.split("\\.");
             }
             if ("csv".equals(filename[filename.length - 1])) {
                 return ReturnMsg.fail().add("msg", "文件类型不正确");
-            }
+            }*/
+            //此处文件保存地址应该改为服务器存放数据的地址
             File file = new File("D:/DEV/nginx-1.18.0/html/com/upload/files/" + originalFilename);
             try {
                 multipartFile.transferTo(file);
@@ -166,6 +201,7 @@ public class AdminArticleController {
                 annex.setFileTime(new Date());
                 annex.setFileDown(0);
                 String[] s = file.getName().split("\\.");
+                //判断文件类型
                 if ("pdf".equals(s[1])) {
                     annex.setFileType(0);
                 } else if ("doc".equals(s[1])) {
@@ -177,18 +213,17 @@ public class AdminArticleController {
                 } else {
                     annex.setFileType(-1);
                 }
-
+                //写入附件数据库
                 if (annexService.addAnnex(annex) == 0) {
                     return ReturnMsg.fail();
                 }
-                System.out.println(annex.getId() + "************************************");
+                //返回附件id
                 annexId += annex.getId() + "-";
             } catch (IOException e) {
                 e.printStackTrace();
                 return ReturnMsg.fail();
             }
         }
-        System.out.println(files.length);
 
         return ReturnMsg.success().add("annexId", annexId);
     }
@@ -224,16 +259,21 @@ public class AdminArticleController {
         return ReturnMsg.fail();
     }
 
-
+    /**
+     * 更新文章
+     *
+     * @param article    文章
+     * @param artTimeStr 时间str
+     * @return
+     */
     @RequestMapping(value = "/updateArticle", method = RequestMethod.PUT)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg updateArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {
         System.out.println(article.toString());
         try {
-            System.out.println(artTimeStr);
+            //设置时间
             article.setArtTime(simpleDateFormat.parse(artTimeStr));
-
         } catch (ParseException e) {
             e.printStackTrace();
         }

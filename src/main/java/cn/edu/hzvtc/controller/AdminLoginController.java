@@ -12,12 +12,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * @author kiko
+ * 登录、注销、忘记密码
  */
-
 @Controller
 @RequestMapping("/login")
 public class AdminLoginController {
+
     @Autowired
     private AdminUserService adminUserService;
 
@@ -37,7 +37,7 @@ public class AdminLoginController {
         ReturnMsg returnMsg;
         if (user != null) {
             String token = JwtUtil.sign(user.getId().toString());
-            System.out.println(user.toString());
+//            System.out.println(user.toString());
             returnMsg = ReturnMsg.success().add("token", token).add("user", user);
             returnMsg.setTarget("index.html");
         } else {
@@ -123,6 +123,7 @@ public class AdminLoginController {
 
     /**
      * 删除用户
+     *
      * @param id
      * @return
      */

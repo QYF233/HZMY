@@ -14,7 +14,7 @@ import java.util.List;
 
 
 /**
- * @author kiko
+ * 前台首页
  */
 @Controller
 public class HomeController {

@@ -97,6 +97,7 @@
         </if>
         order by art_time desc
     </select>
+    <!--关联查询时用到-->
     <select id="selectAllByPlateId" parameterType="java.lang.Integer" resultMap="SecResultMap">
         select art.id, art_title, art_author, art_pic, art_time, art_plate_id, pla.pla_name , art_file_id,
         art_operator_id,

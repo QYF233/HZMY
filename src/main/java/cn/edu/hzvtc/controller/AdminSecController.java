@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * 板块管理
+ */
 @Controller
 @RequestMapping("/admin/section")
 public class AdminSecController {

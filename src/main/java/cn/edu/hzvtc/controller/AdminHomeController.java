@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * 后台首页
+ */
 @Controller
 @RequestMapping("/admin/home")
 public class AdminHomeController {
@@ -47,6 +50,7 @@ public class AdminHomeController {
 
     /**
      * 获取板块下的所有文章
+     *
      * @return
      */
     @RequestMapping("/getSectionChart")

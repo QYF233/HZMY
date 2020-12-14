@@ -13,6 +13,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
@@ -27,8 +29,11 @@ public class Test {
 
     @org.junit.Test
     public void test() {
-        Annex annex = new Annex("11223sdds", new Date(), 1, 1);
-        int a =  annexMapper.insert(annex);
-        System.out.println(annex.getId());
+        String reg = ".+(.JPEG|.jpeg|.JPG|.jpg)$";
+        String imgp= "Redocn_2012100818523401.jpg";
+        Pattern pattern = Pattern.compile(reg);
+        Matcher matcher = pattern.matcher(imgp);
+        System.out.println(matcher.find());
+        System.out.println("\\.");
     }
 }

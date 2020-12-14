@@ -45,6 +45,7 @@
     and password = #{userPassword,jdbcType=VARCHAR}
     and user_del_state = 0
   </select>
+    <!--获取用户数-->
     <select id="getUserCount" resultType="java.lang.Long">
         select count(1) from sys_user where user_del_state = 0
     </select>
@@ -54,6 +55,7 @@
     set user_del_state = 1
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <!--批量删除-->
     <update id="deleteByIdList" parameterType="cn.edu.hzvtc.pojo.User">
         update sys_user
         set user_del_state = 1

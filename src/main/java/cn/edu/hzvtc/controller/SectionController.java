@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * 前台文章列表
+ */
 @Controller
 @RequestMapping("/section")
 public class SectionController {
