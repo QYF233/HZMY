@@ -17,6 +17,7 @@ public class PlateServiceImpl implements PlateService {
 
     /**
      * 获取所有导航信息 type = 1
+     *
      * @return
      */
     @Override
@@ -30,6 +31,7 @@ public class PlateServiceImpl implements PlateService {
 
     /**
      * 获取导航列表
+     *
      * @return
      */
     @Override
@@ -40,6 +42,7 @@ public class PlateServiceImpl implements PlateService {
 
     /**
      * 获取导航总数
+     *
      * @param plaParentId
      * @return
      */
@@ -47,8 +50,10 @@ public class PlateServiceImpl implements PlateService {
     public int getNavCount(Integer plaParentId) {
         return plateMapper.getNavCount(plaParentId);
     }
+
     /**
      * 更新导航信息
+     *
      * @param nav
      * @return
      */
@@ -59,6 +64,7 @@ public class PlateServiceImpl implements PlateService {
 
     /**
      * 获取同一个父导航的导航列表
+     *
      * @param parentId 父导航id
      * @return
      */
@@ -69,6 +75,7 @@ public class PlateServiceImpl implements PlateService {
 
     /**
      * 删除导航
+     *
      * @param id
      * @return
      */
@@ -76,8 +83,10 @@ public class PlateServiceImpl implements PlateService {
     public int delNav(Integer id) {
         return plateMapper.deleteById(id);
     }
+
     /**
      * 添加导航
+     *
      * @param plate
      * @return
      */
@@ -85,8 +94,10 @@ public class PlateServiceImpl implements PlateService {
     public int addNav(Plate plate) {
         return plateMapper.insert(plate);
     }
+
     /**
      * 获取所有板块信息
+     *
      * @return
      */
     @Override
@@ -94,8 +105,10 @@ public class PlateServiceImpl implements PlateService {
         List<Plate> plateList = plateMapper.getSection();
         return plateList;
     }
+
     /**
      * 按id查询板块
+     *
      * @param id
      * @return
      */
@@ -103,8 +116,10 @@ public class PlateServiceImpl implements PlateService {
     public Plate getSec(Integer id) {
         return plateMapper.selectByPrimaryKey(id);
     }
+
     /**
      * 更新板块信息
+     *
      * @param plate
      * @return
      */
@@ -112,8 +127,10 @@ public class PlateServiceImpl implements PlateService {
     public int updateSec(Plate plate) {
         return plateMapper.updateSecById(plate);
     }
+
     /**
      * 批量删除
+     *
      * @param ids
      * @return
      */
@@ -142,16 +159,28 @@ public class PlateServiceImpl implements PlateService {
         }
         return result;
     }
+
     /**
      * 排序
-     * @param newSort 新次序
-     * @param oldSort 旧次序
-     * @param flag 是导航nav还是板块sec
+     *
+     * @param newSort     新次序
+     * @param oldSort     旧次序
+     * @param flag        是导航nav还是板块sec
      * @param plaParentId 父id
      * @return
      */
     @Override
-    public int updateSort(Integer newSort, Integer oldSort,String flag,Integer plaParentId) {
-        return plateMapper.sort(newSort, oldSort,flag,plaParentId);
+    public int updateSort(Integer newSort, Integer oldSort, String flag, Integer plaParentId) {
+        return plateMapper.sort(newSort, oldSort, flag, plaParentId);
+    }
+
+    @Override
+    public int delSort(Integer id, String flag) {
+        return plateMapper.delSort(id, flag);
+    }
+
+    @Override
+    public Plate getNav(Integer id) {
+        return plateMapper.selectByPrimaryKey(id);
     }
 }

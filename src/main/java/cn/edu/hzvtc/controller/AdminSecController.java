@@ -72,6 +72,7 @@ public class AdminSecController {
     @CrossOrigin
     public ReturnMsg delSec(@RequestParam("id") Integer id) {
         if (plateService.delNav(id) > 0) {
+            plateService.delSort(id, "sec");
             return ReturnMsg.success();
         }
         return ReturnMsg.fail();
@@ -102,8 +103,8 @@ public class AdminSecController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg addSec(@Valid Plate plate) {
-        int secCount = adminSecService.getSecCount();
-        plate.setPlaSort(secCount + 1);
+        List<Plate> sec = plateService.getSection();
+        plate.setPlaSort(sec.size() + 1);
         if (plateService.addNav(plate) > 0) {
             return ReturnMsg.success();
         }

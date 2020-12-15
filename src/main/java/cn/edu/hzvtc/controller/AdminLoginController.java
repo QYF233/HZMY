@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -37,7 +38,6 @@ public class AdminLoginController {
         ReturnMsg returnMsg;
         if (user != null) {
             String token = JwtUtil.sign(user.getId().toString());
-//            System.out.println(user.toString());
             returnMsg = ReturnMsg.success().add("token", token).add("user", user);
             returnMsg.setTarget("index.html");
         } else {
@@ -46,6 +46,26 @@ public class AdminLoginController {
         return returnMsg;
     }
 
+    @RequestMapping(value = "getLoginUser",method = RequestMethod.POST)
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg getLoginUser(HttpServletRequest request) {
+        String token = request.getHeader("token");
+//        System.out.println("token"+token);
+
+        if (!JwtUtil.verify(token)){
+            System.out.println("token无效");
+            return ReturnMsg.fail().add("msg","token无效");
+        }
+        String userId =  JwtUtil.getUserProperty(token,"userId");
+        User loginUser = adminUserService.getUserById(Integer.parseInt(userId));
+//        System.out.println(loginUser.toString());
+        if (loginUser != null){
+            return ReturnMsg.success().add("loginUser",loginUser);
+        }else {
+            return ReturnMsg.fail();
+        }
+    }
     /**
      * 注销
      *
@@ -97,7 +117,7 @@ public class AdminLoginController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg updateUser(@Valid User user) {
-        System.out.println(user.toString());
+//        System.out.println(user.toString());
         if (adminUserService.updateUser(user) > 0) {
             return ReturnMsg.success();
         }
@@ -114,7 +134,7 @@ public class AdminLoginController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg addUser(@Valid User user) {
-        System.out.println(user.toString());
+//        System.out.println(user.toString());
         if (adminUserService.addUser(user) > 0) {
             return ReturnMsg.success();
         }

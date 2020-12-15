@@ -93,7 +93,7 @@
     <select id="getSecCount" resultType="java.lang.Integer">
         select count(1) from plate where pla_del_state = 0 and pla_type = 2
   </select>
-<!--获取每一级板块的数量-->
+    <!--获取每一级板块的数量-->
     <select id="getNavCount" resultType="java.lang.Integer">
         select count(1) from plate where pla_del_state = 0
         <if test="plaParentId == null">
@@ -113,7 +113,7 @@
     and pla_type = #{typeId,jdbcType=INTEGER}
     order by pla_sort
   </select>
-<!--按id更新导航信息-->
+    <!--按id更新导航信息-->
     <update id="updateNavById" parameterType="cn.edu.hzvtc.pojo.Plate">
     update plate
     set pla_name = #{plaName,jdbcType=VARCHAR},
@@ -161,6 +161,28 @@
                 and pla_parent_id = #{plaParentId,jdbcType=INTEGER}
                 and pla_type = 5
             </if>
+        </if>
+        and pla_del_state = 0
+    </update>
+    <update id="delSort" parameterType="java.lang.Integer">
+        update plate
+        set pla_sort = pla_sort - 1
+        where pla_sort > (SELECT p1.pla_sort from (SELECT p2.pla_sort from plate p2 where id = #{id,jdbcType=INTEGER})p1
+        )
+        <if test="flag == 'sec'">
+            and pla_parent_id is null
+            and (pla_type = 2 or pla_type = 4)
+        </if>
+        <if test="flag == 'navRoot'">
+            and pla_parent_id is Null
+            and pla_type = (SELECT p6.pla_type from (SELECT p7.pla_type from plate p7 where id =
+            #{id,jdbcType=INTEGER})p6 )
+        </if>
+        <if test="flag == 'nav'">
+            and pla_parent_id = (SELECT p3.pla_parent_id from (SELECT p4.pla_parent_id from plate p4 where id =
+            #{id,jdbcType=INTEGER})p3 )
+            and pla_type = (SELECT p6.pla_type from (SELECT p7.pla_type from plate p7 where id =
+            #{id,jdbcType=INTEGER})p6 )
         </if>
         and pla_del_state = 0
     </update>

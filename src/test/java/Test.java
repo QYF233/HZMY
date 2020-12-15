@@ -29,11 +29,14 @@ public class Test {
 
     @org.junit.Test
     public void test() {
-        String reg = ".+(.JPEG|.jpeg|.JPG|.jpg)$";
-        String imgp= "Redocn_2012100818523401.jpg";
-        Pattern pattern = Pattern.compile(reg);
-        Matcher matcher = pattern.matcher(imgp);
-        System.out.println(matcher.find());
-        System.out.println("\\.");
+//        plateService.delSort(8,"nav");
+        Plate nav = plateService.getNav(9);
+        String parentId = String.valueOf(nav.getPlaParentId());
+        System.out.println(parentId);
+        if (parentId.equals("null")){
+            plateService.delSort(9, "navRoot");
+        }else {
+            plateService.delSort(9, "nav");
+        }
     }
 }

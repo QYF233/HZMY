@@ -28,6 +28,7 @@ public class JwtUtil {
             Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
             JWTVerifier verifier = JWT.require(algorithm).build();
             DecodedJWT jwt = verifier.verify(token);
+            System.out.println("过期时间：" + jwt.getExpiresAt());
             return true;
         } catch (Exception e) {
             return false;

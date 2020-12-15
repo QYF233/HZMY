@@ -79,6 +79,7 @@ public interface PlateMapper {
              @Param("flag") String flag,
              @Param("plaParentId") Integer plaParentId);
 
+    int delSort(@Param("id") Integer id,@Param("flag") String flag);
 
     int deleteById(Integer id);
     int deleteByIdList(List<Integer> ids);

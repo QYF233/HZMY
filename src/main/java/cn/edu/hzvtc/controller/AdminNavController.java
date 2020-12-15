@@ -90,7 +90,17 @@ public class AdminNavController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg delNav(@RequestParam("id") Integer id) {
+        Plate nav = plateService.getNav(id);
+        String parentId = String.valueOf(nav.getPlaParentId());
+        System.out.println(parentId);
+
         if (plateService.delNav(id) > 0) {
+            if (parentId.equals("null")){
+                plateService.delSort(id, "navRoot");
+            }else {
+                plateService.delSort(id, "nav");
+            }
+
             return ReturnMsg.success();
         }
         return ReturnMsg.fail();
@@ -98,6 +108,7 @@ public class AdminNavController {
 
     /**
      * 添加
+     *
      * @param plate
      * @return
      */
