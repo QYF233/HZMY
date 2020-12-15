@@ -77,11 +77,28 @@
     from article
     where art_plate_id = #{id,jdbcType=INTEGER}
     and art_del_state = 0
-    order by art_time desc
+    order by art_top desc, art_time desc
     Limit 0,5
   </select>
-    <!--获取文章列表-->
+    <!--文章管理，获取文章列表-->
     <select id="selectByPlateIdAll" parameterType="java.lang.Integer" resultMap="SecResultMap">
+        select art.id, art_title, art_author, art_pic, art_time, art_plate_id, pla.pla_name , art_file_id,
+        art_operator_id,
+        art_top, art_del_state, art_content,art_sight
+        from article art
+        LEFT JOIN plate pla
+        on art_plate_id = pla.id
+        where art_del_state = 0
+        <if test="id != 0">
+            and art_plate_id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="search != ''">
+            and art_title like #{search,jdbcType=VARCHAR}
+        </if>
+        order by art_top desc, art_time desc
+    </select>
+    <!--后台文章管理列表-->
+    <select id="selectAllArticle" parameterType="java.lang.Integer" resultMap="SecResultMap">
         select art.id, art_title, art_author, art_pic, art_time, art_plate_id, pla.pla_name , art_file_id,
         art_operator_id,
         art_top, art_del_state, art_content,art_sight
@@ -155,4 +172,10 @@
         </foreach>
         and art_del_state = 1
     </select>
+    <!--取消其他置顶-->
+    <update id="cancelTop" parameterType="java.lang.Integer">
+        update article
+        set art_top = 0
+        where art_plate_id = #{plaId,jdbcType=INTEGER}
+    </update>
 </mapper>

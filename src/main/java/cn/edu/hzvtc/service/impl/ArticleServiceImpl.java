@@ -46,7 +46,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> getArticle(Integer sectionId, String search) {
         search = "%" + search + "%";
-        return articleMapper.selectByPlateIdAll(sectionId, search);
+        /*后台*/
+        return articleMapper.selectAllArticle(sectionId, search);
     }
 
     @Override
@@ -108,6 +109,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public int updateArt(Article article) {
         return articleMapper.updateByPrimaryKey(article);
+    }
+
+    @Override
+    public int cancelTop(Integer plaId) {
+        return articleMapper.cancelTop(plaId);
     }
 
 }

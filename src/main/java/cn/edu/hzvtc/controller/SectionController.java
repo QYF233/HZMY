@@ -27,7 +27,7 @@ public class SectionController {
     public HomeService homeService;
 
     /**
-     * 获取当前板块所属文章
+     * 前台列表页，获取当前板块所属文章
      *
      * @param sectionId 板块id
      * @param pn        页码

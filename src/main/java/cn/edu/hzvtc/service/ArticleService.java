@@ -48,7 +48,7 @@ public interface ArticleService {
      * @param sectionId
      * @return
      */
-    public List<Article> getArticle(Integer sectionId,String search);
+    public List<Article> getArticle(Integer sectionId, String search);
 
     /**
      * 添加文章
@@ -68,8 +68,11 @@ public interface ArticleService {
 
     /**
      * 更新文章
+     *
      * @param article
      * @return
      */
     public int updateArt(Article article);
+
+    int cancelTop(Integer plaId);
 }

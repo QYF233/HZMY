@@ -6,7 +6,7 @@
 <configuration>
     <settings>
         <!-- 设置日志输出为STDOUT_LOGGING -->
-        <setting name="logImpl" value="STDOUT_LOGGING" />
+<!--        <setting name="logImpl" value="STDOUT_LOGGING" />-->
         <!--将以下画线方式命名的数据库列映射到 Java 对象的驼峰式命名属性中-->
         <setting name= "mapUnderscoreToCamelCase" value="true" />
 <!--        <setting name="defaultExecutorType" value="SIMPLE"/>-->

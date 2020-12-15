@@ -117,6 +117,9 @@ public class AdminArticleController {
     @CrossOrigin
     public ReturnMsg addArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {
         System.out.println(article.toString());
+        if (article.getArtTop() == 1) {
+            articleService.cancelTop(article.getArtPlateId());
+        }
         try {
             article.setArtTime(simpleDateFormat.parse(artTimeStr));
         } catch (ParseException e) {
@@ -271,6 +274,9 @@ public class AdminArticleController {
     @CrossOrigin
     public ReturnMsg updateArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {
         System.out.println(article.toString());
+        if (article.getArtTop() == 1) {
+            articleService.cancelTop(article.getArtPlateId());
+        }
         try {
             //设置时间
             article.setArtTime(simpleDateFormat.parse(artTimeStr));

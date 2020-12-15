@@ -43,6 +43,12 @@ public class HomeServiceImpl implements HomeService {
         return swiperMapper.selectAll();
     }
 
+    /**
+     * 前台列表页获取数据
+     * @param plateId
+     * @param state
+     * @return
+     */
     @Override
     public List<Article> getArticle(Integer plateId, String state) {
         if ("all".equals(state)) {

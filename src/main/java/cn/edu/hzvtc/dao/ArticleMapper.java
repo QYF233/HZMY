@@ -62,10 +62,12 @@ public interface ArticleMapper {
      * @param id 板块id
      * @return 文章列表
      */
-    List<Article> selectByPlateIdAll(@Param("id") Integer id,@Param("search") String search);
+    List<Article> selectByPlateIdAll(@Param("id") Integer id, @Param("search") String search);
 
+    List<Article> selectAllArticle(@Param("id") Integer id, @Param("search") String search);
 
     List<Article> selectAllByPlateId(Integer id);
+
     /**
      * 获取文章数量
      *
@@ -113,4 +115,6 @@ public interface ArticleMapper {
      * @return
      */
     List<Article> selectDelFileList(List<Integer> id);
+
+    int cancelTop(Integer plaId);
 }
