@@ -46,26 +46,27 @@ public class AdminLoginController {
         return returnMsg;
     }
 
-    @RequestMapping(value = "getLoginUser",method = RequestMethod.POST)
+    @RequestMapping(value = "getLoginUser", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg getLoginUser(HttpServletRequest request) {
         String token = request.getHeader("token");
 //        System.out.println("token"+token);
 
-        if (!JwtUtil.verify(token)){
+        if (!JwtUtil.verify(token)) {
             System.out.println("token无效");
-            return ReturnMsg.fail().add("msg","token无效");
+            return ReturnMsg.fail().add("msg", "token无效");
         }
-        String userId =  JwtUtil.getUserProperty(token,"userId");
+        String userId = JwtUtil.getUserProperty(token, "userId");
         User loginUser = adminUserService.getUserById(Integer.parseInt(userId));
 //        System.out.println(loginUser.toString());
-        if (loginUser != null){
-            return ReturnMsg.success().add("loginUser",loginUser);
-        }else {
+        if (loginUser != null) {
+            return ReturnMsg.success().add("loginUser", loginUser);
+        } else {
             return ReturnMsg.fail();
         }
     }
+
     /**
      * 注销
      *
@@ -168,6 +169,25 @@ public class AdminLoginController {
     public ReturnMsg delArtAll(@PathVariable("ids") String ids) {
         if (adminUserService.delUser(ids)) {
             return ReturnMsg.success();
+        }
+        return ReturnMsg.fail();
+    }
+
+    @RequestMapping(value = "/validName", method = RequestMethod.GET)
+    @ResponseBody
+    public ReturnMsg validName(@RequestParam("name") String name) {
+        User user = adminUserService.getUserByName(name);
+        if (user != null) {
+            return ReturnMsg.success().add("user", user);
+        }
+        return ReturnMsg.fail();
+    }
+    @RequestMapping(value = "/validPhone", method = RequestMethod.GET)
+    @ResponseBody
+    public ReturnMsg validPhone(@RequestParam("phone") String phone) {
+        User user = adminUserService.getUserByPhone(phone);
+        if (user != null) {
+            return ReturnMsg.success().add("user", user);
         }
         return ReturnMsg.fail();
     }

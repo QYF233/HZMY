@@ -12,6 +12,8 @@ public interface AdminUserService {
      * @return
      */
     public User getUser(String username, String password);
+    public User getUserByName(String username);
+    public User getUserByPhone(String phone);
 
     /**
      * 根据id获取用户

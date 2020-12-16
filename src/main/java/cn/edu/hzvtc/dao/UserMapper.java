@@ -66,5 +66,9 @@ public interface UserMapper {
 
 
     int deleteById(Integer id);
+
     int deleteByIdList(List<Integer> ids);
+
+    User getUserByName(String userName);
+    User getUserByPhone(String phone);
 }

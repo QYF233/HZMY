@@ -21,6 +21,16 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
+    public User getUserByName(String username) {
+        return userMapper.getUserByName(username);
+    }
+
+    @Override
+    public User getUserByPhone(String phone) {
+        return userMapper.getUserByPhone(phone);
+    }
+
+    @Override
     public User getUserById(Integer userId) {
         return userMapper.selectByPrimaryKey(userId);
     }

@@ -63,4 +63,16 @@
             #{id,jdbcType=INTEGER}
         </foreach>
     </update>
+    <select id="getUserByName" resultMap="BaseResultMap">
+    select id, username, password, phone, user_del_state
+    from sys_user
+    where username = #{userName,jdbcType=VARCHAR}
+    and user_del_state = 0
+  </select>
+    <select id="getUserByPhone" resultMap="BaseResultMap">
+    select id, username, password, phone, user_del_state
+    from sys_user
+    where phone = #{phone,jdbcType=VARCHAR}
+    and user_del_state = 0
+  </select>
 </mapper>

@@ -77,11 +77,11 @@ public class AdminArticleController {
         Article article = articleService.getArticleById(id);
         String fileStr = article.getArtFileId();
 
-        if (fileStr != null && !fileStr.equals("")) {
+        if (fileStr != null && !"".equals(fileStr)) {
             String[] fileList = fileStr.substring(0, fileStr.length() - 1).split("-");
             for (String item : fileList) {
                 //逐条获取附件信息
-                if (!item.equals("")) {
+                if (!"".equals(item)) {
                     Annex annex = annexService.getAnnex(Integer.parseInt(item));
                     if (annex != null) {
                         annexes.add(annex);
