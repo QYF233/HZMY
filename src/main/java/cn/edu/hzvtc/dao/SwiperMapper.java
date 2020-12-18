@@ -16,4 +16,6 @@ public interface SwiperMapper {
     List<Swiper> selectAll();
 
     int updateByPrimaryKey(Swiper record);
+
+    int insertSecPic(Swiper record);
 }

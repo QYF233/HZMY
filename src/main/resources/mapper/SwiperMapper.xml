@@ -15,8 +15,8 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.edu.hzvtc.pojo.Swiper">
-    insert into swiper (id, swi_name, swi_describe, 
-      swi_pic, swi_art_id, swi_sort, 
+    insert into swiper (id, swi_name, swi_describe,
+      swi_pic, swi_art_id, swi_sort,
       swi_del_state)
     values (#{id,jdbcType=INTEGER}, #{swiName,jdbcType=VARCHAR}, #{swiDescribe,jdbcType=VARCHAR}, 
       #{swiPic,jdbcType=VARCHAR}, #{swiArtId,jdbcType=INTEGER}, #{swiSort,jdbcType=INTEGER}, 
@@ -43,4 +43,8 @@
     where swi_del_state = 0
     order by swi_sort
   </select>
+  <insert id="insertSecPic" parameterType="cn.edu.hzvtc.pojo.Swiper">
+    insert into swiper (swi_pic, swi_art_id)
+    values (#{swiPic,jdbcType=VARCHAR}, #{swiArtId,jdbcType=INTEGER})
+  </insert>
 </mapper>

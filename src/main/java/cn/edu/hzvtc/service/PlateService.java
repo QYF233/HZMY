@@ -99,6 +99,7 @@ public interface PlateService {
 
     /**
      * 删除排序
+     *
      * @param id
      * @param flag
      * @return
@@ -106,4 +107,6 @@ public interface PlateService {
     public int delSort(Integer id, String flag);
 
     Plate getNav(Integer id);
+
+    public int changePic(Integer id, String plaPic);
 }

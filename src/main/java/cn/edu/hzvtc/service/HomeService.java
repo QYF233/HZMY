@@ -41,4 +41,5 @@ public interface HomeService {
      * @return
      */
     public List<Link> getLinks();
+
 }

@@ -84,7 +84,7 @@
         and pla_del_state = 0
         order by pla_sort
     </select>
-    <select id="selectAll" resultMap="ParentResultMap">
+  <select id="selectAll" resultMap="ParentResultMap">
     select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
     from plate
     where pla_del_state = 0
@@ -206,6 +206,11 @@
       pla_url = #{plaUrl,jdbcType=VARCHAR},
       pla_sort = #{plaSort,jdbcType=INTEGER},
       pla_type = #{plaType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="changePic" parameterType="cn.edu.hzvtc.pojo.Plate">
+    update plate
+    set pla_pic = #{plaPic,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

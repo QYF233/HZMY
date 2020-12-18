@@ -85,5 +85,5 @@ public interface PlateMapper {
     int deleteByIdList(List<Integer> ids);
     int updateSecById(Plate sec);
 
-
+int changePic(@Param("id") Integer id,@Param("plaPic") String plaPic);
 }

@@ -63,4 +63,5 @@ public class HomeServiceImpl implements HomeService {
     public List<Link> getLinks() {
         return linkMapper.selectAll();
     }
+
 }

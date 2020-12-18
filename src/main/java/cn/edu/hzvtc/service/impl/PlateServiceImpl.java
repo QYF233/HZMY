@@ -183,4 +183,9 @@ public class PlateServiceImpl implements PlateService {
     public Plate getNav(Integer id) {
         return plateMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public int changePic(Integer id, String plaPic) {
+        return plateMapper.changePic(id, plaPic);
+    }
 }
