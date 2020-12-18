@@ -41,7 +41,7 @@ public class HomeController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg getSwiper() {
-        List<Swiper> swiper = homeService.getSwiper();
+        List<Article> swiper = homeService.getSwiper();
         return ReturnMsg.success().add("swiper", swiper);
     }
 

@@ -178,4 +178,12 @@
         set art_top = 0
         where art_plate_id = #{plaId,jdbcType=INTEGER}
     </update>
+    <select id="getSwiperList" parameterType="java.lang.Integer" resultMap="BaseResultMap">2
+        SELECT * FROM `article`
+        where art_plate_id = 1
+        and art_pic != ""
+        and art_del_state = 0
+        ORDER BY art_time DESC
+        limit 5
+    </select>
 </mapper>

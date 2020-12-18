@@ -117,4 +117,6 @@ public interface ArticleMapper {
     List<Article> selectDelFileList(List<Integer> id);
 
     int cancelTop(Integer plaId);
+
+    List<Article> getSwiperList();
 }

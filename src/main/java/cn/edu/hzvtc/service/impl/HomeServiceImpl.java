@@ -39,12 +39,13 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public List<Swiper> getSwiper() {
-        return swiperMapper.selectAll();
+    public List<Article> getSwiper() {
+        return articleMapper.getSwiperList();
     }
 
     /**
      * 前台列表页获取数据
+     *
      * @param plateId
      * @param state
      * @return
@@ -52,7 +53,7 @@ public class HomeServiceImpl implements HomeService {
     @Override
     public List<Article> getArticle(Integer plateId, String state) {
         if ("all".equals(state)) {
-            return articleMapper.selectByPlateIdAll(plateId,"");
+            return articleMapper.selectByPlateIdAll(plateId, "");
         } else {
             return articleMapper.selectByPlateId(plateId);
         }

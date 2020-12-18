@@ -24,7 +24,7 @@ public interface HomeService {
      *
      * @return
      */
-    public List<Swiper> getSwiper();
+    public List<Article> getSwiper();
 
     /**
      * 获取文章
