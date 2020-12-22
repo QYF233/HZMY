@@ -119,4 +119,8 @@ public interface ArticleMapper {
     int cancelTop(Integer plaId);
 
     List<Article> getSwiperList();
+
+    Article getIntro();
+
+    int updateIntro(@Param("introText") String introText,@Param("picName") String picName);
 }

@@ -116,4 +116,13 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.cancelTop(plaId);
     }
 
+    @Override
+    public Article getIntro() {
+        return articleMapper.getIntro();
+    }
+
+    @Override
+    public int updateIntro(String introText,String picName) {
+        return articleMapper.updateIntro(introText,picName);
+    }
 }

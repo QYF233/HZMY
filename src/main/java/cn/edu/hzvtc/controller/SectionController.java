@@ -48,7 +48,7 @@ public class SectionController {
     @CrossOrigin
     public ReturnMsg getArticle(@RequestParam("sectionId") Integer sectionId,
                                 @RequestParam(value = "pn", defaultValue = "1") Integer pn) {
-        PageHelper.startPage(pn, 5);
+        PageHelper.startPage(pn, 8);
         List<Article> list = homeService.getArticle(sectionId, "all");
         PageInfo pageInfo = new PageInfo(list, 10);
         return ReturnMsg.success().add("pageInfo", pageInfo);

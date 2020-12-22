@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.hzvtc.dao.LinkMapper">
-  <resultMap id="BaseResultMap" type="cn.edu.hzvtc.pojo.Link">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="link_name" jdbcType="VARCHAR" property="linkName" />
-    <result column="link_url" jdbcType="VARCHAR" property="linkUrl" />
-    <result column="link_sort" jdbcType="INTEGER" property="linkSort" />
-    <result column="link_del_state" jdbcType="INTEGER" property="linkDelState" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from link
+    <resultMap id="BaseResultMap" type="cn.edu.hzvtc.pojo.Link">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="link_name" jdbcType="VARCHAR" property="linkName"/>
+        <result column="link_url" jdbcType="VARCHAR" property="linkUrl"/>
+        <result column="link_sort" jdbcType="INTEGER" property="linkSort"/>
+        <result column="link_del_state" jdbcType="INTEGER" property="linkDelState"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    update link
+    set link_del_state = 1
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.edu.hzvtc.pojo.Link">
-    insert into link (id, link_name, link_url, 
+    <insert id="insert" parameterType="cn.edu.hzvtc.pojo.Link">
+    insert into link (link_name, link_url,
       link_sort, link_del_state)
-    values (#{id,jdbcType=INTEGER}, #{linkName,jdbcType=VARCHAR}, #{linkUrl,jdbcType=VARCHAR}, 
-      #{linkSort,jdbcType=INTEGER}, #{linkDelState,jdbcType=INTEGER})
+    values (#{linkName,jdbcType=VARCHAR}, #{linkUrl,jdbcType=VARCHAR},
+      #{linkSort,jdbcType=INTEGER}, 0)
   </insert>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Link">
+    <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Link">
     update link
     set link_name = #{linkName,jdbcType=VARCHAR},
-      link_url = #{linkUrl,jdbcType=VARCHAR},
-      link_sort = #{linkSort,jdbcType=INTEGER},
-      link_del_state = #{linkDelState,jdbcType=INTEGER}
+      link_url = #{linkUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
+    and link_del_state = 0
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <update id="updateSort">
+      update link
+    set link_sort = #{newSort,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+    and link_del_state = 0
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, link_name, link_url, link_sort, link_del_state
     from link
     where id = #{id,jdbcType=INTEGER}
+    and link_del_state = 0
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+    <select id="selectAll" resultMap="BaseResultMap">
     select id, link_name, link_url, link_sort, link_del_state
     from link
     where link_del_state = 0

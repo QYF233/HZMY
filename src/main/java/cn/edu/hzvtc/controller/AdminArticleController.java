@@ -290,4 +290,33 @@ public class AdminArticleController {
         }
     }
 
+    /**
+     * 获取学院简介
+     *
+     * @return
+     */
+    @RequestMapping("/getIntro")
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg getIntro() {
+        Article intro = articleService.getIntro();
+        return ReturnMsg.success().add("intro", intro);
+    }
+
+    /**
+     * 获取学院简介
+     *
+     * @return
+     */
+    @RequestMapping(value = "/updateIntro", method = RequestMethod.PUT)
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg updateIntro(@RequestParam(value = "introText") String introText,@RequestParam(value = "picName") String picName) {
+        if (articleService.updateIntro(introText,picName) > 0) {
+            return ReturnMsg.success();
+        } else {
+            return ReturnMsg.fail();
+        }
+    }
+
 }

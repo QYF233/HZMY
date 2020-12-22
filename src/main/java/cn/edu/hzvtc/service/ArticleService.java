@@ -18,21 +18,21 @@ public interface ArticleService {
      * @param id 文章id
      * @return
      */
-    public Article getArticleById(Integer id);
+     Article getArticleById(Integer id);
 
     /**
      * 获取文章总数
      *
      * @return
      */
-    public Long getArtCount();
+     Long getArtCount();
 
     /**
      * 获取所有浏览总数
      *
      * @return
      */
-    public Long getArtSightCount();
+     Long getArtSightCount();
 
     /**
      * 增加浏览次数
@@ -40,7 +40,7 @@ public interface ArticleService {
      * @param id 文章id
      * @return
      */
-    public int addSight(Integer id);
+     int addSight(Integer id);
 
     /**
      * 获取所有文章列表
@@ -48,7 +48,7 @@ public interface ArticleService {
      * @param sectionId
      * @return
      */
-    public List<Article> getArticle(Integer sectionId, String search);
+     List<Article> getArticle(Integer sectionId, String search);
 
     /**
      * 添加文章
@@ -56,7 +56,7 @@ public interface ArticleService {
      * @param article
      * @return
      */
-    public int addArticle(Article article);
+     int addArticle(Article article);
 
     /**
      * 删除
@@ -64,7 +64,7 @@ public interface ArticleService {
      * @param ids
      * @return
      */
-    public boolean delArt(String ids);
+     boolean delArt(String ids);
 
     /**
      * 更新文章
@@ -72,7 +72,16 @@ public interface ArticleService {
      * @param article
      * @return
      */
-    public int updateArt(Article article);
+     int updateArt(Article article);
 
+    /**
+     * 取消置顶
+     * @param plaId
+     * @return
+     */
     int cancelTop(Integer plaId);
+    
+    Article getIntro();
+
+    int updateIntro(String introText,String picName);
 }

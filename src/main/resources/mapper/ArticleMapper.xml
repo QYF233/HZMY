@@ -178,6 +178,12 @@
         set art_top = 0
         where art_plate_id = #{plaId,jdbcType=INTEGER}
     </update>
+    <update id="updateIntro">
+        update article
+        set art_content = #{introText,jdbcType=VARCHAR},
+        art_pic = #{picName,jdbcType=VARCHAR}
+        where art_plate_id = 9
+    </update>
     <select id="getSwiperList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT * FROM article
         where art_plate_id = 1
@@ -185,5 +191,10 @@
         and art_del_state = 0
         ORDER BY art_time DESC
         limit 5
+    </select>
+    <select id="getIntro" resultType="cn.edu.hzvtc.pojo.Article">
+        SELECT * FROM article
+        where art_plate_id = 9
+        and art_del_state = 0
     </select>
 </mapper>
