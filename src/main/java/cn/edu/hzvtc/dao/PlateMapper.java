@@ -79,11 +79,40 @@ public interface PlateMapper {
              @Param("flag") String flag,
              @Param("plaParentId") Integer plaParentId);
 
-    int delSort(@Param("id") Integer id,@Param("flag") String flag);
+    /**
+     * 删除后进行的排序
+     * @param id
+     * @param flag
+     * @return
+     */
+    int delSort(@Param("id") Integer id, @Param("flag") String flag);
 
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
     int deleteById(Integer id);
+
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
     int deleteByIdList(List<Integer> ids);
+
+    /**
+     * 更新板块
+     * @param sec
+     * @return
+     */
     int updateSecById(Plate sec);
 
-int changePic(@Param("id") Integer id,@Param("plaPic") String plaPic);
+    /**
+     * 更换板块图片
+     * @param id
+     * @param plaPic
+     * @return
+     */
+    int changePic(@Param("id") Integer id, @Param("plaPic") String plaPic);
 }

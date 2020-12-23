@@ -64,8 +64,21 @@ public interface ArticleMapper {
      */
     List<Article> selectByPlateIdAll(@Param("id") Integer id, @Param("search") String search);
 
+    /**
+     * 后台获取文章列表，按发布时间
+     *
+     * @param id
+     * @param search
+     * @return
+     */
     List<Article> selectAllArticle(@Param("id") Integer id, @Param("search") String search);
 
+    /**
+     * 获取该板块下的所有文章
+     *
+     * @param id
+     * @return
+     */
     List<Article> selectAllByPlateId(Integer id);
 
     /**
@@ -98,6 +111,12 @@ public interface ArticleMapper {
      */
     int addSightByPrimaryKey(Integer id);
 
+    /**
+     * 删除文章
+     *
+     * @param id
+     * @return
+     */
     int deleteById(Integer id);
 
     /**
@@ -116,11 +135,34 @@ public interface ArticleMapper {
      */
     List<Article> selectDelFileList(List<Integer> id);
 
+    /**
+     * 取消这个板块下所有文章的置顶
+     *
+     * @param plaId 板块id
+     * @return
+     */
     int cancelTop(Integer plaId);
 
+    /**
+     * 获取轮播图
+     *
+     * @return
+     */
     List<Article> getSwiperList();
 
+    /**
+     * 获取学院介绍
+     *
+     * @return
+     */
     Article getIntro();
 
-    int updateIntro(@Param("introText") String introText,@Param("picName") String picName);
+    /**
+     * 更新学院介绍信息
+     *
+     * @param introText 介绍信息
+     * @param picName   图片名
+     * @return
+     */
+    int updateIntro(@Param("introText") String introText, @Param("picName") String picName);
 }

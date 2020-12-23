@@ -46,10 +46,13 @@ public class AdminSwiperController {
     @Autowired
     public AdminSwiService adminSwiService;
 
+    public String UPLOAD_URL = "D:/DEV/nginx-1.18.0/html/com/upload/";
+
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
     /**
      * 获取所有轮播图信息
+     *
      * @return
      */
     @RequestMapping("/getSwiper")
@@ -113,7 +116,7 @@ public class AdminSwiperController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg addArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {
-        System.out.println(article.toString());
+//        System.out.println(article.toString());
         if (article.getArtTop() == 1) {
             articleService.cancelTop(article.getArtPlateId());
         }
@@ -142,22 +145,9 @@ public class AdminSwiperController {
         for (int i = 0; i < files.length; i++) {
             MultipartFile multipartFile = files[i];
             String originalFilename = multipartFile.getOriginalFilename();
-            /*String[] filename = new String[0];
-            if (originalFilename != null) {
-                *//*截取后缀名*//*
-                filename = originalFilename.split("\\.");
-            }
-            String reg = ".+(.JPEG|.jpeg|.JPG|.jpg)$";
-            String imgp = "Redocn_2012100818523401.png";
-            Pattern pattern = Pattern.compile(reg);
-            Matcher matcher = pattern.matcher(imgp);
-            System.out.println(matcher.find());
-            System.out.println(filename[filename.length - 1]);
-            if ("csv".equals(filename[filename.length - 1])) {
-                return ReturnMsg.fail().add("msg", "文件类型不正确");
-            }*/
+
             //此处文件保存地址应该改为服务器存放数据的地址
-            File file = new File("D:/DEV/nginx-1.18.0/html/com/upload/imgs/" + originalFilename);
+            File file = new File(UPLOAD_URL + "imgs/" + originalFilename);
             try {
                 multipartFile.transferTo(file);
             } catch (IOException e) {
@@ -165,7 +155,7 @@ public class AdminSwiperController {
                 return ReturnMsg.fail();
             }
         }
-        System.out.println(files.length);
+//        System.out.println(files.length);
 
         return ReturnMsg.success();
     }
@@ -184,16 +174,9 @@ public class AdminSwiperController {
         for (int i = 0; i < files.length; i++) {
             MultipartFile multipartFile = files[i];
             String originalFilename = multipartFile.getOriginalFilename();
-            /*            String[] filename = new String[0];
-            if (originalFilename != null) {
-                *//*截取后缀名*//*
-                filename = originalFilename.split("\\.");
-            }
-            if ("csv".equals(filename[filename.length - 1])) {
-                return ReturnMsg.fail().add("msg", "文件类型不正确");
-            }*/
+
             //此处文件保存地址应该改为服务器存放数据的地址
-            File file = new File("D:/DEV/nginx-1.18.0/html/com/upload/files/" + originalFilename);
+            File file = new File(UPLOAD_URL + "files/" + originalFilename);
             try {
                 multipartFile.transferTo(file);
                 Annex annex = new Annex();
@@ -270,7 +253,7 @@ public class AdminSwiperController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg updateArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {
-        System.out.println(article.toString());
+//        System.out.println(article.toString());
         if (article.getArtTop() == 1) {
             articleService.cancelTop(article.getArtPlateId());
         }

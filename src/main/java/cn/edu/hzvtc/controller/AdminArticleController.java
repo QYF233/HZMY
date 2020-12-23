@@ -116,7 +116,7 @@ public class AdminArticleController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg addArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {
-        System.out.println(article.toString());
+//        System.out.println(article.toString());
         if (article.getArtTop() == 1) {
             articleService.cancelTop(article.getArtPlateId());
         }
@@ -168,7 +168,7 @@ public class AdminArticleController {
                 return ReturnMsg.fail();
             }
         }
-        System.out.println(files.length);
+//        System.out.println(files.length);
 
         return ReturnMsg.success();
     }
@@ -273,7 +273,7 @@ public class AdminArticleController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg updateArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {
-        System.out.println(article.toString());
+//        System.out.println(article.toString());
         if (article.getArtTop() == 1) {
             articleService.cancelTop(article.getArtPlateId());
         }

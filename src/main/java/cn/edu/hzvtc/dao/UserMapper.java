@@ -64,11 +64,31 @@ public interface UserMapper {
      */
     Long getUserCount();
 
-
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
     int deleteById(Integer id);
 
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
     int deleteByIdList(List<Integer> ids);
 
+    /**
+     * 按用户名获取用户
+     * @param userName
+     * @return
+     */
     User getUserByName(String userName);
+
+    /***
+     * 按用户名获取用户
+     * @param phone
+     * @return
+     */
     User getUserByPhone(String phone);
 }

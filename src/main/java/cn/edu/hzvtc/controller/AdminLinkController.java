@@ -29,6 +29,11 @@ public class AdminLinkController {
         return ReturnMsg.success().add("links", links);
     }
 
+    /**
+     * 按id查询
+     * @param id
+     * @return
+     */
     @RequestMapping("/getLink")
     @ResponseBody
     @CrossOrigin
@@ -37,6 +42,12 @@ public class AdminLinkController {
         return ReturnMsg.success().add("link", link);
     }
 
+    /**
+     * 更新排序
+     * @param id
+     * @param newSort
+     * @return
+     */
     @RequestMapping("/updateSort")
     @ResponseBody
     @CrossOrigin
@@ -48,6 +59,11 @@ public class AdminLinkController {
         }
     }
 
+    /**
+     * 更新链接
+     * @param link
+     * @return
+     */
     @RequestMapping(value = "/updateLink", method = RequestMethod.PUT)
     @ResponseBody
     @CrossOrigin
@@ -59,6 +75,11 @@ public class AdminLinkController {
         }
     }
 
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/delLink", method = RequestMethod.DELETE)
     @ResponseBody
     @CrossOrigin
@@ -70,6 +91,11 @@ public class AdminLinkController {
         }
     }
 
+    /**
+     * 添加
+     * @param link
+     * @return
+     */
     @RequestMapping(value = "/addLink", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin

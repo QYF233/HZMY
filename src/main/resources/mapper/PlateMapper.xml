@@ -164,6 +164,7 @@
         </if>
         and pla_del_state = 0
     </update>
+    <!--删除前进行排序-->
     <update id="delSort" parameterType="java.lang.Integer">
         update plate
         set pla_sort = pla_sort - 1

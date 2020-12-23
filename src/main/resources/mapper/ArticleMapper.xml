@@ -14,6 +14,7 @@
         <result column="art_del_state" jdbcType="INTEGER" property="artDelState"/>
         <result column="art_content" jdbcType="LONGVARCHAR" property="artContent"/>
         <result column="art_sight" jdbcType="INTEGER" property="artSight"/>
+        <result column="art_type" jdbcType="INTEGER" property="artType"/>
     </resultMap>
     <resultMap id="SecResultMap" type="cn.edu.hzvtc.pojo.Article">
         <id column="id" jdbcType="INTEGER" property="id"/>
@@ -29,6 +30,7 @@
         <result column="art_del_state" jdbcType="INTEGER" property="artDelState"/>
         <result column="art_content" jdbcType="LONGVARCHAR" property="artContent"/>
         <result column="art_sight" jdbcType="INTEGER" property="artSight"/>
+        <result column="art_type" jdbcType="INTEGER" property="artType"/>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from article
@@ -38,11 +40,11 @@
     insert into article (art_title, art_author,
       art_pic, art_time, art_plate_id, 
       art_file_id, art_operator_id, art_top, 
-        art_content)
+        art_content, art_type)
     values (#{artTitle,jdbcType=VARCHAR}, #{artAuthor,jdbcType=VARCHAR},
       #{artPic,jdbcType=VARCHAR}, #{artTime,jdbcType=TIMESTAMP}, #{artPlateId,jdbcType=INTEGER}, 
       #{artFileId,jdbcType=VARCHAR}, #{artOperatorId,jdbcType=INTEGER}, #{artTop,jdbcType=INTEGER},
-        #{artContent,jdbcType=LONGVARCHAR})
+        #{artContent,jdbcType=LONGVARCHAR},0)
   </insert>
     <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Article">
     update article
@@ -63,12 +65,14 @@
     from article
     where id = #{id,jdbcType=INTEGER}
     and art_del_state = 0
+    and art_type = 0
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id, 
     art_top, art_del_state, art_content,art_sight
     from article
     where art_del_state = 0
+    and art_type = 0
   </select>
     <!--按板块获取文章列表-->
     <select id="selectByPlateId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -77,6 +81,7 @@
     from article
     where art_plate_id = #{id,jdbcType=INTEGER}
     and art_del_state = 0
+    and art_type = 0
     order by art_top desc, art_time desc
     Limit 0,5
   </select>
@@ -89,6 +94,7 @@
         LEFT JOIN plate pla
         on art_plate_id = pla.id
         where art_del_state = 0
+        and art_type = 0
         <if test="id != 0">
             and art_plate_id = #{id,jdbcType=INTEGER}
         </if>
@@ -99,9 +105,7 @@
     </select>
     <!--后台文章管理列表-->
     <select id="selectAllArticle" parameterType="java.lang.Integer" resultMap="SecResultMap">
-        select art.id, art_title, art_author, art_pic, art_time, art_plate_id, pla.pla_name , art_file_id,
-        art_operator_id,
-        art_top, art_del_state, art_content,art_sight
+        select *
         from article art
         LEFT JOIN plate pla
         on art_plate_id = pla.id
@@ -112,13 +116,12 @@
         <if test="search != ''">
             and art_title like #{search,jdbcType=VARCHAR}
         </if>
+        and art_type = 0
         order by art_time desc
     </select>
     <!--关联查询时用到-->
     <select id="selectAllByPlateId" parameterType="java.lang.Integer" resultMap="SecResultMap">
-        select art.id, art_title, art_author, art_pic, art_time, art_plate_id, pla.pla_name , art_file_id,
-        art_operator_id,
-        art_top, art_del_state, art_content,art_sight
+        select *
         from article art
         LEFT JOIN plate pla
         on art_plate_id = pla.id
@@ -126,22 +129,23 @@
         <if test="id != 0">
             and art_plate_id = #{id,jdbcType=INTEGER}
         </if>
+        and art_type = 0
         order by art_time desc
     </select>
     <!--获取所有文章数量-->
     <select id="getArtCount" resultType="java.lang.Long">
-        select count(1) from article where art_del_state = 0
+        select count(1) from article where art_del_state = 0 and art_type = 0
     </select>
     <!--获取所有文章的浏览量-->
     <select id="getArtSightCount" resultType="java.lang.Long">
-        select sum(art_sight) as sightCount from article where art_del_state = 0
+        select sum(art_sight) as sightCount from article where art_del_state = 0 and art_type = 0
     </select>
     <!--获取板块的浏览量-->
     <select id="getArtSightCountBySec" resultType="java.lang.Long">
         select sum(art_sight) as sightCount
         from article
         where art_del_state = 0
-        and art_plate_id = #{secId,jdbcType=INTEGER}
+        and art_plate_id = #{secId,jdbcType=INTEGER} and art_type = 0
     </select>
     <!--增加文章浏览次数-->
     <update id="addSightByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Article">
@@ -171,6 +175,7 @@
             #{id,jdbcType=INTEGER}
         </foreach>
         and art_del_state = 1
+        and art_type = 0
     </select>
     <!--取消其他置顶-->
     <update id="cancelTop" parameterType="java.lang.Integer">
@@ -189,12 +194,13 @@
         where art_plate_id = 1
         and art_pic != ""
         and art_del_state = 0
+        and art_type = 0
         ORDER BY art_time DESC
         limit 5
     </select>
     <select id="getIntro" resultType="cn.edu.hzvtc.pojo.Article">
         SELECT * FROM article
-        where art_plate_id = 9
+        where art_type = 3
         and art_del_state = 0
     </select>
 </mapper>

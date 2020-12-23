@@ -92,7 +92,7 @@ public class AdminNavController {
     public ReturnMsg delNav(@RequestParam("id") Integer id) {
         Plate nav = plateService.getNav(id);
         String parentId = String.valueOf(nav.getPlaParentId());
-        System.out.println(parentId);
+//        System.out.println(parentId);
 
         if (plateService.delNav(id) > 0) {
             if (parentId.equals("null")){

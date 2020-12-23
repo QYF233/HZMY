@@ -54,7 +54,7 @@ public class AdminLoginController {
 //        System.out.println("token"+token);
 
         if (!JwtUtil.verify(token)) {
-            System.out.println("token无效");
+//            System.out.println("token无效");
             return ReturnMsg.fail().add("msg", "token无效");
         }
         String userId = JwtUtil.getUserProperty(token, "userId");
@@ -173,6 +173,11 @@ public class AdminLoginController {
         return ReturnMsg.fail();
     }
 
+    /**
+     * 验证用户名是否存在
+     * @param name 用户名
+     * @return
+     */
     @RequestMapping(value = "/validName", method = RequestMethod.GET)
     @ResponseBody
     public ReturnMsg validName(@RequestParam("name") String name) {
@@ -182,6 +187,12 @@ public class AdminLoginController {
         }
         return ReturnMsg.fail();
     }
+
+    /**
+     * 验证手机号
+     * @param phone
+     * @return
+     */
     @RequestMapping(value = "/validPhone", method = RequestMethod.GET)
     @ResponseBody
     public ReturnMsg validPhone(@RequestParam("phone") String phone) {

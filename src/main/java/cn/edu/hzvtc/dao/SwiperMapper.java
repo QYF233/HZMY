@@ -17,5 +17,10 @@ public interface SwiperMapper {
 
     int updateByPrimaryKey(Swiper record);
 
+    /**
+     * 添加图片
+     * @param record
+     * @return
+     */
     int insertSecPic(Swiper record);
 }

@@ -95,7 +95,7 @@ public interface PlateService {
      * @param plaParentId 父id
      * @return
      */
-    public int updateSort(Integer newSort, Integer oldSort, String flag, Integer plaParentId);
+    int updateSort(Integer newSort, Integer oldSort, String flag, Integer plaParentId);
 
     /**
      * 删除排序
@@ -104,9 +104,16 @@ public interface PlateService {
      * @param flag
      * @return
      */
-    public int delSort(Integer id, String flag);
+    int delSort(Integer id, String flag);
 
     Plate getNav(Integer id);
 
-    public int changePic(Integer id, String plaPic);
+    /**
+     * 修改图片
+     *
+     * @param id
+     * @param plaPic
+     * @return
+     */
+     int changePic(Integer id, String plaPic);
 }

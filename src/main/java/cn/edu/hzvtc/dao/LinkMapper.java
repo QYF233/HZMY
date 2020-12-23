@@ -19,5 +19,11 @@ public interface LinkMapper {
 
     int updateByPrimaryKey(Link record);
 
+    /**
+     * 更新友联顺序
+     * @param id 友联id
+     * @param newSort 新的排序
+     * @return
+     */
     int updateSort(@Param("id") Integer id, @Param("newSort") Integer newSort);
 }

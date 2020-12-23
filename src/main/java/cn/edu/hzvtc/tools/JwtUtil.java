@@ -43,7 +43,6 @@ public class JwtUtil {
      */
     public static String getUserProperty(String token, String key) {
         try {
-
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim(key).asString();
         } catch (Exception e) {
