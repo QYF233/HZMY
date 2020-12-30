@@ -56,9 +56,10 @@ public class AdminArticleController {
     @CrossOrigin
     public ReturnMsg getArticle(@RequestParam(value = "sectionId", defaultValue = "0") Integer sectionId,
                                 @RequestParam(value = "pn", defaultValue = "1") Integer pn,
-                                @RequestParam(value = "search", defaultValue = "") String search) {
+                                @RequestParam(value = "search", defaultValue = "") String search,
+                                @RequestParam("pageType") boolean pageType) {
         PageHelper.startPage(pn, 5);
-        List<Article> list = articleService.getArticle(sectionId, search);
+        List<Article> list = articleService.getArticle(sectionId, search,pageType);
         PageInfo pageInfo = new PageInfo(list, 10);
         return ReturnMsg.success().add("pageInfo", pageInfo);
     }
@@ -100,8 +101,8 @@ public class AdminArticleController {
     @RequestMapping("/getSec")
     @ResponseBody
     @CrossOrigin
-    public ReturnMsg getSec() {
-        List<Plate> plates = plateService.getPlates();
+    public ReturnMsg getSec(@RequestParam("pageType") boolean pageType) {
+        List<Plate> plates = plateService.getPlates(pageType);
         return ReturnMsg.success().add("plates", plates);
     }
 
@@ -311,8 +312,8 @@ public class AdminArticleController {
     @RequestMapping(value = "/updateIntro", method = RequestMethod.PUT)
     @ResponseBody
     @CrossOrigin
-    public ReturnMsg updateIntro(@RequestParam(value = "introText") String introText,@RequestParam(value = "picName") String picName) {
-        if (articleService.updateIntro(introText,picName) > 0) {
+    public ReturnMsg updateIntro(@RequestParam(value = "introText") String introText, @RequestParam(value = "picName") String picName) {
+        if (articleService.updateIntro(introText, picName) > 0) {
             return ReturnMsg.success();
         } else {
             return ReturnMsg.fail();

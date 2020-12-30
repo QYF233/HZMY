@@ -71,7 +71,7 @@ public interface ArticleMapper {
      * @param search
      * @return
      */
-    List<Article> selectAllArticle(@Param("id") Integer id, @Param("search") String search);
+    List<Article> selectAllArticle(@Param("id") Integer id, @Param("search") String search, @Param("artType") Integer artType);
 
     /**
      * 获取该板块下的所有文章

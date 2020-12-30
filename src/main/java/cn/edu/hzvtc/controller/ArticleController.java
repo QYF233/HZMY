@@ -108,4 +108,16 @@ public class ArticleController {
             return ReturnMsg.fail();
         }
     }
+    /**
+     * 获取学院简介
+     *
+     * @return
+     */
+    @RequestMapping("/getIntro")
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg getIntro() {
+        Article intro = articleService.getIntro();
+        return ReturnMsg.success().add("intro", intro);
+    }
 }

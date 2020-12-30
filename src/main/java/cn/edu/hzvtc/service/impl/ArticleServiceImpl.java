@@ -44,10 +44,16 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> getArticle(Integer sectionId, String search) {
+    public List<Article> getArticle(Integer sectionId, String search, boolean pageType) {
         search = "%" + search + "%";
         /*后台*/
-        return articleMapper.selectAllArticle(sectionId, search);
+        if (pageType) {
+            /*获取板块文章*/
+            return articleMapper.selectAllArticle(sectionId, search, 0);
+        } else {
+            /*获取导航文章*/
+            return articleMapper.selectAllArticle(sectionId, search, 1);
+        }
     }
 
     @Override
@@ -122,7 +128,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public int updateIntro(String introText,String picName) {
-        return articleMapper.updateIntro(introText,picName);
+    public int updateIntro(String introText, String picName) {
+        return articleMapper.updateIntro(introText, picName);
     }
 }

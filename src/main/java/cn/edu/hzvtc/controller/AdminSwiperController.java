@@ -101,7 +101,7 @@ public class AdminSwiperController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg getSec() {
-        List<Plate> plates = plateService.getPlates();
+        List<Plate> plates = plateService.getPlates(true);
         return ReturnMsg.success().add("plates", plates);
     }
 

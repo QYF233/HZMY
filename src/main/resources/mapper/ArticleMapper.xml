@@ -44,7 +44,7 @@
     values (#{artTitle,jdbcType=VARCHAR}, #{artAuthor,jdbcType=VARCHAR},
       #{artPic,jdbcType=VARCHAR}, #{artTime,jdbcType=TIMESTAMP}, #{artPlateId,jdbcType=INTEGER}, 
       #{artFileId,jdbcType=VARCHAR}, #{artOperatorId,jdbcType=INTEGER}, #{artTop,jdbcType=INTEGER},
-        #{artContent,jdbcType=LONGVARCHAR},0)
+        #{artContent,jdbcType=LONGVARCHAR},#{artType,jdbcType=LONGVARCHAR})
   </insert>
     <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Article">
     update article
@@ -65,7 +65,6 @@
     from article
     where id = #{id,jdbcType=INTEGER}
     and art_del_state = 0
-    and art_type = 0
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id, 
@@ -87,9 +86,7 @@
   </select>
     <!--文章管理，获取文章列表-->
     <select id="selectByPlateIdAll" parameterType="java.lang.Integer" resultMap="SecResultMap">
-        select art.id, art_title, art_author, art_pic, art_time, art_plate_id, pla.pla_name , art_file_id,
-        art_operator_id,
-        art_top, art_del_state, art_content,art_sight
+        select *
         from article art
         LEFT JOIN plate pla
         on art_plate_id = pla.id
@@ -116,7 +113,7 @@
         <if test="search != ''">
             and art_title like #{search,jdbcType=VARCHAR}
         </if>
-        and art_type = 0
+        and art_type = #{artType,jdbcType=VARCHAR}
         order by art_time desc
     </select>
     <!--关联查询时用到-->

@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface PlateService {
-    public List<Plate> getPlates();
+    public List<Plate> getPlates(boolean pageType);
 
     /**
      * 获取所有导航信息 type = 1

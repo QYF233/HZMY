@@ -57,7 +57,7 @@ public class AdminHomeController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg getSectionChart() {
-        List<Plate> plates = plateService.getPlates();
+        List<Plate> plates = plateService.getPlates(true);
         return ReturnMsg.success().add("plates", plates);
     }
 }

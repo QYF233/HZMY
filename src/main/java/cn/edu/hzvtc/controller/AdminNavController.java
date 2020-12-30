@@ -70,6 +70,9 @@ public class AdminNavController {
     @CrossOrigin
     public ReturnMsg updateNav(@Valid Plate plate, @RequestParam("oldSort") Integer oldSort) {
         /*如果sort有变动，进行排序*/
+        if (plate.getPlaUrl().length() == 0) {
+            plate.setPlaUrl(null);
+        }
         if (!oldSort.equals(plate.getPlaSort())) {
             plateService.updateSort(plate.getPlaSort(), oldSort, "nav", plate.getPlaParentId());
         }
@@ -95,9 +98,9 @@ public class AdminNavController {
 //        System.out.println(parentId);
 
         if (plateService.delNav(id) > 0) {
-            if (parentId.equals("null")){
+            if (parentId.equals("null")) {
                 plateService.delSort(id, "navRoot");
-            }else {
+            } else {
                 plateService.delSort(id, "nav");
             }
 

@@ -21,11 +21,15 @@ public class PlateServiceImpl implements PlateService {
      * @return
      */
     @Override
-    public List<Plate> getPlates() {
-        List<Plate> plateList = plateMapper.getPlateByType(2);
-        List<Plate> plateList1 = plateMapper.getPlateByType(3);
-        plateList.addAll(plateList1);
-        return plateList;
+    public List<Plate> getPlates(boolean pageType) {
+        if (pageType) {
+            List<Plate> plateList = plateMapper.getPlateByType(2);
+            List<Plate> plateList1 = plateMapper.getPlateByType(3);
+            plateList.addAll(plateList1);
+            return plateList;
+        } else {
+            return plateMapper.getPlateByType(1);
+        }
     }
 
 

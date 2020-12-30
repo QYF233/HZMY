@@ -5,6 +5,7 @@ import cn.edu.hzvtc.pojo.User;
 import cn.edu.hzvtc.service.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,8 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public User getUser(String username, String password) {
-        return userMapper.selectUser(username, password);
+        String pwd = DigestUtils.md5DigestAsHex(password.getBytes());
+        return userMapper.selectUser(username, pwd);
     }
 
     @Override
@@ -47,11 +49,15 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public int updateUser(User user) {
+        String pwd = DigestUtils.md5DigestAsHex(user.getUserPassword().getBytes());
+        user.setUserPassword(pwd);
         return userMapper.updateByPrimaryKey(user);
     }
 
     @Override
     public int addUser(User user) {
+        String pwd = DigestUtils.md5DigestAsHex(user.getUserPassword().getBytes());
+        user.setUserPassword(pwd);
         return userMapper.insert(user);
     }
 

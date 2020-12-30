@@ -11,7 +11,7 @@
     <!--配置视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
         <property name="prefix" value="/"/>
-        <property name="suffix" value=".jsp"/>
+        <property name="suffix" value=".html"/>
     </bean>
 
     <!--上传文件拦截，设置最大上传文件大小 10M=10*1024*1024(B) = 10485760 bytes-->
