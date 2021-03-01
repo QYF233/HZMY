@@ -12,10 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -35,7 +32,7 @@ public class SectionController {
     public HomeService homeService;
     @Autowired
     public PlateService plateService;
-
+    public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/";
     /**
      * 前台列表页，获取当前板块所属文章
      *
@@ -61,7 +58,7 @@ public class SectionController {
      * @param session
      * @return
      */
-    @RequestMapping("/uploadImgs")
+    @RequestMapping(value = "/uploadImgs",method = RequestMethod.POST)
     @ResponseBody
     public ReturnMsg uploadImgs(@RequestParam MultipartFile[] files,
                                 @RequestParam("sectionId") Integer sectionId,
@@ -69,21 +66,23 @@ public class SectionController {
         for (int i = 0; i < files.length; i++) {
             MultipartFile multipartFile = files[i];
             String originalFilename = multipartFile.getOriginalFilename();
-            //此处文件保存地址应该改为服务器存放数据的地址
-            File file = new File("D:/DEV/nginx-1.18.0/html/com/swiper/" + originalFilename);
+
+//            String filePath = "D:/DEV/nginx-1.18.0/html/com/swiper/";
+            File file = new File(UPLOAD_URL +"swiper/"+ originalFilename);
+
             try {
-                multipartFile.transferTo(file);
+                multipartFile.transferTo(file.getAbsoluteFile());
                 if (plateService.changePic(sectionId, file.getName()) > 0) {
                     return ReturnMsg.success();
                 } else {
-                    return ReturnMsg.fail();
+                    return ReturnMsg.fail().add("errorMsg","错1");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                return ReturnMsg.fail();
+                return ReturnMsg.fail().add("errorMsg",e.toString());
             }
         }
-        return ReturnMsg.fail();
+        return ReturnMsg.fail().add("errorMsg","错3");
     }
 
 }

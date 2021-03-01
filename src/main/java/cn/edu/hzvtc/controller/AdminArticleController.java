@@ -42,6 +42,8 @@ public class AdminArticleController {
     @Autowired
     public AnnexService annexService;
 
+    public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/";
+
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
     /**
@@ -161,12 +163,12 @@ public class AdminArticleController {
                 return ReturnMsg.fail().add("msg", "文件类型不正确");
             }*/
             //此处文件保存地址应该改为服务器存放数据的地址
-            File file = new File("D:/DEV/nginx-1.18.0/html/com/upload/imgs/" + originalFilename);
+            File file = new File(UPLOAD_URL +"/upload/imgs/"+ originalFilename);
             try {
-                multipartFile.transferTo(file);
+                multipartFile.transferTo(file.getAbsoluteFile());
             } catch (IOException e) {
                 e.printStackTrace();
-                return ReturnMsg.fail();
+                return ReturnMsg.fail().add("errorMsg",e.toString());
             }
         }
 //        System.out.println(files.length);
@@ -197,9 +199,10 @@ public class AdminArticleController {
                 return ReturnMsg.fail().add("msg", "文件类型不正确");
             }*/
             //此处文件保存地址应该改为服务器存放数据的地址
-            File file = new File("D:/DEV/nginx-1.18.0/html/com/upload/files/" + originalFilename);
+
+            File file = new File(UPLOAD_URL +"/upload/files/"+ originalFilename);
             try {
-                multipartFile.transferTo(file);
+                multipartFile.transferTo(file.getAbsoluteFile());
                 Annex annex = new Annex();
                 annex.setFileName(file.getName());
                 annex.setFileTime(new Date());
@@ -219,13 +222,13 @@ public class AdminArticleController {
                 }
                 //写入附件数据库
                 if (annexService.addAnnex(annex) == 0) {
-                    return ReturnMsg.fail();
+                    return ReturnMsg.fail().add("errorMsg","错1");
                 }
                 //返回附件id
                 annexId += annex.getId() + "-";
             } catch (IOException e) {
                 e.printStackTrace();
-                return ReturnMsg.fail();
+                return ReturnMsg.fail().add("errorMsg",e.toString());
             }
         }
 
