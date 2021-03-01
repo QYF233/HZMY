@@ -56,19 +56,20 @@
       art_file_id = #{artFileId,jdbcType=VARCHAR},
       art_operator_id = #{artOperatorId,jdbcType=INTEGER},
       art_top = #{artTop,jdbcType=INTEGER},
-      art_content = #{artContent,jdbcType=LONGVARCHAR}
+      art_content = #{artContent,jdbcType=LONGVARCHAR},
+      art_type = #{artType,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id, 
-    art_top, art_del_state, art_content,art_sight
+    art_top, art_del_state, art_content,art_sight,art_type
     from article
     where id = #{id,jdbcType=INTEGER}
     and art_del_state = 0
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id, 
-    art_top, art_del_state, art_content,art_sight
+    art_top, art_del_state, art_content,art_sight,art_type
     from article
     where art_del_state = 0
     and art_type = 0
@@ -76,11 +77,11 @@
     <!--按板块获取文章列表-->
     <select id="selectByPlateId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id,
-    art_top, art_del_state, art_content,art_sight
+    art_top, art_del_state, art_content,art_sight,art_type
     from article
     where art_plate_id = #{id,jdbcType=INTEGER}
     and art_del_state = 0
-    and art_type = 0
+    and( art_type = 0 or art_type = 4 )
     order by art_top desc, art_time desc
     Limit 0,5
   </select>
@@ -91,13 +92,13 @@
         LEFT JOIN plate pla
         on art_plate_id = pla.id
         where art_del_state = 0
-        and art_type = 0
         <if test="id != 0">
             and art_plate_id = #{id,jdbcType=INTEGER}
         </if>
         <if test="search != ''">
             and art_title like #{search,jdbcType=VARCHAR}
         </if>
+        and (art_type = 0 or art_type = 4)
         order by art_top desc, art_time desc
     </select>
     <!--后台文章管理列表-->
@@ -113,7 +114,12 @@
         <if test="search != ''">
             and art_title like #{search,jdbcType=VARCHAR}
         </if>
-        and art_type = #{artType,jdbcType=VARCHAR}
+        <if test="artType != 0">
+            and art_type = #{artType,jdbcType=VARCHAR}
+        </if>
+        <if test="artType == 0">
+            and( art_type = #{artType,jdbcType=VARCHAR} or art_type = 4 )
+        </if>
         order by art_time desc
     </select>
     <!--关联查询时用到-->

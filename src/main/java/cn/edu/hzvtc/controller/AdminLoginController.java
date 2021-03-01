@@ -114,7 +114,7 @@ public class AdminLoginController {
      * @param user
      * @return
      */
-    @RequestMapping(value = "updateUser", method = RequestMethod.PUT)
+    @RequestMapping(value = "updateUser", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg updateUser(@Valid User user) {
@@ -148,7 +148,7 @@ public class AdminLoginController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "delUser", method = RequestMethod.DELETE)
+    @RequestMapping(value = "delUser", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg delUser(@RequestParam("id") String id) {
@@ -164,7 +164,7 @@ public class AdminLoginController {
      * @param ids 删除id列表
      * @return
      */
-    @RequestMapping(value = "/delUser/{ids}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delUser/{ids}", method = RequestMethod.POST)
     @ResponseBody
     public ReturnMsg delArtAll(@PathVariable("ids") String ids) {
         if (adminUserService.delUser(ids)) {

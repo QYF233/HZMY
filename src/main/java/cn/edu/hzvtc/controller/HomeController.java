@@ -24,6 +24,7 @@ public class HomeController {
 
     /**
      * 获取导航信息
+     *
      * @return ReturnMsg
      */
     @RequestMapping("/getPlates")
@@ -33,8 +34,10 @@ public class HomeController {
         List<Plate> plates = homeService.getList();
         return ReturnMsg.success().add("plates", plates);
     }
+
     /**
      * 获取轮播图
+     *
      * @return ReturnMsg
      */
     @RequestMapping("/getSwiper")
@@ -47,6 +50,7 @@ public class HomeController {
 
     /**
      * 获取文章列表
+     *
      * @param plateId 板块id
      * @return ReturnMsg
      */
@@ -54,12 +58,14 @@ public class HomeController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg getArticle(@RequestParam("plateId") Integer plateId) {
-        List<Article> articles = homeService.getArticle(plateId,"limit");
+        List<Article> articles = homeService.getArticle(plateId, "limit");
+
         return ReturnMsg.success().add("articles", articles);
     }
 
     /**
      * 获取页底
+     *
      * @return ReturnMsg
      */
     @RequestMapping("/getLink")

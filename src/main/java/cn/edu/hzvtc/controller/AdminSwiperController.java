@@ -217,7 +217,7 @@ public class AdminSwiperController {
      * @param id 文章id
      * @return
      */
-    @RequestMapping(value = "/delArt", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delArt", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg delArt(@RequestParam("id") String id) {
@@ -233,7 +233,7 @@ public class AdminSwiperController {
      * @param ids 删除id列表
      * @return
      */
-    @RequestMapping(value = "/delArt/{ids}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delArt/{ids}", method = RequestMethod.POST)
     @ResponseBody
     public ReturnMsg delArtAll(@PathVariable("ids") String ids) {
         if (articleService.delArt(ids)) {
@@ -249,7 +249,7 @@ public class AdminSwiperController {
      * @param artTimeStr 时间str
      * @return
      */
-    @RequestMapping(value = "/updateArticle", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateArticle", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg updateArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {

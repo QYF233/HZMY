@@ -65,7 +65,7 @@ public class AdminNavController {
      * @param oldSort 原先sort
      * @return
      */
-    @RequestMapping(value = "/updateNav", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateNav", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg updateNav(@Valid Plate plate, @RequestParam("oldSort") Integer oldSort) {
@@ -89,7 +89,7 @@ public class AdminNavController {
      * @param id 删除id
      * @return
      */
-    @RequestMapping(value = "/delNav", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delNav", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg delNav(@RequestParam("id") Integer id) {

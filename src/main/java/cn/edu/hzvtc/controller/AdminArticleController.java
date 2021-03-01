@@ -238,7 +238,7 @@ public class AdminArticleController {
      * @param id 文章id
      * @return
      */
-    @RequestMapping(value = "/delArt", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delArt", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg delArt(@RequestParam("id") String id) {
@@ -254,8 +254,9 @@ public class AdminArticleController {
      * @param ids 删除id列表
      * @return
      */
-    @RequestMapping(value = "/delArt/{ids}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delArt/{ids}", method = RequestMethod.POST)
     @ResponseBody
+    @CrossOrigin
     public ReturnMsg delArtAll(@PathVariable("ids") String ids) {
         if (articleService.delArt(ids)) {
             return ReturnMsg.success();
@@ -270,11 +271,11 @@ public class AdminArticleController {
      * @param artTimeStr 时间str
      * @return
      */
-    @RequestMapping(value = "/updateArticle", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateArticle", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg updateArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {
-//        System.out.println(article.toString());
+        System.out.println(article.toString());
         if (article.getArtTop() == 1) {
             articleService.cancelTop(article.getArtPlateId());
         }
@@ -309,7 +310,7 @@ public class AdminArticleController {
      *
      * @return
      */
-    @RequestMapping(value = "/updateIntro", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateIntro", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg updateIntro(@RequestParam(value = "introText") String introText, @RequestParam(value = "picName") String picName) {

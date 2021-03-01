@@ -64,7 +64,7 @@ public class AdminLinkController {
      * @param link
      * @return
      */
-    @RequestMapping(value = "/updateLink", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateLink", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg updateLink(Link link) {
@@ -80,7 +80,7 @@ public class AdminLinkController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/delLink", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delLink", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg delLink(@RequestParam("id") Integer id) {

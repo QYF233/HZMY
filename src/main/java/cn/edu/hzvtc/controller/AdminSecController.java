@@ -67,7 +67,7 @@ public class AdminSecController {
      * @param id 删除id
      * @return
      */
-    @RequestMapping(value = "/delSec", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delSec", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg delSec(@RequestParam("id") Integer id) {
@@ -84,7 +84,7 @@ public class AdminSecController {
      * @param ids 删除id列表
      * @return
      */
-    @RequestMapping(value = "/delSec/{ids}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delSec/{ids}", method = RequestMethod.POST)
     @ResponseBody
     public ReturnMsg delSec(@PathVariable("ids") String ids) {
         if (plateService.delSec(ids)) {
@@ -118,7 +118,7 @@ public class AdminSecController {
      * @param oldSort 原先顺序
      * @return
      */
-    @RequestMapping(value = "/updateSec", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateSec", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg updateSec(@Valid Plate plate, @RequestParam("oldSort") Integer oldSort) {
