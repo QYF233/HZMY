@@ -46,8 +46,8 @@ public class AdminSwiperController {
     @Autowired
     public AdminSwiService adminSwiService;
 //    public String UPLOAD_URL = "C:/uploadFile/";
-//    public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/upload/";
-    public String UPLOAD_URL = "D:/DEV/nginx-1.18.0/html/com/upload/";
+    public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/upload/";
+//    public String UPLOAD_URL = "D:/DEV/nginx-1.18.0/html/com/upload/";
 
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 

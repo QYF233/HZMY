@@ -42,8 +42,8 @@ public class AdminArticleController {
     @Autowired
     public AnnexService annexService;
 
-//    public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/";
-    public String UPLOAD_URL = "D:/DEV/nginx-1.18.0/html/com/";
+    public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/";
+//    public String UPLOAD_URL = "D:/DEV/nginx-1.18.0/html/com/";
 
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
@@ -258,14 +258,14 @@ public class AdminArticleController {
      * @param ids 删除id列表
      * @return
      */
-    @RequestMapping(value = "/delArt/{ids}", method = RequestMethod.POST)
+    @RequestMapping(value = "/delArt/{ids}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg delArtAll(@PathVariable("ids") String ids) {
         if (articleService.delArt(ids)) {
             return ReturnMsg.success();
         }
-        return ReturnMsg.fail();
+        return ReturnMsg.fail().add("msg","错");
     }
 
     /**
