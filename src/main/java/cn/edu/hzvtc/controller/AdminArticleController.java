@@ -42,7 +42,8 @@ public class AdminArticleController {
     @Autowired
     public AnnexService annexService;
 
-    public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/";
+//    public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/";
+    public String UPLOAD_URL = "D:/DEV/nginx-1.18.0/html/com/";
 
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
@@ -119,7 +120,7 @@ public class AdminArticleController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg addArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {
-//        System.out.println(article.toString());
+        System.out.println(article.toString());
         if (article.getArtTop() == 1) {
             articleService.cancelTop(article.getArtPlateId());
         }

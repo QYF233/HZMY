@@ -32,7 +32,8 @@ public class SectionController {
     public HomeService homeService;
     @Autowired
     public PlateService plateService;
-    public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/";
+//    public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/";
+    public String UPLOAD_URL = "D:/DEV/nginx-1.18.0/html/com/";
     /**
      * 前台列表页，获取当前板块所属文章
      *
