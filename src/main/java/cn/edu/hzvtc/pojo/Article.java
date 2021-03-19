@@ -39,4 +39,6 @@ public class Article {
     private Integer artSight;
 
     private Integer artType;
+
+    private String artOrigin;
 }

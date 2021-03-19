@@ -55,7 +55,11 @@ public class AdminNavController {
     public ReturnMsg getNavs() {
         List<Plate> navs = plateService.getNavs();
         navs = setNodes(navs);
-        return ReturnMsg.success().add("navs", navs).add("navCount", navs.size());
+        if (navs != null) {
+            return ReturnMsg.success().add("navs", navs).add("navCount", navs.size());
+        } else {
+            return ReturnMsg.fail();
+        }
     }
 
     /**

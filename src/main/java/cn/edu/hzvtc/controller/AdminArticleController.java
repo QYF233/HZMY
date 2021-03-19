@@ -42,7 +42,7 @@ public class AdminArticleController {
     @Autowired
     public AnnexService annexService;
 
-    public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/";
+        public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/";
 //    public String UPLOAD_URL = "D:/DEV/nginx-1.18.0/html/com/";
 
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
@@ -62,7 +62,7 @@ public class AdminArticleController {
                                 @RequestParam(value = "search", defaultValue = "") String search,
                                 @RequestParam("pageType") boolean pageType) {
         PageHelper.startPage(pn, 5);
-        List<Article> list = articleService.getArticle(sectionId, search,pageType);
+        List<Article> list = articleService.getArticle(sectionId, search, pageType);
         PageInfo pageInfo = new PageInfo(list, 10);
         return ReturnMsg.success().add("pageInfo", pageInfo);
     }
@@ -146,35 +146,41 @@ public class AdminArticleController {
     @RequestMapping("/uploadImgs")
     @ResponseBody
     public ReturnMsg uploadImgs(@RequestParam MultipartFile[] files, HttpSession session) {
+        String outName = "";
         for (int i = 0; i < files.length; i++) {
             MultipartFile multipartFile = files[i];
             String originalFilename = multipartFile.getOriginalFilename();
-            /*String[] filename = new String[0];
+            String[] filename = new String[0];
             if (originalFilename != null) {
-                *//*截取后缀名*//*
+                //*截取后缀名*//*
                 filename = originalFilename.split("\\.");
             }
-            String reg = ".+(.JPEG|.jpeg|.JPG|.jpg)$";
-            String imgp = "Redocn_2012100818523401.png";
-            Pattern pattern = Pattern.compile(reg);
-            Matcher matcher = pattern.matcher(imgp);
-            System.out.println(matcher.find());
-            System.out.println(filename[filename.length - 1]);
-            if ("csv".equals(filename[filename.length - 1])) {
-                return ReturnMsg.fail().add("msg", "文件类型不正确");
-            }*/
+            Date date = new Date();
+            SimpleDateFormat sdformat = new SimpleDateFormat("yyyyMMddhhmmssSSS");
+            filename[0] = sdformat.format(date);
+//            String reg = ".+(.JPEG|.jpeg|.JPG|.jpg)$";
+//            String imgp = "Redocn_2012100818523401.png";
+//            Pattern pattern = Pattern.compile(reg);
+//            Matcher matcher = pattern.matcher(imgp);
+//            System.out.println(matcher.find());
+//            System.out.println(filename[filename.length - 1]);
+//            if ("csv".equals(filename[filename.length - 1])) {
+//                return ReturnMsg.fail().add("msg", "文件类型不正确");
+//            }
+            String newFilename = filename[0] + "-" + originalFilename;
+            outName += newFilename + "/";
             //此处文件保存地址应该改为服务器存放数据的地址
-            File file = new File(UPLOAD_URL +"/upload/imgs/"+ originalFilename);
+            File file = new File(UPLOAD_URL + "/upload/imgs/" + newFilename);
             try {
                 multipartFile.transferTo(file.getAbsoluteFile());
             } catch (IOException e) {
                 e.printStackTrace();
-                return ReturnMsg.fail().add("errorMsg",e.toString());
+                return ReturnMsg.fail().add("errorMsg", e.toString());
             }
         }
 //        System.out.println(files.length);
 
-        return ReturnMsg.success();
+        return ReturnMsg.success().add("outName", outName);
     }
 
     /**
@@ -201,7 +207,7 @@ public class AdminArticleController {
             }*/
             //此处文件保存地址应该改为服务器存放数据的地址
 
-            File file = new File(UPLOAD_URL +"/upload/files/"+ originalFilename);
+            File file = new File(UPLOAD_URL + "/upload/files/" + originalFilename);
             try {
                 multipartFile.transferTo(file.getAbsoluteFile());
                 Annex annex = new Annex();
@@ -223,13 +229,13 @@ public class AdminArticleController {
                 }
                 //写入附件数据库
                 if (annexService.addAnnex(annex) == 0) {
-                    return ReturnMsg.fail().add("errorMsg","错1");
+                    return ReturnMsg.fail().add("errorMsg", "错1");
                 }
                 //返回附件id
                 annexId += annex.getId() + "-";
             } catch (IOException e) {
                 e.printStackTrace();
-                return ReturnMsg.fail().add("errorMsg",e.toString());
+                return ReturnMsg.fail().add("errorMsg", e.toString());
             }
         }
 
@@ -265,7 +271,7 @@ public class AdminArticleController {
         if (articleService.delArt(ids)) {
             return ReturnMsg.success();
         }
-        return ReturnMsg.fail().add("msg","错");
+        return ReturnMsg.fail().add("msg", "错");
     }
 
     /**

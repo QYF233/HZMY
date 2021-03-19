@@ -15,6 +15,7 @@
         <result column="art_content" jdbcType="LONGVARCHAR" property="artContent"/>
         <result column="art_sight" jdbcType="INTEGER" property="artSight"/>
         <result column="art_type" jdbcType="INTEGER" property="artType"/>
+        <result column="art_origin" jdbcType="VARCHAR" property="artOrigin"/>
     </resultMap>
     <resultMap id="SecResultMap" type="cn.edu.hzvtc.pojo.Article">
         <id column="id" jdbcType="INTEGER" property="id"/>
@@ -31,6 +32,7 @@
         <result column="art_content" jdbcType="LONGVARCHAR" property="artContent"/>
         <result column="art_sight" jdbcType="INTEGER" property="artSight"/>
         <result column="art_type" jdbcType="INTEGER" property="artType"/>
+        <result column="art_origin" jdbcType="VARCHAR" property="artOrigin"/>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from article
@@ -40,11 +42,11 @@
     insert into article (art_title, art_author,
       art_pic, art_time, art_plate_id, 
       art_file_id, art_operator_id, art_top, 
-        art_content, art_type)
+        art_content, art_type,art_origin)
     values (#{artTitle,jdbcType=VARCHAR}, #{artAuthor,jdbcType=VARCHAR},
       #{artPic,jdbcType=VARCHAR}, #{artTime,jdbcType=TIMESTAMP}, #{artPlateId,jdbcType=INTEGER}, 
       #{artFileId,jdbcType=VARCHAR}, #{artOperatorId,jdbcType=INTEGER}, #{artTop,jdbcType=INTEGER},
-        #{artContent,jdbcType=LONGVARCHAR},#{artType,jdbcType=LONGVARCHAR})
+        #{artContent,jdbcType=LONGVARCHAR},#{artType,jdbcType=LONGVARCHAR},#{artOrigin,jdbcType=VARCHAR})
   </insert>
     <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Article">
     update article
@@ -57,27 +59,25 @@
       art_operator_id = #{artOperatorId,jdbcType=INTEGER},
       art_top = #{artTop,jdbcType=INTEGER},
       art_content = #{artContent,jdbcType=LONGVARCHAR},
-      art_type = #{artType,jdbcType=INTEGER}
+      art_type = #{artType,jdbcType=INTEGER},
+      art_origin = #{artOrigin,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id, 
-    art_top, art_del_state, art_content,art_sight,art_type
+    select *
     from article
     where id = #{id,jdbcType=INTEGER}
     and art_del_state = 0
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
-    select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id, 
-    art_top, art_del_state, art_content,art_sight,art_type
+    select *
     from article
     where art_del_state = 0
     and art_type = 0
   </select>
     <!--按板块获取文章列表-->
     <select id="selectByPlateId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, art_title, art_author, art_pic, art_time, art_plate_id, art_file_id, art_operator_id,
-    art_top, art_del_state, art_content,art_sight,art_type
+    select *
     from article
     where art_plate_id = #{id,jdbcType=INTEGER}
     and art_del_state = 0
@@ -98,7 +98,7 @@
         <if test="search != ''">
             and art_title like #{search,jdbcType=VARCHAR}
         </if>
-        and (art_type = 0 or art_type = 4)
+        and (art_type = 0 or art_type = 4 or art_type = 1)
         order by art_top desc, art_time desc
     </select>
     <!--后台文章管理列表-->
