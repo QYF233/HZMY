@@ -46,12 +46,12 @@ public class AdminLoginController {
         return returnMsg;
     }
 
-    @RequestMapping(value = "getLoginUser", method = RequestMethod.POST)
+    @RequestMapping(value = "getLoginUser", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg getLoginUser(HttpServletRequest request) {
         String token = request.getHeader("token");
-        System.out.println("token"+token);
+        System.out.println("token" + token);
 
         if (!JwtUtil.verify(token)) {
 //            System.out.println("token无效");
@@ -175,6 +175,7 @@ public class AdminLoginController {
 
     /**
      * 验证用户名是否存在
+     *
      * @param name 用户名
      * @return
      */
@@ -190,6 +191,7 @@ public class AdminLoginController {
 
     /**
      * 验证手机号
+     *
      * @param phone
      * @return
      */
