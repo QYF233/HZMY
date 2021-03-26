@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class JwtUtil {
     /*设定过期时间一天*/
-    private static final long EXPIRE_TIME = 24 * 60 * 60 * 1000;
+    private static final long EXPIRE_TIME = 1 * 60 * 60 * 1000;
     /*token私钥*/
     private static final String TOKEN_SECRET = "THIS IS HZMY BY KIKO";
 

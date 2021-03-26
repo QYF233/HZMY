@@ -51,7 +51,7 @@ public class AdminLoginController {
     @CrossOrigin
     public ReturnMsg getLoginUser(HttpServletRequest request) {
         String token = request.getHeader("token");
-//        System.out.println("token"+token);
+        System.out.println("token"+token);
 
         if (!JwtUtil.verify(token)) {
 //            System.out.println("token无效");
