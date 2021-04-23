@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * 登录、注销、忘记密码
+ * @author kiko
  */
 @Controller
 @RequestMapping("/login")

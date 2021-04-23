@@ -1,12 +1,9 @@
 package cn.edu.hzvtc.controller;
 
-import cn.edu.hzvtc.pojo.Article;
 import cn.edu.hzvtc.pojo.Plate;
 import cn.edu.hzvtc.service.AdminSecService;
 import cn.edu.hzvtc.service.PlateService;
 import cn.edu.hzvtc.tools.ReturnMsg;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

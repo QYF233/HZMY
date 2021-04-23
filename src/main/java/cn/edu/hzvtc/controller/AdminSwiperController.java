@@ -12,6 +12,7 @@ import cn.edu.hzvtc.tools.ReturnMsg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,10 +46,8 @@ public class AdminSwiperController {
 
     @Autowired
     public AdminSwiService adminSwiService;
-//    public String UPLOAD_URL = "C:/uploadFile/";
-    public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/upload/";
-//    public String UPLOAD_URL = "D:/DEV/nginx-1.18.0/html/com/upload/";
-
+    @Value("#{configProperties['UPLOAD_URL']}")
+    private String UPLOAD_URL;
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
     /**

@@ -7,6 +7,7 @@ import cn.edu.hzvtc.service.ArticleService;
 import cn.edu.hzvtc.service.PlateService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -26,6 +27,8 @@ public class Test {
     public ArticleService articleService;
     @Autowired
     private AnnexMapper annexMapper;
+    @Value("${UPLOAD_URL}")
+    public String UPLOAD_URL;
 
     @org.junit.Test
     public void test() {
@@ -38,5 +41,10 @@ public class Test {
         }else {
             plateService.delSort(9, "nav");
         }
+    }
+
+    @org.junit.Test
+    public void test2(){
+        System.out.println(UPLOAD_URL);
     }
 }

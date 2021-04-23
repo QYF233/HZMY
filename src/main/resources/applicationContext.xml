@@ -10,7 +10,7 @@
     </context:component-scan>
 
     <!--读取外部数据库配置文件-->
-    <context:property-placeholder location="classpath:dbconfig.properties"/>
+    <context:property-placeholder location="classpath:jdbc-${spring.profiles.active}.properties"/>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <!-- 基本属性 url、user、password -->
@@ -27,6 +27,14 @@
         <property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}"/>
     </bean>
 
+    <!--配置不同生产环境的不同配置-->
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc-${spring.profiles.active}.properties</value>
+            </list>
+        </property>
+    </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:mybatis-config.xml"/>

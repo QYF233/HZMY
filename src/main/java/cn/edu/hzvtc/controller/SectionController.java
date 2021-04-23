@@ -11,6 +11,7 @@ import cn.edu.hzvtc.service.HomeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,8 +33,8 @@ public class SectionController {
     public HomeService homeService;
     @Autowired
     public PlateService plateService;
-    public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/";
-//    public String UPLOAD_URL = "D:/DEV/nginx-1.18.0/html/com/";
+    @Value("#{configProperties['UPLOAD_URL']}")
+    private String UPLOAD_URL;
     /**
      * 前台列表页，获取当前板块所属文章
      *

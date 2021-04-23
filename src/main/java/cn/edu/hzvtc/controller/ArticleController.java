@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * 前台文章详情页
+ * @author kiko
  */
 @Controller
 @RequestMapping("/article")
