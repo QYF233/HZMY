@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class ReturnMsg {
     private Integer code;   //状态码 20000-成功 10000-失败
-    private String msg;     //提示消息
+    private String message;     //提示消息
     private String target;  //连接地址
     /*
     //封装返回的数据
@@ -77,12 +77,12 @@ public class ReturnMsg {
         this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public Map<String, Object> getData() {
@@ -104,14 +104,14 @@ public class ReturnMsg {
     public static ReturnMsg success() {
         ReturnMsg result = new ReturnMsg();
         result.setCode(20000);
-        result.setMsg("处理成功！");
+        result.setMessage("处理成功！");
         return result;
     }
 
     public static ReturnMsg fail() {
         ReturnMsg result = new ReturnMsg();
         result.setCode(10000);
-        result.setMsg("处理失败！");
+        result.setMessage("处理失败！");
         return result;
     }
 

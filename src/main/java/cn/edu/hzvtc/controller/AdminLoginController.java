@@ -56,7 +56,7 @@ public class AdminLoginController {
     @ResponseBody
     @CrossOrigin
     public ReturnMsg login(@RequestBody User user) {
-        ReturnMsg returnMsg;
+        ReturnMsg returnMsg = null;
 
         User userdb = adminUserService.getUser(user.getUsername(), user.getPassword());
 
@@ -64,14 +64,17 @@ public class AdminLoginController {
         if (userdb != null) {
             String token = JwtUtil.sign(userdb.getId().toString());
             returnMsg = ReturnMsg.success().add("token", token).add("user", user);
+            returnMsg.setMessage("登录成功!");
         } else {
-            returnMsg = ReturnMsg.fail().add("errorMsg", "用户名或密码错误");
+            returnMsg = ReturnMsg.fail();
+            returnMsg.setMessage("用户名或密码错误");
         }
         return returnMsg;
     }
 
     @RequestMapping(value = "getLoginUser", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin
     public ReturnMsg getLoginUser(@RequestParam("token") String token) {
 
         System.out.println("token" + token);
@@ -83,7 +86,8 @@ public class AdminLoginController {
         User loginUser = adminUserService.getUserById(Integer.parseInt(userId));
 
         if (loginUser != null) {
-            return ReturnMsg.success().add("name", loginUser.getUsername());
+            return ReturnMsg.success().add("name", loginUser.getUsername()).add("roles", "admin")
+                    .add("avatar","https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3659769985,3441244409&fm=26&gp=0.jpg");
         } else {
             return ReturnMsg.fail();
         }
@@ -94,7 +98,7 @@ public class AdminLoginController {
      *
      * @return
      */
-    @RequestMapping(value = "logout")
+    @RequestMapping(value = "logout", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg logout() {

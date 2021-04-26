@@ -43,4 +43,9 @@
                      allow-credentials="true"
         />
     </mvc:cors>
+
+    <mvc:interceptors>
+        <bean class="cn.edu.hzvtc.tools.ProcessInterceptor"/>
+    </mvc:interceptors>
+
 </beans>
