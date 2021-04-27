@@ -45,11 +45,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="cn.edu.hzvtc.pojo.Plate">
-    insert into plate (id, pla_name, pla_url, 
-      pla_sort, pla_parent_id, pla_pic, 
+    insert into plate (id, pla_name, pla_url,
+      pla_sort, pla_parent_id, pla_pic,
       pla_type)
-    values (#{id,jdbcType=INTEGER}, #{plaName,jdbcType=VARCHAR}, #{plaUrl,jdbcType=VARCHAR}, 
-      #{plaSort,jdbcType=INTEGER}, #{plaParentId,jdbcType=INTEGER}, #{plaPic,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{plaName,jdbcType=VARCHAR}, #{plaUrl,jdbcType=VARCHAR},
+      #{plaSort,jdbcType=INTEGER}, #{plaParentId,jdbcType=INTEGER}, #{plaPic,jdbcType=VARCHAR},
       #{plaType,jdbcType=INTEGER})
   </insert>
     <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Plate">
@@ -73,12 +73,11 @@
     <select id="selectChildByParentId" parameterType="java.lang.Integer" resultMap="ArticleResultMap">
         select id, pla_name, pla_url, pla_sort, pla_parent_id, pla_pic, pla_type, pla_del_state
         from plate
-        <if test="plaParentId == null">
-            where pla_parent_id is null
+        where pla_parent_id = #{plaParentId,jdbcType=INTEGER}
+        <if test="plaParentId == 0">
             and pla_type = 1
         </if>
-        <if test="plaParentId != null">
-            where pla_parent_id = #{plaParentId,jdbcType=INTEGER}
+        <if test="plaParentId != 0">
             and pla_type = 5
         </if>
         and pla_del_state = 0

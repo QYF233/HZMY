@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * 导航管理
+ *
  * @author kiko
  */
 @Controller
@@ -58,6 +59,18 @@ public class AdminNavController {
         navs = setNodes(navs);
         if (navs != null) {
             return ReturnMsg.success().add("navs", navs).add("navCount", navs.size());
+        } else {
+            return ReturnMsg.fail();
+        }
+    }
+
+    @RequestMapping(value = "/getLayerNav")
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg getLayerNav(@RequestParam("id") Integer id) {
+        List<Plate> list = plateService.selectChildByParentId(id);
+        if (list != null) {
+            return ReturnMsg.success().add("list", list);
         } else {
             return ReturnMsg.fail();
         }
