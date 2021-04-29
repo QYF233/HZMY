@@ -14,7 +14,7 @@ public interface PlateService {
      * @return
      */
     public List<Plate> getNavs();
-
+    public List<Plate> getNavsByParent(Integer parentId);
     /**
      * 获取导航总数
      *

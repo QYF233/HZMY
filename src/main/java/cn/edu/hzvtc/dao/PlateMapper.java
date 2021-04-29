@@ -19,6 +19,8 @@ public interface PlateMapper {
 
     List<Plate> selectAll();
 
+    List<Plate> selectAllNavs();
+
     int updateByPrimaryKey(Plate record);
 
     /**
@@ -34,6 +36,8 @@ public interface PlateMapper {
      * @return
      */
     List<Plate> getPlateByType(Integer typeId);
+
+    List<Plate> getNavByParentId(Integer parentId);
 
     /**
      * 获取所有的板块列表
@@ -81,6 +85,7 @@ public interface PlateMapper {
 
     /**
      * 删除后进行的排序
+     *
      * @param id
      * @param flag
      * @return
@@ -89,6 +94,7 @@ public interface PlateMapper {
 
     /**
      * 删除
+     *
      * @param id
      * @return
      */
@@ -96,6 +102,7 @@ public interface PlateMapper {
 
     /**
      * 批量删除
+     *
      * @param ids
      * @return
      */
@@ -103,6 +110,7 @@ public interface PlateMapper {
 
     /**
      * 更新板块
+     *
      * @param sec
      * @return
      */
@@ -110,6 +118,7 @@ public interface PlateMapper {
 
     /**
      * 更换板块图片
+     *
      * @param id
      * @param plaPic
      * @return

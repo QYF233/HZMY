@@ -30,7 +30,7 @@ public class Plate {
     private Integer plaDelState;
 
     private List<Plate> childPlate;
-
+    private List<Plate> children;
     private List<Article> articles;
 
     private Long sightCount;

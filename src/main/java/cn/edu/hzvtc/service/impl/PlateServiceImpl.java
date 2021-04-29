@@ -39,8 +39,14 @@ public class PlateServiceImpl implements PlateService {
      * @return
      */
     @Override
+    public List<Plate> getNavsByParent(Integer parentId) {
+        List<Plate> plateList = plateMapper.getNavByParentId(parentId);
+        return plateList;
+    }
+
+    @Override
     public List<Plate> getNavs() {
-        List<Plate> plateList = plateMapper.getPlateByType(1);
+        List<Plate> plateList = plateMapper.selectAllNavs();
         return plateList;
     }
 
