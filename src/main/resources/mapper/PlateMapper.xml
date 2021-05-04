@@ -173,7 +173,7 @@
             and pla_sort > #{oldSort,jdbcType=INTEGER}
         </if>
         <if test="flag == 'sec'">
-            and pla_parent_id is null
+            and pla_parent_id = 0
             and (pla_type = 2 or pla_type = 4)
         </if>
         <if test="flag == 'nav'">
@@ -230,7 +230,8 @@
         set pla_name = #{plaName,jdbcType=VARCHAR},
             pla_url  = #{plaUrl,jdbcType=VARCHAR},
             pla_sort = #{plaSort,jdbcType=INTEGER},
-            pla_type = #{plaType,jdbcType=INTEGER}
+            pla_type = #{plaType,jdbcType=INTEGER},
+            pla_pic = #{plaPic,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="changePic" parameterType="cn.edu.hzvtc.pojo.Plate">

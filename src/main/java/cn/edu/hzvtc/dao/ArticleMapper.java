@@ -165,4 +165,12 @@ public interface ArticleMapper {
      * @return
      */
     int updateIntro(@Param("introText") String introText, @Param("picName") String picName);
+
+    /**
+     * 更新文章状态
+     * @param artStatus 状态
+     * @param id id
+     * @return
+     */
+    int updateStatus(@Param("artStatus") String artStatus, @Param("id") Integer id);
 }

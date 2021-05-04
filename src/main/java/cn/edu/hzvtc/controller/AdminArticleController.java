@@ -7,6 +7,7 @@ import cn.edu.hzvtc.service.AnnexService;
 import cn.edu.hzvtc.service.ArticleService;
 import cn.edu.hzvtc.service.PlateService;
 import cn.edu.hzvtc.tools.ReturnMsg;
+import cn.edu.hzvtc.tools.Util;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.*;
@@ -62,10 +64,12 @@ public class AdminArticleController {
     @CrossOrigin
     public ReturnMsg getArticle(@RequestParam(value = "sectionId", defaultValue = "0") Integer sectionId,
                                 @RequestParam(value = "pn", defaultValue = "1") Integer pn,
-                                @RequestParam(value = "search", defaultValue = "") String search,
-                                @RequestParam("pageType") boolean pageType) {
-        PageHelper.startPage(pn, 5);
-        List<Article> list = articleService.getArticle(sectionId, search, pageType);
+                                @RequestParam(value = "title", defaultValue = "") String title,
+                                @RequestParam("pageType") boolean pageType,
+                                @RequestParam(value = "limit", defaultValue = "5") Integer limit
+    ) {
+        PageHelper.startPage(pn, limit);
+        List<Article> list = articleService.getArticle(sectionId, title, pageType);
         PageInfo pageInfo = new PageInfo(list, 10);
         return ReturnMsg.success().add("pageInfo", pageInfo);
     }
@@ -142,107 +146,129 @@ public class AdminArticleController {
     /**
      * 上传图片
      *
-     * @param files
-     * @param session
+     * @param file
+     * @param request
      * @return
      */
-    @RequestMapping("/uploadImgs")
+    @RequestMapping(value = "/imgUpload", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnMsg uploadImgs(@RequestParam MultipartFile[] files, HttpSession session) {
-        String outName = "";
-        for (int i = 0; i < files.length; i++) {
-            MultipartFile multipartFile = files[i];
-            String originalFilename = multipartFile.getOriginalFilename();
-            String[] filename = new String[0];
-            if (originalFilename != null) {
-                //*截取后缀名*//*
-                filename = originalFilename.split("\\.");
-            }
-            Date date = new Date();
-            SimpleDateFormat sdformat = new SimpleDateFormat("yyyyMMddhhmmssSSS");
-            filename[0] = sdformat.format(date);
-//            String reg = ".+(.JPEG|.jpeg|.JPG|.jpg)$";
-//            String imgp = "Redocn_2012100818523401.png";
-//            Pattern pattern = Pattern.compile(reg);
-//            Matcher matcher = pattern.matcher(imgp);
-//            System.out.println(matcher.find());
-//            System.out.println(filename[filename.length - 1]);
-//            if ("csv".equals(filename[filename.length - 1])) {
-//                return ReturnMsg.fail().add("msg", "文件类型不正确");
-//            }
-            String newFilename = filename[0] + "-" + originalFilename;
-            outName += newFilename + "/";
-            //此处文件保存地址应该改为服务器存放数据的地址
-            File file = new File(UPLOAD_URL + "/upload/imgs/" + newFilename);
-            try {
-                multipartFile.transferTo(file.getAbsoluteFile());
-            } catch (IOException e) {
-                e.printStackTrace();
-                return ReturnMsg.fail().add("errorMsg", e.toString());
-            }
-        }
-//        System.out.println(files.length);
+    public ReturnMsg imgUpload(MultipartFile file, HttpServletRequest request) {
 
-        return ReturnMsg.success().add("outName", outName);
+        //获取文件在服务器的储存位置
+//        String path = request.getSession().getServletContext().getRealPath("/upload");
+        String path = UPLOAD_URL + "/img";
+        File filePath = new File(path);
+        System.out.println("文件的保存路径：" + filePath);
+        if (!filePath.exists() && !filePath.isDirectory()) {
+            System.out.println("目录不存在");
+            filePath.mkdir();
+        }
+
+        //获取原始文件名称(包含格式)
+        String originalFilename = file.getOriginalFilename();
+        System.out.println("原始文件的名称是：" + originalFilename);
+
+        //获取文件类型，以最后一个`.`为标识
+        String type = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+        System.out.println("文件类型：" + type);
+        //获取文件名称（不包含格式）
+        String name = originalFilename.substring(0, originalFilename.lastIndexOf("."));
+
+        //设置文件新名称: 当前时间+文件名称（不包含格式）
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        //生成随机
+        String date = sdf.format(d);
+        Util util = new Util();
+        String randomString = util.getStringRandom(1);
+        System.out.println("生成随机数：" + randomString);
+        String fileName = date + randomString + "." + type;
+        System.out.println("新文件名称：" + fileName);
+
+        //在指定路径下创建一个文件
+        File targetFile = new File(path, fileName);
+        //将文件保存到服务器指定位置
+        ReturnMsg returnMsg = null;
+        try {
+            file.transferTo(targetFile);
+            System.out.println("上传成功");
+            returnMsg = ReturnMsg.success();
+            returnMsg.setMessage("上传成功");
+            returnMsg.add("newFileName", fileName);
+            //将文件在服务器的存储路径返回
+            return returnMsg;
+        } catch (IOException e) {
+            System.out.println("上传失败");
+            returnMsg = ReturnMsg.success();
+            returnMsg.setMessage("上传失败");
+            e.printStackTrace();
+            return returnMsg;
+        }
+
     }
 
     /**
-     * 上传文件
+     * 上传图片
      *
-     * @param files
-     * @param session
+     * @param file
+     * @param request
      * @return
      */
-    @RequestMapping("/uploadFile")
+    @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnMsg uploadFile(@RequestParam MultipartFile[] files, HttpSession session) {
-        String annexId = "";
-        for (int i = 0; i < files.length; i++) {
-            MultipartFile multipartFile = files[i];
-            String originalFilename = multipartFile.getOriginalFilename();
-            /*            String[] filename = new String[0];
-            if (originalFilename != null) {
-                *//*截取后缀名*//*
-                filename = originalFilename.split("\\.");
-            }
-            if ("csv".equals(filename[filename.length - 1])) {
-                return ReturnMsg.fail().add("msg", "文件类型不正确");
-            }*/
-            //此处文件保存地址应该改为服务器存放数据的地址
+    public ReturnMsg fileUpload(MultipartFile file, HttpServletRequest request) {
 
-            File file = new File(UPLOAD_URL + "/upload/files/" + originalFilename);
-            try {
-                multipartFile.transferTo(file.getAbsoluteFile());
-                Annex annex = new Annex();
-                annex.setFileName(file.getName());
-                annex.setFileTime(new Date());
-                annex.setFileDown(0);
-                String[] s = file.getName().split("\\.");
-                //判断文件类型
-                if ("pdf".equals(s[1])) {
-                    annex.setFileType(0);
-                } else if ("doc".equals(s[1])) {
-                    annex.setFileType(1);
-                } else if ("txt".equals(s[1])) {
-                    annex.setFileType(2);
-                } else if ("zip".equals(s[1])) {
-                    annex.setFileType(3);
-                } else {
-                    annex.setFileType(-1);
-                }
-                //写入附件数据库
-                if (annexService.addAnnex(annex) == 0) {
-                    return ReturnMsg.fail().add("errorMsg", "错1");
-                }
-                //返回附件id
-                annexId += annex.getId() + "-";
-            } catch (IOException e) {
-                e.printStackTrace();
-                return ReturnMsg.fail().add("errorMsg", e.toString());
-            }
+        //获取文件在服务器的储存位置
+//        String path = request.getSession().getServletContext().getRealPath("/upload");
+        String path = UPLOAD_URL + "/file";
+        File filePath = new File(path);
+        System.out.println("文件的保存路径：" + filePath);
+        if (!filePath.exists() && !filePath.isDirectory()) {
+            System.out.println("目录不存在");
+            filePath.mkdir();
         }
 
-        return ReturnMsg.success().add("annexId", annexId);
+        //获取原始文件名称(包含格式)
+        String originalFilename = file.getOriginalFilename();
+        System.out.println("原始文件的名称是：" + originalFilename);
+
+        //获取文件类型，以最后一个`.`为标识
+        String type = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+        System.out.println("文件类型：" + type);
+        //获取文件名称（不包含格式）
+        String name = originalFilename.substring(0, originalFilename.lastIndexOf("."));
+
+        //设置文件新名称: 当前时间+文件名称（不包含格式）
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        //生成随机
+        String date = sdf.format(d);
+        Util util = new Util();
+        String randomString = util.getStringRandom(1);
+        System.out.println("生成随机数：" + randomString);
+        String fileName = date + randomString + "." + type;
+        System.out.println("新文件名称：" + fileName);
+
+        //在指定路径下创建一个文件
+        File targetFile = new File(path, fileName);
+        //将文件保存到服务器指定位置
+        ReturnMsg returnMsg = null;
+        try {
+            file.transferTo(targetFile);
+            System.out.println("上传成功");
+            returnMsg = ReturnMsg.success();
+            returnMsg.setMessage("上传成功");
+            returnMsg.add("newFileName", fileName);
+            //将文件在服务器的存储路径返回
+            return returnMsg;
+        } catch (IOException e) {
+            System.out.println("上传失败");
+            returnMsg = ReturnMsg.success();
+            returnMsg.setMessage("上传失败");
+            e.printStackTrace();
+            return returnMsg;
+        }
+
     }
 
     /**
@@ -299,6 +325,18 @@ public class AdminArticleController {
             e.printStackTrace();
         }
         if (articleService.updateArt(article) > 0) {
+            return ReturnMsg.success();
+        } else {
+            return ReturnMsg.fail();
+        }
+    }
+
+    @RequestMapping(value = "/modifyStatus", method = RequestMethod.POST)
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg modifyStatus(@RequestParam(value = "status") String status,
+                                  @RequestParam(value = "id") Integer id) {
+        if (articleService.updateStatus(status, id) > 0) {
             return ReturnMsg.success();
         } else {
             return ReturnMsg.fail();

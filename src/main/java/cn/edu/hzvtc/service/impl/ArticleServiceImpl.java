@@ -131,4 +131,9 @@ public class ArticleServiceImpl implements ArticleService {
     public int updateIntro(String introText, String picName) {
         return articleMapper.updateIntro(introText, picName);
     }
+
+    @Override
+    public int updateStatus(String status, Integer id) {
+        return articleMapper.updateStatus(status,id);
+    }
 }

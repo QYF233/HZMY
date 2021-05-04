@@ -48,7 +48,7 @@ public interface ArticleService {
      * @param sectionId
      * @return
      */
-    List<Article> getArticle(Integer sectionId, String search,boolean pageType);
+    List<Article> getArticle(Integer sectionId, String search, boolean pageType);
 
     /**
      * 添加文章
@@ -92,4 +92,12 @@ public interface ArticleService {
      * @return
      */
     int updateIntro(String introText, String picName);
+
+    /**
+     * 更新文章状态
+     * @param status
+     * @param id
+     * @return
+     */
+    int updateStatus(String status, Integer id);
 }
