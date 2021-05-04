@@ -24,16 +24,28 @@
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven/>
 
-    <!-- 配置拦截器 -->
-    <mvc:interceptors>
-        <!--登录拦截器-->
-        <mvc:interceptor>
-            <!-- 拦截所有mvc控制器 -->
-            <mvc:mapping path="/admin/**"/>
-<!--            <mvc:exclude-mapping path="/admin/login"/>-->
-            <bean class="cn.edu.hzvtc.interceptor.JWTInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+<!--    &lt;!&ndash; 配置拦截器 &ndash;&gt;-->
+<!--    <mvc:interceptors>-->
+<!--        &lt;!&ndash;登录拦截器&ndash;&gt;-->
+<!--        <mvc:interceptor>-->
+<!--            &lt;!&ndash; 拦截所有mvc控制器 &ndash;&gt;-->
+<!--            <mvc:mapping path="/admin/**"/>-->
+<!--            &lt;!&ndash;            <mvc:exclude-mapping path="/admin/login"/>&ndash;&gt;-->
+<!--            <bean class="cn.edu.hzvtc.tools.JWTInterceptor"/>-->
+<!--        </mvc:interceptor>-->
+<!--    </mvc:interceptors>-->
 
+    <mvc:cors>
+        <mvc:mapping path="/**"
+                     allowed-origins="*"
+                     allowed-methods="*"
+                     allowed-headers="Content-Type,Access-Control-Allow-Headers,Authorization,X-Requested-With"
+                     allow-credentials="true"
+        />
+    </mvc:cors>
+
+    <mvc:interceptors>
+        <bean class="cn.edu.hzvtc.tools.ProcessInterceptor"/>
+    </mvc:interceptors>
 
 </beans>

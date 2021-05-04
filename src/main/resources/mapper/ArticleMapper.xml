@@ -16,6 +16,7 @@
         <result column="art_sight" jdbcType="INTEGER" property="artSight"/>
         <result column="art_type" jdbcType="INTEGER" property="artType"/>
         <result column="art_origin" jdbcType="VARCHAR" property="artOrigin"/>
+        <result column="art_status" jdbcType="VARCHAR" property="artStatus"/>
     </resultMap>
     <resultMap id="SecResultMap" type="cn.edu.hzvtc.pojo.Article">
         <id column="id" jdbcType="INTEGER" property="id"/>
@@ -33,58 +34,61 @@
         <result column="art_sight" jdbcType="INTEGER" property="artSight"/>
         <result column="art_type" jdbcType="INTEGER" property="artType"/>
         <result column="art_origin" jdbcType="VARCHAR" property="artOrigin"/>
+        <result column="art_status" jdbcType="VARCHAR" property="artStatus"/>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from article
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete
+        from article
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="cn.edu.hzvtc.pojo.Article">
-    insert into article (art_title, art_author,
-      art_pic, art_time, art_plate_id, 
-      art_file_id, art_operator_id, art_top, 
-        art_content, art_type,art_origin)
-    values (#{artTitle,jdbcType=VARCHAR}, #{artAuthor,jdbcType=VARCHAR},
-      #{artPic,jdbcType=VARCHAR}, #{artTime,jdbcType=TIMESTAMP}, #{artPlateId,jdbcType=INTEGER}, 
-      #{artFileId,jdbcType=VARCHAR}, #{artOperatorId,jdbcType=INTEGER}, #{artTop,jdbcType=INTEGER},
-        #{artContent,jdbcType=LONGVARCHAR},#{artType,jdbcType=LONGVARCHAR},#{artOrigin,jdbcType=VARCHAR})
-  </insert>
+        insert into article (art_title, art_author,
+                             art_pic, art_time, art_plate_id,
+                             art_file_id, art_operator_id, art_top,
+                             art_content, art_type, art_origin, art_status)
+        values (#{artTitle,jdbcType=VARCHAR}, #{artAuthor,jdbcType=VARCHAR},
+                #{artPic,jdbcType=VARCHAR}, #{artTime,jdbcType=TIMESTAMP}, #{artPlateId,jdbcType=INTEGER},
+                #{artFileId,jdbcType=VARCHAR}, #{artOperatorId,jdbcType=INTEGER}, #{artTop,jdbcType=INTEGER},
+                #{artContent,jdbcType=LONGVARCHAR}, #{artType,jdbcType=LONGVARCHAR}, #{artOrigin,jdbcType=VARCHAR},
+                #{artStatus,jdbcType=VARCHAR})
+    </insert>
     <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Article">
-    update article
-    set art_title = #{artTitle,jdbcType=VARCHAR},
-      art_author = #{artAuthor,jdbcType=VARCHAR},
-      art_pic = #{artPic,jdbcType=VARCHAR},
-      art_time = #{artTime,jdbcType=TIMESTAMP},
-      art_plate_id = #{artPlateId,jdbcType=INTEGER},
-      art_file_id = #{artFileId,jdbcType=VARCHAR},
-      art_operator_id = #{artOperatorId,jdbcType=INTEGER},
-      art_top = #{artTop,jdbcType=INTEGER},
-      art_content = #{artContent,jdbcType=LONGVARCHAR},
-      art_type = #{artType,jdbcType=INTEGER},
-      art_origin = #{artOrigin,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update article
+        set art_title       = #{artTitle,jdbcType=VARCHAR},
+            art_author      = #{artAuthor,jdbcType=VARCHAR},
+            art_pic         = #{artPic,jdbcType=VARCHAR},
+            art_time        = #{artTime,jdbcType=TIMESTAMP},
+            art_plate_id    = #{artPlateId,jdbcType=INTEGER},
+            art_file_id     = #{artFileId,jdbcType=VARCHAR},
+            art_operator_id = #{artOperatorId,jdbcType=INTEGER},
+            art_top         = #{artTop,jdbcType=INTEGER},
+            art_content     = #{artContent,jdbcType=LONGVARCHAR},
+            art_type        = #{artType,jdbcType=INTEGER},
+            art_origin      = #{artOrigin,jdbcType=VARCHAR},
+            art_status      = #{artStatus,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select *
-    from article
-    where id = #{id,jdbcType=INTEGER}
-    and art_del_state = 0
-  </select>
+        select *
+        from article
+        where id = #{id,jdbcType=INTEGER}
+          and art_del_state = 0
+    </select>
     <select id="selectAll" resultMap="BaseResultMap">
-    select *
-    from article
-    where art_del_state = 0
-    and art_type = 0
-  </select>
+        select *
+        from article
+        where art_del_state = 0
+          and art_type = 0
+    </select>
     <!--按板块获取文章列表-->
     <select id="selectByPlateId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select *
-    from article
-    where art_plate_id = #{id,jdbcType=INTEGER}
-    and art_del_state = 0
-    and( art_type = 0 or art_type = 4 )
-    order by art_top desc, art_time desc
-    Limit 0,5
-  </select>
+        select *
+        from article
+        where art_plate_id = #{id,jdbcType=INTEGER}
+          and art_del_state = 0
+          and (art_type = 0 or art_type = 4)
+        order by art_top desc, art_time desc Limit 0,5
+    </select>
     <!--文章管理，获取文章列表-->
     <select id="selectByPlateIdAll" parameterType="java.lang.Integer" resultMap="SecResultMap">
         select *
@@ -137,23 +141,30 @@
     </select>
     <!--获取所有文章数量-->
     <select id="getArtCount" resultType="java.lang.Long">
-        select count(1) from article where art_del_state = 0 and art_type = 0
+        select count(1)
+        from article
+        where art_del_state = 0
+          and art_type = 0
     </select>
     <!--获取所有文章的浏览量-->
     <select id="getArtSightCount" resultType="java.lang.Long">
-        select sum(art_sight) as sightCount from article where art_del_state = 0 and art_type = 0
+        select sum(art_sight) as sightCount
+        from article
+        where art_del_state = 0
+          and art_type = 0
     </select>
     <!--获取板块的浏览量-->
     <select id="getArtSightCountBySec" resultType="java.lang.Long">
         select sum(art_sight) as sightCount
         from article
         where art_del_state = 0
-        and art_plate_id = #{secId,jdbcType=INTEGER} and art_type = 0
+          and art_plate_id = #{secId,jdbcType=INTEGER}
+          and art_type = 0
     </select>
     <!--增加文章浏览次数-->
     <update id="addSightByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Article">
         update article
-        set  art_sight = art_sight + 1
+        set art_sight = art_sight + 1
         where id = #{id,jdbcType=INTEGER}
     </update>
     <!--删除-->
@@ -189,21 +200,28 @@
     <update id="updateIntro">
         update article
         set art_content = #{introText,jdbcType=VARCHAR},
-        art_pic = #{picName,jdbcType=VARCHAR}
+            art_pic     = #{picName,jdbcType=VARCHAR}
         where art_plate_id = 9
     </update>
     <select id="getSwiperList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        SELECT * FROM article
+        SELECT *
+        FROM article
         where art_plate_id = 1
-        and art_pic != ""
+          and art_pic != ""
         and art_del_state = 0
         and art_type = 0
         ORDER BY art_time DESC
-        limit 5
+            limit 5
     </select>
     <select id="getIntro" resultType="cn.edu.hzvtc.pojo.Article">
-        SELECT * FROM article
+        SELECT *
+        FROM article
         where art_type = 3
-        and art_del_state = 0
+          and art_del_state = 0
     </select>
+    <update id="updateStatus">
+        update article
+        set art_status = #{artStatus,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

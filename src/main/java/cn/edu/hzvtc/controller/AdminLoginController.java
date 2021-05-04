@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
+import java.util.*;
 
 /**
  * 登录、注销、忘记密码
+ *
+ * @author kiko
  */
 @Controller
 @RequestMapping("/login")
@@ -29,19 +31,43 @@ public class AdminLoginController {
      * @param password 密码
      * @return
      */
+//    @RequestMapping(value = "SignIn", method = RequestMethod.POST)
+//    @ResponseBody
+//    @CrossOrigin
+//    public ReturnMsg login(@RequestParam("loginUsername") String username,
+//                           @RequestParam("loginPassword") String password) {
+//        User user = adminUserService.getUser(username, password);
+//        ReturnMsg returnMsg;
+//        if (user != null) {
+//            String token = JwtUtil.sign(user.getId().toString());
+//            returnMsg = ReturnMsg.success().add("token", token).add("user", user);
+//            returnMsg.setTarget("index.html");
+//        } else {
+//            returnMsg = ReturnMsg.fail().add("errorMsg", "用户名或密码错误");
+//        }
+//        return returnMsg;
+//    }
+
+    /**
+     * @param user
+     * @return
+     */
     @RequestMapping(value = "SignIn", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public ReturnMsg login(@RequestParam("loginUsername") String username,
-                           @RequestParam("loginPassword") String password) {
-        User user = adminUserService.getUser(username, password);
-        ReturnMsg returnMsg;
-        if (user != null) {
-            String token = JwtUtil.sign(user.getId().toString());
+    public ReturnMsg login(@RequestBody User user) {
+        ReturnMsg returnMsg = null;
+
+        User userdb = adminUserService.getUser(user.getUsername(), user.getPassword());
+
+        System.out.println(userdb);
+        if (userdb != null) {
+            String token = JwtUtil.sign(userdb.getId().toString());
             returnMsg = ReturnMsg.success().add("token", token).add("user", user);
-            returnMsg.setTarget("index.html");
+            returnMsg.setMessage("登录成功!");
         } else {
-            returnMsg = ReturnMsg.fail().add("errorMsg", "账号密码错误");
+            returnMsg = ReturnMsg.fail();
+            returnMsg.setMessage("用户名或密码错误");
         }
         return returnMsg;
     }
@@ -49,19 +75,19 @@ public class AdminLoginController {
     @RequestMapping(value = "getLoginUser", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public ReturnMsg getLoginUser(HttpServletRequest request) {
-        String token = request.getHeader("token");
+    public ReturnMsg getLoginUser(@RequestParam("token") String token) {
+
         System.out.println("token" + token);
 
         if (!JwtUtil.verify(token)) {
-//            System.out.println("token无效");
-            return ReturnMsg.fail().add("msg", "token无效");
+            return ReturnMsg.fail().add("errorMsg", "token无效");
         }
         String userId = JwtUtil.getUserProperty(token, "userId");
         User loginUser = adminUserService.getUserById(Integer.parseInt(userId));
-//        System.out.println(loginUser.toString());
+
         if (loginUser != null) {
-            return ReturnMsg.success().add("loginUser", loginUser);
+            return ReturnMsg.success().add("name", loginUser.getUsername()).add("roles", "admin")
+                    .add("avatar","https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3659769985,3441244409&fm=26&gp=0.jpg");
         } else {
             return ReturnMsg.fail();
         }
@@ -72,7 +98,7 @@ public class AdminLoginController {
      *
      * @return
      */
-    @RequestMapping(value = "logout")
+    @RequestMapping(value = "logout", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public ReturnMsg logout() {

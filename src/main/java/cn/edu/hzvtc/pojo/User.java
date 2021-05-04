@@ -7,6 +7,9 @@ import lombok.ToString;
 
 import java.util.Date;
 
+/**
+ * @author kiko
+ */
 @Getter
 @Setter
 @ToString
@@ -14,9 +17,9 @@ import java.util.Date;
 public class User {
     private Integer id;
 
-    private String userName;
+    private String username;
 
-    private String userPassword;
+    private String password;
 
     private String phone;
 

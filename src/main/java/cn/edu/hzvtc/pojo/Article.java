@@ -41,4 +41,6 @@ public class Article {
     private Integer artType;
 
     private String artOrigin;
+
+    private String artStatus;
 }

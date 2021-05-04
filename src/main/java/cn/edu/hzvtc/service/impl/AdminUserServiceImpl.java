@@ -49,15 +49,15 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public int updateUser(User user) {
-        String pwd = DigestUtils.md5DigestAsHex(user.getUserPassword().getBytes());
-        user.setUserPassword(pwd);
+        String pwd = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
+        user.setPassword(pwd);
         return userMapper.updateByPrimaryKey(user);
     }
 
     @Override
     public int addUser(User user) {
-        String pwd = DigestUtils.md5DigestAsHex(user.getUserPassword().getBytes());
-        user.setUserPassword(pwd);
+        String pwd = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
+        user.setPassword(pwd);
         return userMapper.insert(user);
     }
 

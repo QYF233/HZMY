@@ -51,11 +51,11 @@ public interface UserMapper {
     /**
      * 登录匹配用户
      *
-     * @param userName     用户名
-     * @param userPassword 密码
+     * @param username     用户名
+     * @param password 密码
      * @return 用户信息
      */
-    User selectUser(@Param("userName") String userName, @Param("userPassword") String userPassword);
+    User selectUser(@Param("username") String username, @Param("password") String password);
 
     /**
      * 获取注册用户数
@@ -80,10 +80,10 @@ public interface UserMapper {
 
     /**
      * 按用户名获取用户
-     * @param userName
+     * @param username
      * @return
      */
-    User getUserByName(String userName);
+    User getUserByName(String username);
 
     /***
      * 按用户名获取用户

@@ -1,4 +1,4 @@
-package cn.edu.hzvtc.interceptor;
+package cn.edu.hzvtc.tools;
 
 import cn.edu.hzvtc.pojo.User;
 import cn.edu.hzvtc.service.AdminUserService;
@@ -59,10 +59,8 @@ public class JWTInterceptor implements HandlerInterceptor {
         if (!flg) {
             // 不符合条件重定向到登录页面
             response.sendRedirect(request.getContextPath()+"/login.html");
-            System.out.println("跳转*************************************************************");
             return false;
         }
-        System.out.println("******************************"+flg+"**********************************");
         return flg;
     }
 }
