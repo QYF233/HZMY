@@ -239,4 +239,9 @@
         set pla_pic = #{plaPic,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
+    <update id="delImg" parameterType="cn.edu.hzvtc.pojo.Plate">
+        update plate
+        set pla_pic = null
+        where pla_pic = #{filename,jdbcType=VARCHAR}
+    </update>
 </mapper>

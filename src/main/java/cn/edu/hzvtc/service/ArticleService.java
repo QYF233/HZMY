@@ -100,4 +100,6 @@ public interface ArticleService {
      * @return
      */
     int updateStatus(String status, Integer id);
+
+//    int delImg(String filename);
 }

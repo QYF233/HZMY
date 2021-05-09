@@ -61,6 +61,11 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.insert(article);
     }
 
+//    @Override
+//    public int delImg(String filename) {
+//        return articleMapper.delImg(filename);
+//    }
+
     @Override
     public boolean delArt(String ids) {
         boolean result = false;

@@ -198,4 +198,9 @@ public class PlateServiceImpl implements PlateService {
     public int changePic(Integer id, String plaPic) {
         return plateMapper.changePic(id, plaPic);
     }
+
+    @Override
+    public int delImg(String filename) {
+        return plateMapper.delImg(filename);
+    }
 }

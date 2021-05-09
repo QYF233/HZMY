@@ -116,4 +116,6 @@ public interface PlateService {
      * @return
      */
      int changePic(Integer id, String plaPic);
+
+     int delImg(String filename);
 }

@@ -4,58 +4,61 @@
     <resultMap id="BaseResultMap" type="cn.edu.hzvtc.pojo.Annex">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="file_name" jdbcType="VARCHAR" property="fileName"/>
+        <result column="file_real_name" jdbcType="VARCHAR" property="fileRealName"/>
         <result column="file_time" jdbcType="TIMESTAMP" property="fileTime"/>
         <result column="file_down" jdbcType="INTEGER" property="fileDown"/>
-        <result column="file_type" jdbcType="INTEGER" property="fileType"/>
+        <result column="file_type" jdbcType="VARCHAR" property="fileType"/>
         <result column="file_del_state" jdbcType="INTEGER" property="fileDelState"/>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from annex
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete
+        from annex
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-    insert into annex (file_name, file_time,
-      file_down, file_type)
-    values (#{fileName,jdbcType=VARCHAR}, #{fileTime,jdbcType=TIMESTAMP},
-      #{fileDown,jdbcType=INTEGER}, #{fileType,jdbcType=INTEGER})
-  </insert>
+        insert into annex (file_name, file_real_name, file_time,
+                           file_down, file_type)
+        values (#{fileName,jdbcType=VARCHAR}, #{fileRealName,jdbcType=VARCHAR}, #{fileTime,jdbcType=TIMESTAMP},
+                #{fileDown,jdbcType=INTEGER}, #{fileType,jdbcType=VARCHAR})
+    </insert>
     <update id="updateByPrimaryKey" parameterType="cn.edu.hzvtc.pojo.Annex">
-    update annex
-    set file_name = #{fileName,jdbcType=VARCHAR},
-      file_time = #{fileTime,jdbcType=TIMESTAMP},
-      file_down = #{fileDown,jdbcType=INTEGER},
-      file_type = #{fileType,jdbcType=INTEGER},
-      file_del_state = #{fileDelState,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-    and file_del_state = 0
-  </update>
+        update annex
+        set file_name      = #{fileName,jdbcType=VARCHAR},
+            file_real_name = #{fileRealName,jdbcType=VARCHAR},
+            file_time      = #{fileTime,jdbcType=TIMESTAMP},
+            file_down      = #{fileDown,jdbcType=INTEGER},
+            file_type      = #{fileType,jdbcType=VARCHAR},
+            file_del_state = #{fileDelState,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+          and file_del_state = 0
+    </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, file_name, file_time, file_down, file_type, file_del_state
-    from annex
-    where id = #{id,jdbcType=INTEGER}
-    and file_del_state = 0
-  </select>
+        select *
+        from annex
+        where id = #{id,jdbcType=INTEGER}
+          and file_del_state = 0
+    </select>
     <select id="selectAll" resultMap="BaseResultMap">
-    select id, file_name, file_time, file_down, file_type, file_del_state
-    from annex
-    where file_del_state = 0
-  </select>
+        select *
+        from annex
+        where file_del_state = 0
+    </select>
     <update id="addAnnexDown" parameterType="cn.edu.hzvtc.pojo.Annex">
-    update annex
-    set file_down = file_down + 1
-    where id = #{id,jdbcType=INTEGER}
-    and file_del_state = 0
-  </update>
+        update annex
+        set file_down = file_down + 1
+        where id = #{id,jdbcType=INTEGER}
+          and file_del_state = 0
+    </update>
     <update id="deleteAnnexById" parameterType="cn.edu.hzvtc.pojo.Annex">
-    update annex
-    set file_del_state = 1
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update annex
+        set file_del_state = 1
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <update id="deleteAnnexByList" parameterType="cn.edu.hzvtc.pojo.Annex">
-    update annex
-    set file_del_state = 1
-    <foreach collection="list" item="id" separator="," open="where id in (" close=")">
-        #{id,jdbcType=INTEGER}
-    </foreach>
-  </update>
+        update annex
+        set file_del_state = 1
+        <foreach collection="list" item="id" separator="," open="where id in (" close=")">
+            #{id,jdbcType=INTEGER}
+        </foreach>
+    </update>
 </mapper>

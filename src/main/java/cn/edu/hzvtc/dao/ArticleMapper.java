@@ -173,4 +173,7 @@ public interface ArticleMapper {
      * @return
      */
     int updateStatus(@Param("artStatus") String artStatus, @Param("id") Integer id);
+
+
+    int delImg(String filename);
 }

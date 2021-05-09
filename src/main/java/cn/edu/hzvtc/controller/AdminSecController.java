@@ -123,6 +123,7 @@ public class AdminSecController {
 
     /**
      * 更新数据
+     *
      * @param plate
      * @return
      */
@@ -156,7 +157,7 @@ public class AdminSecController {
 
         //获取文件在服务器的储存位置
 //        String path = request.getSession().getServletContext().getRealPath("/upload");
-        String path = UPLOAD_URL+"/img";
+        String path = UPLOAD_URL + "/secImg";
         File filePath = new File(path);
         System.out.println("文件的保存路径：" + filePath);
         if (!filePath.exists() && !filePath.isDirectory()) {
@@ -181,7 +182,7 @@ public class AdminSecController {
         String date = sdf.format(d);
         Util util = new Util();
         String randomString = util.getStringRandom(1);
-        System.out.println("生成随机数："+randomString);
+        System.out.println("生成随机数：" + randomString);
         String fileName = date + randomString + "." + type;
         System.out.println("新文件名称：" + fileName);
 
@@ -205,6 +206,25 @@ public class AdminSecController {
             return returnMsg;
         }
 
+    }
+
+    @RequestMapping(value = "/delImg", method = RequestMethod.POST)
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg delImg(@RequestParam("filename") String filename) {
+        String path = UPLOAD_URL + "/secImg/";
+        File file = new File(path + filename);
+        if (file.exists()) {
+            file.delete();
+            System.out.println("删除成功");
+            if (plateService.delImg(filename) == 1) {
+                return ReturnMsg.success();
+            } else {
+                return ReturnMsg.fail();
+            }
+        } else {
+            return ReturnMsg.fail();
+        }
     }
 
 

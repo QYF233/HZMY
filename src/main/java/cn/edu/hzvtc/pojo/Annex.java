@@ -14,18 +14,21 @@ public class Annex {
     private Integer id;
 
     private String fileName;
-    @JsonFormat(pattern = "yyyy.MM.dd HH:mm:ss", timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy.MM.dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date fileTime;
 
     private Integer fileDown;
 
-    private Integer fileType;
+    private String fileType;
 
     private Integer fileDelState;
 
-    public Annex(String fileName, Date fileTime, Integer fileDown, Integer fileType) {
+    private String fileRealName;
+
+    public Annex(String fileName,String fileRealName, Date fileTime, Integer fileDown, String fileType) {
         this.fileName = fileName;
+        this.fileRealName = fileRealName;
         this.fileTime = fileTime;
         this.fileDown = fileDown;
         this.fileType = fileType;

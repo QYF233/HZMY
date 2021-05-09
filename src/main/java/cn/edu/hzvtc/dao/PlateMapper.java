@@ -124,4 +124,6 @@ public interface PlateMapper {
      * @return
      */
     int changePic(@Param("id") Integer id, @Param("plaPic") String plaPic);
+
+    int delImg(String filename);
 }

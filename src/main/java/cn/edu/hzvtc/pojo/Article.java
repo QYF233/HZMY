@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+
 @Getter
 @Setter
 @ToString
@@ -18,8 +19,9 @@ public class Article {
     private String artAuthor;
 
     private String artPic;
-    @JsonFormat(pattern = "yyyy.MM.dd HH:mm:ss", timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy.MM.dd HH:mm:ss")
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date artTime;
 
     private Integer artPlateId;
@@ -27,7 +29,9 @@ public class Article {
     private String artSec;
 
     private String artFileId;
+
     private String artFileName;
+
     private Integer artOperatorId;
 
     private Integer artTop;

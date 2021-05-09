@@ -184,18 +184,9 @@ public class AdminSwiperController {
                 annex.setFileTime(new Date());
                 annex.setFileDown(0);
                 String[] s = file.getName().split("\\.");
-                //判断文件类型
-                if ("pdf".equals(s[1])) {
-                    annex.setFileType(0);
-                } else if ("doc".equals(s[1])) {
-                    annex.setFileType(1);
-                } else if ("txt".equals(s[1])) {
-                    annex.setFileType(2);
-                } else if ("zip".equals(s[1])) {
-                    annex.setFileType(3);
-                } else {
-                    annex.setFileType(-1);
-                }
+
+                annex.setFileType(s[1]);
+
                 //写入附件数据库
                 if (annexService.addAnnex(annex) == 0) {
                     return ReturnMsg.fail();

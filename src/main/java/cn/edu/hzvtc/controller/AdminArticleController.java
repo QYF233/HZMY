@@ -126,15 +126,11 @@ public class AdminArticleController {
     @RequestMapping(value = "/addArticle", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public ReturnMsg addArticle(@Valid Article article, @RequestParam(value = "artTimeStr") String artTimeStr) {
+    public ReturnMsg addArticle(@RequestBody Article article) {
         System.out.println(article.toString());
+
         if (article.getArtTop() == 1) {
             articleService.cancelTop(article.getArtPlateId());
-        }
-        try {
-            article.setArtTime(simpleDateFormat.parse(artTimeStr));
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
         if (articleService.addArticle(article) > 0) {
             return ReturnMsg.success();
@@ -156,7 +152,7 @@ public class AdminArticleController {
 
         //获取文件在服务器的储存位置
 //        String path = request.getSession().getServletContext().getRealPath("/upload");
-        String path = UPLOAD_URL + "/img";
+        String path = UPLOAD_URL + "/artImg";
         File filePath = new File(path);
         System.out.println("文件的保存路径：" + filePath);
         if (!filePath.exists() && !filePath.isDirectory()) {
@@ -208,7 +204,7 @@ public class AdminArticleController {
     }
 
     /**
-     * 上传图片
+     * 上传附件
      *
      * @param file
      * @param request
@@ -217,10 +213,12 @@ public class AdminArticleController {
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     @ResponseBody
     public ReturnMsg fileUpload(MultipartFile file, HttpServletRequest request) {
+        Annex annex = new Annex();
 
+        annex.setFileDown(0);
         //获取文件在服务器的储存位置
 //        String path = request.getSession().getServletContext().getRealPath("/upload");
-        String path = UPLOAD_URL + "/file";
+        String path = UPLOAD_URL + "/artFile";
         File filePath = new File(path);
         System.out.println("文件的保存路径：" + filePath);
         if (!filePath.exists() && !filePath.isDirectory()) {
@@ -231,16 +229,18 @@ public class AdminArticleController {
         //获取原始文件名称(包含格式)
         String originalFilename = file.getOriginalFilename();
         System.out.println("原始文件的名称是：" + originalFilename);
-
+        annex.setFileName(originalFilename);
         //获取文件类型，以最后一个`.`为标识
         String type = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
         System.out.println("文件类型：" + type);
+        annex.setFileType(type);
         //获取文件名称（不包含格式）
         String name = originalFilename.substring(0, originalFilename.lastIndexOf("."));
 
         //设置文件新名称: 当前时间+文件名称（不包含格式）
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        annex.setFileTime(d);
         //生成随机
         String date = sdf.format(d);
         Util util = new Util();
@@ -248,6 +248,7 @@ public class AdminArticleController {
         System.out.println("生成随机数：" + randomString);
         String fileName = date + randomString + "." + type;
         System.out.println("新文件名称：" + fileName);
+        annex.setFileRealName(fileName);
 
         //在指定路径下创建一个文件
         File targetFile = new File(path, fileName);
@@ -256,9 +257,14 @@ public class AdminArticleController {
         try {
             file.transferTo(targetFile);
             System.out.println("上传成功");
+            System.out.println(annex.toString());
+            annexService.addAnnex(annex);
+
+            System.out.println(annex.getId());
             returnMsg = ReturnMsg.success();
             returnMsg.setMessage("上传成功");
             returnMsg.add("newFileName", fileName);
+            returnMsg.add("fileId",annex.getId());
             //将文件在服务器的存储路径返回
             return returnMsg;
         } catch (IOException e) {
@@ -269,6 +275,21 @@ public class AdminArticleController {
             return returnMsg;
         }
 
+    }
+
+    @RequestMapping(value = "/delImg", method = RequestMethod.POST)
+    @ResponseBody
+    @CrossOrigin
+    public ReturnMsg delImg(@RequestParam("filename") String filename) {
+        String path = UPLOAD_URL + "/artFile/";
+        File file = new File(path + filename);
+        if (file.exists()) {
+            file.delete();
+            System.out.println("删除成功");
+            return ReturnMsg.success();
+        } else {
+            return ReturnMsg.fail();
+        }
     }
 
     /**
