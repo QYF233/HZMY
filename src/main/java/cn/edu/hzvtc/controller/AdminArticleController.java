@@ -42,8 +42,8 @@ public class AdminArticleController {
     @Autowired
     public AnnexService annexService;
 
-        public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/";
-//    public String UPLOAD_URL = "D:/DEV/nginx-1.18.0/html/com/";
+    //        public String UPLOAD_URL = "C:/Program Files/nginx-1.18.0/html/com/";
+    public String UPLOAD_URL = "D:/DEV/nginx-1.18.0/html/com/";
 
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
@@ -167,7 +167,8 @@ public class AdminArticleController {
 //            if ("csv".equals(filename[filename.length - 1])) {
 //                return ReturnMsg.fail().add("msg", "文件类型不正确");
 //            }
-            String newFilename = filename[0] + "-" + originalFilename;
+//            String newFilename = filename[0] + "-" + originalFilename;
+            String newFilename = filename[0] + "." + filename[1];
             outName += newFilename + "/";
             //此处文件保存地址应该改为服务器存放数据的地址
             File file = new File(UPLOAD_URL + "/upload/imgs/" + newFilename);

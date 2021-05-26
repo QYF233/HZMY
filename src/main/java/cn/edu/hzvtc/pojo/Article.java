@@ -18,6 +18,7 @@ public class Article {
     private String artAuthor;
 
     private String artPic;
+
     @JsonFormat(pattern = "yyyy.MM.dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy.MM.dd HH:mm:ss")
     private Date artTime;
